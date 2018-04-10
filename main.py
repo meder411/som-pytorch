@@ -212,16 +212,16 @@ def main():
 
 		# Update the SOM
 		res = som.update(data, lr, sigma)
-		print 'Res: ', res
 
 		# Decay the parameters
-		if i % 2000 == 0:
+		if i % 500 == 0:
 			lr *= 0.99
 			sigma *= 0.99
 			update_viz(
 				init_contents.cpu(), 
 				som.contents.cpu(), 
 				data.cpu())
+			print 'Res: ', res
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
 
