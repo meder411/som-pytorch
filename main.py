@@ -136,7 +136,7 @@ def init_viz():
 			markercolor=np.array([[0,0,255], [255,0,0]])))
 
 	VIS.image(
-		np.random.rand(3,256,256),
+		255*np.ones(3,256,256),
 		env=ENV,
 		win='grid')
 
@@ -169,8 +169,9 @@ def update_viz(init_contents, contents, data):
 
 	# Determine color map as a 3 x rows x cols image
 	colors = contents.clone()
-	colors /= torch.norm(colors, 2, 1, True)
-	colors = 255 * (colors + 1.) / 2.
+	mag = torch.norm(colors, 2, 1, True)
+	colors /= mag
+	colors = min(mag, 1) * 255 * (colors + 1.) / 2.
 	colors = colors.permute(2, 0, 1)
 
 	# Upsample to 512 x 512
