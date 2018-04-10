@@ -167,7 +167,7 @@ def main():
 	som = SOM()
 	som.initialize()
 
-	init_contents = som.contents
+	init_contents = som.contents.clone()
 
 	# Initialize visualization
 	init_viz()
