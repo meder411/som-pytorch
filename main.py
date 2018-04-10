@@ -176,7 +176,7 @@ def main():
 	lr = 0.2
 	sigma = 0.2
 
-	for i in xrange(10000):
+	for i in xrange(1000000):
 		# Generate some test data by sampling from a cube
 		data = (2 * torch.rand(100,3) - 1).cuda()
 
@@ -186,7 +186,7 @@ def main():
 		print 'Res: ', res
 
 		# Decay the parameters
-		if i % 50 == 0:
+		if i % 200 == 0:
 			lr *= 0.99
 			sigma *= 0.99
 			update_viz(
