@@ -175,7 +175,7 @@ def main():
 	lr = 0.2
 	sigma = 0.2
 
-	for i in xrange(100):
+	for i in xrange(1000):
 		# Generate some test data by sampling from a cube
 		data = (2 * torch.rand(100,3) - 1).cuda()
 
@@ -190,11 +190,7 @@ def main():
 		# update_viz(som.contents.view(-1,3).cpu(), data.cpu())
 		update_viz(som.contents.view(-1,3).cpu(), data.cpu())
 
-		if i == 20:
-			exit()
-
-
-		time.sleep(1)
+		# time.sleep(0.25)
 
 
 
