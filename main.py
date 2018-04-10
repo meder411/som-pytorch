@@ -187,7 +187,7 @@ def update_viz(init_contents, contents, data):
 def main():
 
 	# Create SOM
-	som = SOM()
+	som = SOM(10,10,3)
 	som.initialize()
 
 	init_contents = som.contents.clone()
