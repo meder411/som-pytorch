@@ -224,7 +224,7 @@ def main():
 	init_contents = som.contents.clone()
 
 	# Initialize visualization
-	init_viz()
+	som.init_viz()
 
 	# Initial SOM parameters
 	lr = 0.1
@@ -248,7 +248,7 @@ def main():
 		if i % 500 == 0:
 			lr *= 0.99
 			sigma *= 0.99
-			update_viz(
+			som.update_viz(
 				init_contents.cpu(), 
 				som.contents.cpu(), 
 				data.cpu())
