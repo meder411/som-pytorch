@@ -211,7 +211,7 @@ def update_viz(init_contents, contents, data):
 		}
 	opts = {}
 
-	vis._send({'data': data, 'win': win, 'eid': env, 'layout': layout, 'opts': opts})
+	VIS._send({'data': data, 'win': win, 'eid': env, 'layout': layout, 'opts': opts})
 
 
 	# # Determine color map as a 3 x rows x cols image
