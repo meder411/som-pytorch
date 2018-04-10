@@ -8,7 +8,6 @@ import time
 
 VIS = visdom.Visdom()
 ENV = 'SOM'
-DIM = 2
 
 
 # dim is the deature dimension 
@@ -115,131 +114,111 @@ class SOM(object):
 		return r, c		
 
 
-def init_viz():
-	VIS.scatter(
-		X=np.random.rand(2, 3),
-		Y=np.array([1,2]),
-		env=ENV,
-		win='points',
-		opts=dict(
-			title='SOM',
-			legend=['SOM Contents', 'Data'],
-			markersize=4,
-			markercolor=np.array([[0,0,255], [255,0,0]])))
-	VIS.image(
-		np.ones((1, 256,256)) * 255.,
-		env=ENV,
-		win='grid')
-
-	# x = [0, 0, 1, 1, 0, 0, 1, 1]
-	# y = [0, 1, 1, 0, 0, 1, 1, 0]
-	# z = [0, 0, 0, 0, 1, 1, 1, 1]
-	# X = np.c_[x, y, z]
-	# i = [7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2]
-	# j = [3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3]
-	# k = [0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6]
-	# Y = np.c_[i, j, k]
-	# VIS.mesh(
-	# 	X=X,
-	# 	Y=Y,
-	# 	env=ENV,
-	# 	win='mesh',
-	# 	opts=dict(
-	# 		markersize=4,
-	# 		opacity=0.1))
+	def init_viz(self):
+		VIS.scatter(
+			X=np.random.rand(2, 3),
+			Y=np.array([1,2]),
+			env=ENV,
+			win='points',
+			opts=dict(
+				title='SOM',
+				legend=['SOM Contents', 'Data'],
+				markersize=4,
+				markercolor=np.array([[0,0,255], [255,0,0]])))
+		VIS.image(
+			np.ones((1, 256,256)) * 255.,
+			env=ENV,
+			win='grid')
 
 
 
+	# contents is K x 3
+	# data is N x 3
+	def update_viz(self, init_contents, contents, data):
+
+		# Construct labels
+		np_one = np.ones(contents.view(-1,self.dim).shape[0]).astype(int)
+		np_two = 2*np.ones(data.shape[0]).astype(int)
+		np_three = 3*np.ones(init_contents.view(-1,self.dim).shape[0]).astype(int)
+
+		pts = np.row_stack((
+			contents.view(-1, self.dim).numpy(), 
+			data.numpy(), 
+			init_contents.view(-1, self.dim).numpy()))
+		labels = np.hstack((np_one, np_two, np_three))
+
+		VIS.scatter(
+			X=pts,
+			Y=labels,
+			env=ENV,
+			win='points',
+			opts=dict(
+				title='SOM',
+				legend=['SOM Contents', 'Data', 'Initial SOM Contents'],
+				markersize=4,
+				markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
 
 
+		X = np.c_[contents[...,0].view(-1).numpy(),
+			contents[...,1].view(-1).numpy(),
+			# np.zeros(contents[...,1].view(-1).shape)]
+			contents[...,2].view(-1).numpy()]
 
-# contents is K x 3
-# data is N x 3
-def update_viz(init_contents, contents, data):
-
-	# Construct labels
-	np_one = np.ones(contents.view(-1,DIM).shape[0]).astype(int)
-	np_two = 2*np.ones(data.shape[0]).astype(int)
-	np_three = 3*np.ones(init_contents.view(-1,DIM).shape[0]).astype(int)
-
-	pts = np.row_stack((
-		contents.view(-1, DIM).numpy(), 
-		data.numpy(), 
-		init_contents.view(-1, DIM).numpy()))
-	labels = np.hstack((np_one, np_two, np_three))
-
-	VIS.scatter(
-		X=pts,
-		Y=labels,
-		env=ENV,
-		win='points',
-		opts=dict(
-			title='SOM',
-			legend=['SOM Contents', 'Data', 'Initial SOM Contents'],
-			markersize=4,
-			markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
-
-
-	X = np.c_[contents[...,0].view(-1).numpy(),
-		contents[...,1].view(-1).numpy(),
-		np.zeros(contents[...,1].view(-1).shape)]
-		# contents[...,2].view(-1).numpy()]
-
-	I = []
-	J = []
-	K = []
-	for i in xrange(9):
-		for j in xrange(9):
-			I.append(sub2ind(i, j, 10))
-			J.append(sub2ind(i,j+1, 10))
-			K.append(sub2ind(i+1,j+1, 10))
-			I.append(sub2ind(i, j, 10))
-			J.append(sub2ind(i+1,j, 10))
-			K.append(sub2ind(i+1,j+1, 10))
-	Y = np.c_[I, J, K]
-	VIS.mesh(
-		X=X,
-		Y=Y,
-		env=ENV,
-		win='mesh',
-		opts=dict(
-			markersize=4,
-			opacity=0.3))
+		I = []
+		J = []
+		K = []
+		for i in xrange(9):
+			for j in xrange(9):
+				I.append(sub2ind(i, j, 10))
+				J.append(sub2ind(i,j+1, 10))
+				K.append(sub2ind(i+1,j+1, 10))
+				I.append(sub2ind(i, j, 10))
+				J.append(sub2ind(i+1,j, 10))
+				K.append(sub2ind(i+1,j+1, 10))
+		Y = np.c_[I, J, K]
+		VIS.mesh(
+			X=X,
+			Y=Y,
+			env=ENV,
+			win='mesh',
+			opts=dict(
+				markersize=4,
+				opacity=0.3))
 
 
-	# # Determine color map as a 3 x rows x cols image
-	# colors = contents.clone()
-	# mag = torch.norm(colors, 2, 1, True)
-	# colors /= mag
-	# colors = np.minimum(mag, 1.) * 255 * (colors + 1.) / 2.
-	# colors = colors.permute(2, 0, 1)
+	# Determine color map as a 3 x rows x cols image
+	colors = contents.clone()
+	mag = torch.norm(colors, 2, 1, True)
+	colors /= mag
+	colors = np.minimum(mag, 1.) * 255 * (colors + 1.) / 2.
+	colors = colors.permute(2, 0, 1)
 
 	
-	# colors = torch.zeros(1, contents.shape[0]-1, contents.shape[1]-1)
-	# for i in xrange(contents.shape[0]-1):
-	# 	for j in xrange(contents.shape[1]-1):
-	# 		colors[0, i, j] = ((contents[i,j,:] - contents[i,j+1,:]).norm() + 
-	# 			(contents[i,j,:] - contents[i+1,j,:]).norm() + 
-	# 			(contents[i,j,:] - contents[i+1,j+1,:]).norm()) / 3.
+	colors = torch.zeros(1, contents.shape[0]-1, contents.shape[1]-1)
+	for i in xrange(contents.shape[0]-1):
+		for j in xrange(contents.shape[1]-1):
+			colors[0, i, j] = ((contents[i,j,:] - contents[i,j+1,:]).norm() + 
+				(contents[i,j,:] - contents[i+1,j,:]).norm() + 
+				(contents[i,j,:] - contents[i+1,j+1,:]).norm()) / 3.
 
-	# colors /= colors.max()
-	# colors *= 255.
+	colors /= colors.max()
+	colors *= 255.
 
-	# # Upsample to 512 x 512
-	# colors = torch.nn.functional.upsample(torch.autograd.Variable(colors.unsqueeze(0)), scale_factor=100, mode='nearest').squeeze(0).numpy()
+	# Upsample to 512 x 512
+	colors = torch.nn.functional.upsample(torch.autograd.Variable(colors.unsqueeze(0)), scale_factor=100, mode='nearest').squeeze(0).numpy()
 
 
-	# VIS.image(
-	# 	colors,
-	# 	env=ENV,
-	# 	win='grid')
+	VIS.image(
+		colors,
+		env=ENV,
+		win='grid')
 
 
 
 def main():
 
 	# Create SOM
-	som = SOM(10,10,DIM)
+	som = SOM(10,10,3)
 	som.initialize()
 
 	init_contents = som.contents.clone()
@@ -253,11 +232,11 @@ def main():
 
 	for i in xrange(100000):
 		# Generate some test data by sampling from a cube
-		data = (2 * torch.rand(1, DIM) - 1)
+		data = (2 * torch.rand(1, 3) - 1)
 
 		# Generate some test data by sampling from a spherical surface
-		# data = torch.randn(100,3)
-		# data /= torch.norm(data, 2, 1, True)
+		data = torch.randn(100,3)
+		data /= torch.norm(data, 2, 1, True)
 
 		# Put data on GPU
 		data = data.cuda()
