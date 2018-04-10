@@ -232,10 +232,10 @@ def main():
 
 	for i in xrange(100000):
 		# Generate some test data by sampling from a cube
-		data = (2 * torch.rand(1, 3) - 1)
+		# data = (2 * torch.rand(1, 3) - 1)
 
 		# Generate some test data by sampling from a spherical surface
-		data = torch.randn(100,3)
+		data = torch.randn(1,3)
 		data /= torch.norm(data, 2, 1, True)
 
 		# Put data on GPU
