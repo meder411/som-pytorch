@@ -248,13 +248,15 @@ def main():
 		if i % 500 == 0:
 			lr *= 0.99
 			sigma *= 0.99
+			print 'Res: ', res
+			print 'New LR: ', lr
+			print 'New Sigma: ', sigma
+
+		if i % 5 == 0:
 			som.update_viz(
 				init_contents.cpu(), 
 				som.contents.cpu(), 
 				data.cpu())
-			print 'Res: ', res
-			print 'New LR: ', lr
-			print 'New Sigma: ', sigma
 
 
 
