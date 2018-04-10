@@ -225,7 +225,7 @@ def main():
 			print 'New Sigma: ', sigma
 
 	# print som.contents.numpy()
-	np.savetxt("tmp.csv", som.contents.cpu().view(-1,2)numpy(), delimiter=",")
+	np.savetxt("tmp.csv", som.contents.cpu().view(-1,3).numpy(), delimiter=",")
 
 
 if __name__ == '__main__':
