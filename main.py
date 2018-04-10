@@ -186,7 +186,8 @@ def main():
 		data = torch.randn(100,3)
 		data /= torch.norm(data, 2, 1, True)
 
-
+		# Put data on GPU
+		data = data.cuda()
 
 		# Update the SOM
 		res = som.update(data, lr, sigma)
