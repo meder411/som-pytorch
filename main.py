@@ -196,7 +196,7 @@ def main():
 	init_viz()
 
 	# Initial SOM parameters
-	lr = 0.15
+	lr = 0.2
 	sigma = 0.5
 
 	for i in xrange(1000000):
