@@ -172,7 +172,10 @@ def update_viz(init_contents, contents, data):
 	colors /= torch.norm(colors, 2, 1, True)
 	colors = 255 * (colors + 1.) / 2.
 	print colors.shape
-	colors = colors.permute(2, 0, 1).numpy()
+	colors = colors.permute(2, 0, 1)
+
+	# Upsample to 512 x 512
+	colors = torch.nn.functional.upsample(colors, size=[512,512], mode='nearest').numpy()
 
 	VIS.image(
 		colors,
