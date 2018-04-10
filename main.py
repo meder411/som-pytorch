@@ -176,7 +176,7 @@ def update_viz(init_contents, contents, data):
 		Y=np.random.rand(255),
 		opts=dict(
 			markersize=10,
-			markercolor=np.array([[255, 0, 0]])
+			markercolor=np.array([255, 0, 0])
 		),
 		update='append',
 		env=ENV,
