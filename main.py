@@ -87,22 +87,19 @@ class SOM(object):
 		# Compute the weighted content update
 		update = weights[:, min_idx].unsqueeze(2) * diff
 
-		print "weights"
-		print weights
-
-		print "diff"
-		print diff
-		print "update"
-		print update[1]
-		print "max_update"
-		print update.max()
+		# print "weights"
+		# print weights
+		# print "diff"
+		# print diff
+		# print "update"
+		# print update[1]
+		# print "max_update"
+		# print update.max()
 
 		# Update the contents of the grid
-		self.contents = (self.contents.view(-1, 3) + update.sum(1)).view(
-			self.rows, self.cols, -1)
+		self.contents += update.sum(1).view(self.rows, self.cols, -1)
 
-		# print self.contents
-
+		return update
 
 	def _find_bmu(self, x):
 		''' x is N x 3
