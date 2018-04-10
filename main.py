@@ -141,7 +141,7 @@ def init_viz():
 		env=ENV,
 		win='mesh',
 		opts=dict(
-			opacity=0.5))
+			opacity=0.1))
 
 
 # contents is K x 3
@@ -176,9 +176,8 @@ def update_viz(init_contents, contents, data):
 		Y=np.random.rand(255),
 		opts=dict(
 			markersize=10,
-			markercolor=np.array([[0, 0, 255]])
+			markercolor=np.array([[255, 0, 0]])
 		),
-		name='1',
 		update='append',
 		env=ENV,
 		win='mesh')
