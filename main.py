@@ -140,8 +140,8 @@ def init_viz():
 		Y=Y,
 		env=ENV,
 		win='mesh',
-		name='0',
 		opts=dict(
+			markersize=4,
 			opacity=0.1))
 
 
