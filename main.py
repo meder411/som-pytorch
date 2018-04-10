@@ -156,7 +156,7 @@ def init_viz():
 
 # contents is K x 3
 # data is N x 3
-def update_viz(init_contents, contents, data, mesh, mesh_conn):
+def update_viz(init_contents, contents, data):
 
 	# Construct labels
 	np_one = np.ones(contents.view(-1,2).shape[0]).astype(int)
