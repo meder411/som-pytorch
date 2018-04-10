@@ -192,6 +192,9 @@ def update_viz(init_contents, contents, data):
 			I.append(sub2ind(i, j, 10))
 			J.append(sub2ind(i,j+1, 10))
 			K.append(sub2ind(i+1,j+1, 10))
+			I.append(sub2ind(i, j, 10))
+			J.append(sub2ind(i+1,j, 10))
+			K.append(sub2ind(i+1,j+1, 10))
 	Y = np.c_[I, J, K]
 	VIS.mesh(
 		X=X,
