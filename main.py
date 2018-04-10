@@ -215,7 +215,7 @@ def main():
 		print 'Res: ', res
 
 		# Decay the parameters
-		if i % 200 == 0:
+		if i % 2000 == 0:
 			lr *= 0.99
 			sigma *= 0.99
 			update_viz(
