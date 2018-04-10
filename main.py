@@ -74,10 +74,6 @@ class SOM(object):
 		''' x is N x 3
 		'''
 		# Compute update weights given the curren learning rate and sigma
-		# print "lr"
-		# print lr
-		# print "sigma"
-		# print sigma
 		weights = lr * torch.exp(-self.grid_dists / (2 * sigma**2))
 
 		# Determine closest units on the grid and the difference between data
@@ -86,15 +82,6 @@ class SOM(object):
 
 		# Compute the weighted content update
 		update = (weights[:, min_idx].unsqueeze(2) * diff).sum(1)
-
-		# print "weights"
-		# print weights
-		# print "diff"
-		# print diff
-		# print "update"
-		# print update
-		# print "max_update"
-		# print update.max()
 
 		# Update the contents of the grid
 		self.contents += update.view(self.rows, self.cols, -1)
@@ -136,7 +123,7 @@ def init_viz():
 			markercolor=np.array([[0,0,255], [255,0,0]])))
 
 	VIS.image(
-		np.ones((3,256,256)) * 255.,
+		np.ones((256,256)) * 255.,
 		env=ENV,
 		win='grid')
 
@@ -167,12 +154,23 @@ def update_viz(init_contents, contents, data):
 			markersize=4,
 			markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
 
-	# Determine color map as a 3 x rows x cols image
-	colors = contents.clone()
-	mag = torch.norm(colors, 2, 1, True)
-	colors /= mag
-	colors = np.minimum(mag, 1.) * 255 * (colors + 1.) / 2.
-	colors = colors.permute(2, 0, 1)
+	# # Determine color map as a 3 x rows x cols image
+	# colors = contents.clone()
+	# mag = torch.norm(colors, 2, 1, True)
+	# colors /= mag
+	# colors = np.minimum(mag, 1.) * 255 * (colors + 1.) / 2.
+	# colors = colors.permute(2, 0, 1)
+
+	
+	colors = torch.zeros(contents.shape[0]-1, contents.shape[1]-1)
+	for i in xrange(contents.shape[0]-1):
+		for j in xrange(contents.shape[1]-1):
+			colors[i, j] = (contents[i,j,:] - contents[i,j+1,:]).norm()
+			colors[i+1, j] = (contents[i,j,:] - contents[i+1,j,:]).norm()
+			colors[i+1, j+1] = (contents[i,j,:] - contents[i+1,j+1,:]).norm()
+
+	colors /= colors.max()
+	colors *= 255.
 
 	# Upsample to 512 x 512
 	colors = torch.nn.functional.upsample(torch.autograd.Variable(colors.unsqueeze(0)), scale_factor=100, mode='nearest').squeeze(0).numpy()
@@ -197,7 +195,7 @@ def main():
 	init_viz()
 
 	# Initial SOM parameters
-	lr = 0.2
+	lr = 0.1
 	sigma = 0.5
 
 	for i in xrange(1000000):
@@ -216,7 +214,7 @@ def main():
 
 		# Decay the parameters
 		if i % 500 == 0:
-			lr *= 0.99
+			lr *= 0.999
 			sigma *= 0.99
 			update_viz(
 				init_contents.cpu(), 
@@ -225,9 +223,6 @@ def main():
 			print 'Res: ', res
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
-
-
-		# time.sleep(0.25)
 
 
 
