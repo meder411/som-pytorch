@@ -175,7 +175,7 @@ def update_viz(init_contents, contents, data):
 	colors = colors.permute(2, 0, 1)
 
 	# Upsample to 512 x 512
-	colors = torch.nn.functional.upsample(torch.autograd.Variable(colors), size=[512,512], mode='nearest').numpy()
+	colors = torch.nn.functional.upsample(torch.autograd.Variable(colors), size=[3,512,512], mode='nearest').numpy()
 
 	VIS.image(
 		colors,
