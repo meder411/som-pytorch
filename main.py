@@ -74,6 +74,10 @@ class SOM(object):
 		''' x is N x 3
 		'''
 		# Compute update weights given the curren learning rate and sigma
+		print "lr"
+		print lr
+		print "sigma"
+		print sigma
 		weights = lr * torch.exp(-self.grid_dists / (2 * sigma**2))
 
 		# Determine closest units on the grid and the difference between data
