@@ -189,7 +189,10 @@ def main():
 		if i % 50 == 0:
 			lr *= 0.99
 			sigma *= 0.99
-			update_viz(init_contents.cpu(), som.contents.view(-1,3).cpu(), data.cpu())
+			update_viz(
+				init_contents.view(-1,3).cpu(), 
+				som.contents.view(-1,3).cpu(), 
+				data.cpu())
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
 
