@@ -214,7 +214,7 @@ def main():
 
 		# Decay the parameters
 		if i % 500 == 0:
-			lr *= 0.999
+			lr *= 0.99
 			sigma *= 0.99
 			update_viz(
 				init_contents.cpu(), 
