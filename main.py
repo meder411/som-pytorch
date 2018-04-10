@@ -85,19 +85,19 @@ class SOM(object):
 		min_idx, diff = self._find_bmu(x)
 
 		# Compute the weighted content update
-		update = weights[:, min_idx].unsqueeze(2) * diff
+		update = (weights[:, min_idx].unsqueeze(2) * diff).sum(1)
 
 		# print "weights"
 		# print weights
 		# print "diff"
 		# print diff
-		# print "update"
-		# print update[1]
+		print "update"
+		print update
 		# print "max_update"
 		# print update.max()
 
 		# Update the contents of the grid
-		self.contents += update.sum(1).view(self.rows, self.cols, -1)
+		self.contents += update.view(self.rows, self.cols, -1)
 
 		return update
 
@@ -181,8 +181,9 @@ def main():
 		som.update(data, lr, sigma)
 
 		# Decay the parameters
-		lr *= 0.99
-		sigma *= 0.99
+		if i % 50 == 0:
+			lr *= 0.99
+			sigma *= 0.99
 
 		# update_viz(som.contents.view(-1,3).cpu(), data.cpu())
 		update_viz(som.contents.view(-1,3).cpu(), data.cpu())
