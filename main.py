@@ -198,7 +198,7 @@ def main():
 	lr = 0.1
 	sigma = 0.5
 
-	for i in xrange(10000):
+	for i in xrange(100000):
 		# Generate some test data by sampling from a cube
 		data = (2 * torch.rand(100,2) - 1)
 
@@ -224,8 +224,8 @@ def main():
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
 
-	print som.contents
-
+	# print som.contents.numpy()
+	np.savetxt("tmp.csv", som.contents.numpy(), delimiter=",")
 
 
 if __name__ == '__main__':
