@@ -165,7 +165,7 @@ def update_viz(init_contents, contents, data):
 	colors = torch.zeros(1, contents.shape[0]-1, contents.shape[1]-1)
 	for i in xrange(contents.shape[0]-1):
 		for j in xrange(contents.shape[1]-1):
-			colors[i, j] = (contents[i,j,:] - contents[i,j+1,:]).norm() + \
+			colors[0, i, j] = (contents[i,j,:] - contents[i,j+1,:]).norm() + \
 				(contents[i,j,:] - contents[i+1,j,:]).norm() + \
 				(contents[i,j,:] - contents[i+1,j+1,:]).norm()
 
