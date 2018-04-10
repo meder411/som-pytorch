@@ -155,7 +155,7 @@ def update_viz(init_contents, contents, data):
 		win='points',
 		opts=dict(
 			title='SOM',
-			legend=['SOM Contents', 'Data'],
+			legend=['SOM Contents', 'Data', 'Initial SOM Contents'],
 			markersize=4,
 			markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
 
