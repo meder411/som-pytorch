@@ -123,7 +123,7 @@ def init_viz():
 			markercolor=np.array([[0,0,255], [255,0,0]])))
 
 	VIS.image(
-		np.ones((256,256)) * 255.,
+		np.ones((1, 256,256)) * 255.,
 		env=ENV,
 		win='grid')
 
@@ -162,7 +162,7 @@ def update_viz(init_contents, contents, data):
 	# colors = colors.permute(2, 0, 1)
 
 	
-	colors = torch.zeros(contents.shape[0]-1, contents.shape[1]-1)
+	colors = torch.zeros(1, contents.shape[0]-1, contents.shape[1]-1)
 	for i in xrange(contents.shape[0]-1):
 		for j in xrange(contents.shape[1]-1):
 			colors[i, j] = (contents[i,j,:] - contents[i,j+1,:]).norm() + \
