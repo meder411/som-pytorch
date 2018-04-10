@@ -168,7 +168,7 @@ def update_viz(init_contents, contents, data):
 	colors = contents.clone()
 	colors /= torch.norm(colors, 2, 1, True)
 	colors = 255 * (colors + 1.) / 2.
-	colors = colors.transpose(2, 0, 1).numpy()
+	colors = colors.permute(2, 0, 1).numpy()
 
 	VIS.image(
 		colors.numpy(),
