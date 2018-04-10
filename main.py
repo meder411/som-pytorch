@@ -139,7 +139,7 @@ def init_viz():
 		X=X,
 		Y=Y,
 		env=ENV,
-		win='mesh'
+		win='mesh',
 		opts=dict(
 			opacity=0.5))
 
