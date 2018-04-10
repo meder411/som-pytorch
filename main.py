@@ -138,9 +138,9 @@ def update_viz(init_contents, contents, data):
 	np_three = 3*np.ones(init_contents.view(-1,2).shape[0]).astype(int)
 
 	pts = np.row_stack((
-		contents.view(-1, 3).numpy(), 
+		contents.view(-1, 2).numpy(), 
 		data.numpy(), 
-		init_contents.view(-1, 3).numpy()))
+		init_contents.view(-1, 2).numpy()))
 	labels = np.hstack((np_one, np_two, np_three))
 
 	VIS.scatter(
