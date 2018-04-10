@@ -184,8 +184,8 @@ def main():
 		som.update(data, lr, sigma)
 
 		# Decay the parameters
-		lr *= 0.9
-		sigma *= 0.9
+		lr *= 0.99
+		sigma *= 0.99
 
 		# update_viz(som.contents.view(-1,3).cpu(), data.cpu())
 		update_viz(som.contents.view(-1,3).cpu(), data.cpu())
