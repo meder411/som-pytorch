@@ -140,8 +140,9 @@ def init_viz():
 		Y=Y,
 		env=ENV,
 		win='mesh',
+		name='0',
 		opts=dict(
-			opacity=0.5))
+			opacity=0.1))
 
 
 # contents is K x 3
