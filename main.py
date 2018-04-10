@@ -190,7 +190,7 @@ def main():
 
 		# update_viz(som.contents.view(-1,3).cpu(), data.cpu())
 
-		if i == 1:
+		if i == 5:
 			exit()
 
 
