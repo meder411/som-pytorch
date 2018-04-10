@@ -135,7 +135,7 @@ def init_viz():
 			title='SOM',
 			legend=['SOM Contents', 'Data'],
 			markersize=4,
-			markercolor=np.array([[255,255,0], [255,0,0]])))
+			markercolor=np.array([[0,0,255], [255,0,0]])))
 
 
 # contents is K x 3
@@ -178,7 +178,6 @@ def main():
 	for i in xrange(100):
 		# Generate some test data by sampling from a cube
 		data = (2 * torch.rand(100,3) - 1).cuda()
-		update_viz(som.contents.view(-1,3).cpu(), data.cpu())
 
 
 		# Update the SOM
@@ -189,12 +188,13 @@ def main():
 		sigma *= 0.9
 
 		# update_viz(som.contents.view(-1,3).cpu(), data.cpu())
+		update_viz(som.contents.view(-1,3).cpu(), data.cpu())
 
-		if i == 5:
+		if i == 20:
 			exit()
 
 
-		time.sleep(2)
+		time.sleep(1)
 
 
 
