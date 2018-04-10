@@ -170,21 +170,19 @@ def update_viz(init_contents, contents, data):
 			markersize=4,
 			markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
 
-	x = [0, 0, 1, 1, 0, 0, 1, 1]
-	y = [0, 1, 1, 0, 0, 1, 1, 0]
-	z = [0, 0, 0, 0, 1, 1, 1, 1]
-	X = np.c_[x, y, z]
-	i = [7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2]
-	j = [3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3]
-	k = [0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6]
-	Y = np.c_[i, j, k]
-	VIS.mesh(
-		X=X,
-		Y=Y,
-		env=ENV,
-		win='mesh',
+
+	VIS.scatter(
+		X=np.random.rand(255),
+		Y=np.random.rand(255),
 		opts=dict(
-			opacity=0.5))
+			markersize=10,
+			markercolor=colors[0].reshape(-1, 3),
+
+		),
+		name='1',
+		update='append',
+		win='mesh')
+
 
 	# # Determine color map as a 3 x rows x cols image
 	# colors = contents.clone()
