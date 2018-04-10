@@ -74,10 +74,10 @@ class SOM(object):
 		''' x is N x 3
 		'''
 		# Compute update weights given the curren learning rate and sigma
-		print "lr"
-		print lr
-		print "sigma"
-		print sigma
+		# print "lr"
+		# print lr
+		# print "sigma"
+		# print sigma
 		weights = lr * torch.exp(-self.grid_dists / (2 * sigma**2))
 
 		# Determine closest units on the grid and the difference between data
@@ -91,8 +91,8 @@ class SOM(object):
 		# print weights
 		# print "diff"
 		# print diff
-		print "update"
-		print update
+		# print "update"
+		# print update
 		# print "max_update"
 		# print update.max()
 
@@ -180,16 +180,15 @@ def main():
 
 		# Update the SOM
 		res = som.update(data, lr, sigma)
-
-		print res
+		print 'Res: ', res
 
 		# Decay the parameters
 		if i % 50 == 0:
 			lr *= 0.99
 			sigma *= 0.99
-
-		# update_viz(som.contents.view(-1,3).cpu(), data.cpu())
-		update_viz(som.contents.view(-1,3).cpu(), data.cpu())
+			update_viz(som.contents.view(-1,3).cpu(), data.cpu())
+			print 'New LR: ', lr
+			print 'New Sigma: ', sigma
 
 
 		# time.sleep(0.25)
