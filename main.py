@@ -183,6 +183,23 @@ def update_viz(init_contents, contents, data):
 		update='append',
 		win='mesh')
 
+	x = [0, 0, 1, 1, 0, 0, 1, 1]
+	y = [0, 1, 1, 0, 0, 1, 1, 0]
+	z = [0, 0, 0, 0, 1, 1, 1, 1]
+	X = np.c_[x, y, z]
+	i = [7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2]
+	j = [3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3]
+	k = [0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6]
+	Y = np.c_[i, j, k]
+	VIS.mesh(
+		X=X,
+		Y=Y,
+		env=ENV,
+		win='mesh',
+		opts=dict(
+			markersize=4,
+			opacity=0.1))
+
 	data = [{
 			'x':[1,2,3],
 			'y':[4,5,6],
@@ -195,10 +212,9 @@ def update_viz(init_contents, contents, data):
 			'name':'1st Trace',
 			'type':'line',
 		},{
-			'x': [1,2,3],
-			'y': [4,5,6],
-			'type': 'scatter',
-			'mode': 'markers',
+			'x': X,
+			'y': Y,
+			'type': 'mesh',
 		}]
 
 	win = 'mytestwin'
