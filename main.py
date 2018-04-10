@@ -171,7 +171,7 @@ def update_viz(init_contents, contents, data):
 	colors = contents.clone()
 	mag = torch.norm(colors, 2, 1, True)
 	colors /= mag
-	colors = min(mag, 1) * 255 * (colors + 1.) / 2.
+	colors = np.minimum(mag, 1.) * 255 * (colors + 1.) / 2.
 	colors = colors.permute(2, 0, 1)
 
 	# Upsample to 512 x 512
