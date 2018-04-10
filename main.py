@@ -175,7 +175,7 @@ def update_viz(init_contents, contents, data):
 	colors = colors.permute(2, 0, 1).numpy()
 
 	VIS.image(
-		colors.numpy(),
+		colors,
 		env=ENV,
 		win='grid')
 
