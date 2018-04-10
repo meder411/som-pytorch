@@ -99,7 +99,8 @@ class SOM(object):
 		# Update the contents of the grid
 		self.contents += update.view(self.rows, self.cols, -1)
 
-		return update
+		# Return the average magnitude of the update
+		return torch.norm(update, 2, 1).mean()
 
 	def _find_bmu(self, x):
 		''' x is N x 3
@@ -172,13 +173,15 @@ def main():
 	lr = 0.2
 	sigma = 0.2
 
-	for i in xrange(1000):
+	for i in xrange(10000):
 		# Generate some test data by sampling from a cube
 		data = (2 * torch.rand(100,3) - 1).cuda()
 
 
 		# Update the SOM
-		som.update(data, lr, sigma)
+		res = som.update(data, lr, sigma)
+
+		print res
 
 		# Decay the parameters
 		if i % 50 == 0:
@@ -187,6 +190,7 @@ def main():
 
 		# update_viz(som.contents.view(-1,3).cpu(), data.cpu())
 		update_viz(som.contents.view(-1,3).cpu(), data.cpu())
+
 
 		# time.sleep(0.25)
 
