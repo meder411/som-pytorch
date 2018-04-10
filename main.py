@@ -186,7 +186,7 @@ def update_viz(init_contents, contents, data):
 def main():
 
 	# Create SOM
-	som = SOM(10,10,3)
+	som = SOM(10,10,2)
 	som.initialize()
 
 	init_contents = som.contents.clone()
@@ -200,11 +200,11 @@ def main():
 
 	for i in xrange(1000000):
 		# Generate some test data by sampling from a cube
-		# data = (2 * torch.rand(100,3) - 1).cuda()
+		data = (2 * torch.rand(100,2) - 1)
 
 		# Generate some test data by sampling from a spherical surface
-		data = torch.randn(100,3)
-		data /= torch.norm(data, 2, 1, True)
+		# data = torch.randn(100,3)
+		# data /= torch.norm(data, 2, 1, True)
 
 		# Put data on GPU
 		data = data.cuda()
