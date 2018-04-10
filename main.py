@@ -83,6 +83,9 @@ class SOM(object):
 		# Compute the weighted content update
 		update = weights[:, min_idx].unsqueeze(2) * diff
 
+		print "weights"
+		print weights
+
 		print "diff"
 		print diff
 		print "update"
