@@ -197,7 +197,7 @@ def main():
 
 	# Initial SOM parameters
 	lr = 0.2
-	sigma = 0.2
+	sigma = 0.3
 
 	for i in xrange(1000000):
 		# Generate some test data by sampling from a cube
