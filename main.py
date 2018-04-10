@@ -135,6 +135,11 @@ def init_viz():
 			markersize=4,
 			markercolor=np.array([[0,0,255], [255,0,0]])))
 
+	VIS.image(
+		np.random.rand(3,1,1),
+		env=ENV,
+		win='grid')
+
 
 # contents is K x 3
 # data is N x 3
@@ -159,7 +164,16 @@ def update_viz(init_contents, contents, data):
 			markersize=4,
 			markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
 
-	contents
+	# Determine color map as a 3 x rows x cols image
+	colors = contents.clone()
+	colors /= torch.norm(colors, 2, 1, True)
+	colors = 255 * (colors + 1.) / 2.
+	colors = colors.transpose(2, 0, 1).numpy()
+
+	VIS.image(
+		colors.numpy(),
+		env=ENV,
+		win='grid')
 
 
 
