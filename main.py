@@ -182,7 +182,7 @@ def update_viz(init_contents, contents, data):
 
 	X = np.c_[contents[...,0].view(-1).numpy(),
 		contents[...,1].view(-1).numpy(),
-		np.zeros(contents[...,1].view(-1).shape)
+		np.zeros(contents[...,1].view(-1).shape)]
 		# contents[...,2].view(-1).numpy()]
 
 	I = []
