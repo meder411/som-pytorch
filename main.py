@@ -171,11 +171,10 @@ def update_viz(init_contents, contents, data):
 	colors = contents.clone()
 	colors /= torch.norm(colors, 2, 1, True)
 	colors = 255 * (colors + 1.) / 2.
-	print colors.shape
 	colors = colors.permute(2, 0, 1)
 
 	# Upsample to 512 x 512
-	colors = torch.nn.functional.upsample(torch.autograd.Variable(colors), scale_factor=(100,100), mode='nearest').numpy()
+	colors = torch.nn.functional.upsample(torch.autograd.Variable(colors.unsqueeze(0)), scale_factor=(100,100), mode='nearest').numpy()
 
 	print colors.shape
 	exit()
