@@ -172,7 +172,7 @@ def main():
 	som.initialize()
 
 	# Initial SOM parameters
-	lr = 0.5
+	lr = 0.2
 	sigma = 0.2
 
 	for i in xrange(100):
