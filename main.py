@@ -146,9 +146,9 @@ def init_viz():
 def update_viz(init_contents, contents, data):
 
 	# Construct labels
-	np_one = np.ones(contents.shape[0]).astype(int)
+	np_one = np.ones(contents.view(-1,3).shape[0]).astype(int)
 	np_two = 2*np.ones(data.shape[0]).astype(int)
-	np_three = 3*np.ones(init_contents.shape[0]).astype(int)
+	np_three = 3*np.ones(init_contents.view(-1,3).shape[0]).astype(int)
 
 	pts = np.row_stack((
 		contents.view(-1, 3).numpy(), 
