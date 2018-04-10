@@ -172,8 +172,8 @@ def main():
 	som.initialize()
 
 	# Initial SOM parameters
-	lr = 1.
-	sigma = 1.
+	lr = 0.5
+	sigma = 0.2
 
 	for i in xrange(100):
 		# Generate some test data by sampling from a cube
@@ -185,8 +185,8 @@ def main():
 		som.update(data, lr, sigma)
 
 		# Decay the parameters
-		lr *= 0.99
-		sigma *= 0.2
+		lr *= 0.9
+		sigma *= 0.9
 
 		# update_viz(som.contents.view(-1,3).cpu(), data.cpu())
 
