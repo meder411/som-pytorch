@@ -162,24 +162,24 @@ def update_viz(init_contents, contents, data):
 	# colors = colors.permute(2, 0, 1)
 
 	
-	colors = torch.zeros(1, contents.shape[0]-1, contents.shape[1]-1)
-	for i in xrange(contents.shape[0]-1):
-		for j in xrange(contents.shape[1]-1):
-			colors[0, i, j] = ((contents[i,j,:] - contents[i,j+1,:]).norm() + 
-				(contents[i,j,:] - contents[i+1,j,:]).norm() + 
-				(contents[i,j,:] - contents[i+1,j+1,:]).norm()) / 3.
+	# colors = torch.zeros(1, contents.shape[0]-1, contents.shape[1]-1)
+	# for i in xrange(contents.shape[0]-1):
+	# 	for j in xrange(contents.shape[1]-1):
+	# 		colors[0, i, j] = ((contents[i,j,:] - contents[i,j+1,:]).norm() + 
+	# 			(contents[i,j,:] - contents[i+1,j,:]).norm() + 
+	# 			(contents[i,j,:] - contents[i+1,j+1,:]).norm()) / 3.
 
-	colors /= colors.max()
-	colors *= 255.
+	# colors /= colors.max()
+	# colors *= 255.
 
-	# Upsample to 512 x 512
-	colors = torch.nn.functional.upsample(torch.autograd.Variable(colors.unsqueeze(0)), scale_factor=100, mode='nearest').squeeze(0).numpy()
+	# # Upsample to 512 x 512
+	# colors = torch.nn.functional.upsample(torch.autograd.Variable(colors.unsqueeze(0)), scale_factor=100, mode='nearest').squeeze(0).numpy()
 
 
-	VIS.image(
-		colors,
-		env=ENV,
-		win='grid')
+	# VIS.image(
+	# 	colors,
+	# 	env=ENV,
+	# 	win='grid')
 
 
 
@@ -198,7 +198,7 @@ def main():
 	lr = 0.1
 	sigma = 0.5
 
-	for i in xrange(1000000):
+	for i in xrange(10000):
 		# Generate some test data by sampling from a cube
 		data = (2 * torch.rand(100,2) - 1)
 
@@ -224,6 +224,7 @@ def main():
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
 
+	print som.contents
 
 
 
