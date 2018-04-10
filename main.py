@@ -133,14 +133,14 @@ def init_viz():
 def update_viz(init_contents, contents, data):
 
 	# Construct labels
-	np_one = np.ones(contents.view(-1,3).shape[0]).astype(int)
+	np_one = np.ones(contents.view(-1,2).shape[0]).astype(int)
 	np_two = 2*np.ones(data.shape[0]).astype(int)
-	np_three = 3*np.ones(init_contents.view(-1,3).shape[0]).astype(int)
+	np_three = 3*np.ones(init_contents.view(-1,2).shape[0]).astype(int)
 
 	pts = np.row_stack((
-		contents.view(-1, 3).numpy(), 
+		contents.view(-1, 2).numpy(), 
 		data.numpy(), 
-		init_contents.view(-1, 3).numpy()))
+		init_contents.view(-1, 2).numpy()))
 	labels = np.hstack((np_one, np_two, np_three))
 
 	VIS.scatter(
@@ -186,7 +186,7 @@ def update_viz(init_contents, contents, data):
 def main():
 
 	# Create SOM
-	som = SOM(10,10,3)
+	som = SOM(10,10,2)
 	som.initialize()
 
 	init_contents = som.contents.clone()
@@ -200,7 +200,7 @@ def main():
 
 	for i in xrange(100000):
 		# Generate some test data by sampling from a cube
-		data = (2 * torch.rand(100,3) - 1)
+		data = (2 * torch.rand(100,2) - 1)
 
 		# Generate some test data by sampling from a spherical surface
 		# data = torch.randn(100,3)
@@ -225,7 +225,7 @@ def main():
 			print 'New Sigma: ', sigma
 
 	# print som.contents.numpy()
-	np.savetxt("tmp.csv", som.contents.cpu().view(-1,3).numpy(), delimiter=",")
+	np.savetxt("tmp.csv", som.contents.cpu().view(-1,2).numpy(), delimiter=",")
 
 
 if __name__ == '__main__':
