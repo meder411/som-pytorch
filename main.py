@@ -86,7 +86,7 @@ class SOM(object):
 		print "diff"
 		print diff
 		print "update"
-		print update
+		print update[1]
 		print "max_update"
 		print update.max()
 
