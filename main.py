@@ -34,7 +34,12 @@ def pdist2(X, Y, dim):
 def ind2sub(idx, cols):
 	r = idx / cols
 	c = idx - r * cols
-	return r, c		
+	return r, c	
+
+
+def sub2ind(r, c, cols):
+	idx = r * cols + c
+	return idx	
 
 
 
@@ -127,27 +132,31 @@ def init_viz():
 		env=ENV,
 		win='grid')
 
-	x = [0, 0, 1, 1, 0, 0, 1, 1]
-	y = [0, 1, 1, 0, 0, 1, 1, 0]
-	z = [0, 0, 0, 0, 1, 1, 1, 1]
-	X = np.c_[x, y, z]
-	i = [7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2]
-	j = [3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3]
-	k = [0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6]
-	Y = np.c_[i, j, k]
-	VIS.mesh(
-		X=X,
-		Y=Y,
-		env=ENV,
-		win='mesh',
-		opts=dict(
-			markersize=4,
-			opacity=0.1))
+	# x = [0, 0, 1, 1, 0, 0, 1, 1]
+	# y = [0, 1, 1, 0, 0, 1, 1, 0]
+	# z = [0, 0, 0, 0, 1, 1, 1, 1]
+	# X = np.c_[x, y, z]
+	# i = [7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2]
+	# j = [3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3]
+	# k = [0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6]
+	# Y = np.c_[i, j, k]
+	# VIS.mesh(
+	# 	X=X,
+	# 	Y=Y,
+	# 	env=ENV,
+	# 	win='mesh',
+	# 	opts=dict(
+	# 		markersize=4,
+	# 		opacity=0.1))
+
+
+
+
 
 
 # contents is K x 3
 # data is N x 3
-def update_viz(init_contents, contents, data):
+def update_viz(init_contents, contents, data, mesh, mesh_conn):
 
 	# Construct labels
 	np_one = np.ones(contents.view(-1,2).shape[0]).astype(int)
@@ -172,25 +181,19 @@ def update_viz(init_contents, contents, data):
 			markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
 
 
-	VIS.scatter(
-		X=np.random.rand(255),
-		Y=np.random.rand(255),
-		opts=dict(
-			markersize=10,
-			markercolor=np.array([[0, 0, 255]])
-		),
-		name='1',
-		update='append',
-		win='mesh')
+	X = np.c_[contents[...,0].view(-1).numpy(),
+		contents[...,1].view(-1).numpy(),
+		contents[...,2].view(-1).numpy()]
 
-	x = [0, 0, 1, 1, 0, 0, 1, 1]
-	y = [0, 1, 1, 0, 0, 1, 1, 0]
-	z = [0, 0, 0, 0, 1, 1, 1, 1]
-	X = np.c_[x, y, z]
-	i = [7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2]
-	j = [3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3]
-	k = [0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6]
-	Y = np.c_[i, j, k]
+	I = []
+	J = []
+	K = []
+	for i in xrange(9):
+		for j in xrange(9):
+			I.append(sub2ind(i, j, 10))
+			J.append(sub2ind(i,j+1, 10))
+			K.append(sub2ind(i+1,j+1, 10))
+	Y = np.c_[I, J, K]
 	VIS.mesh(
 		X=X,
 		Y=Y,
@@ -198,36 +201,7 @@ def update_viz(init_contents, contents, data):
 		win='mesh',
 		opts=dict(
 			markersize=4,
-			opacity=0.1))
-
-	data = [{
-			'x':[1,2,3],
-			'y':[4,5,6],
-			'marker':{
-			'color': 'red',
-			'symbol': 104,
-			'size': "10"},
-			'mode':"markers+lines",
-			'text':["one","two","three"],
-			'name':'1st Trace',
-			'type':'line',
-		},{
-			'x': X,
-			'y': Y,
-			'type': 'mesh',
-		}]
-
-	win = 'mytestwin'
-	env = ENV
-
-	layout= {
-			'title':"Test Plot",
-			'xaxis':{'title':'x1'},
-			'yaxis':{'title':'x2'}
-		}
-	opts = {}
-
-	VIS._send({'data': data, 'win': win, 'eid': env, 'layout': layout, 'opts': opts})
+			opacity=0.3))
 
 
 	# # Determine color map as a 3 x rows x cols image
