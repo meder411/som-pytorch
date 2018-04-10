@@ -138,14 +138,15 @@ def init_viz():
 
 # contents is K x 3
 # data is N x 3
-def update_viz(contents, data):
+def update_viz(init_contents, contents, data):
 
 	# Construct labels
 	np_one = np.ones(contents.shape[0]).astype(int)
 	np_two = 2*np.ones(data.shape[0]).astype(int)
+	np_three = 3*np.ones(init_contents.shape[0]).astype(int)
 
-	pts = np.row_stack((contents.numpy(), data.numpy()))
-	labels = np.hstack((np_one, np_two))
+	pts = np.row_stack((contents.numpy(), data.numpy(), init_contents.numpy()))
+	labels = np.hstack((np_one, np_two, np_three))
 
 	VIS.scatter(
 		X=pts,
@@ -156,18 +157,20 @@ def update_viz(contents, data):
 			title='SOM',
 			legend=['SOM Contents', 'Data'],
 			markersize=4,
-			markercolor=np.array([[0, 0, 255], [255,0,0]])))
+			markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
 
 
 
 def main():
 
-	# Initialize visualization
-	init_viz()
-
 	# Create SOM
 	som = SOM()
 	som.initialize()
+
+	init_contents = som.contents
+
+	# Initialize visualization
+	init_viz()
 
 	# Initial SOM parameters
 	lr = 0.2
@@ -186,7 +189,7 @@ def main():
 		if i % 50 == 0:
 			lr *= 0.99
 			sigma *= 0.99
-			update_viz(som.contents.view(-1,3).cpu(), data.cpu())
+			update_viz(init_contents, som.contents.view(-1,3).cpu(), data.cpu())
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
 
