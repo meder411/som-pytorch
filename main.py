@@ -136,7 +136,7 @@ def init_viz():
 			markercolor=np.array([[0,0,255], [255,0,0]])))
 
 	VIS.image(
-		255*np.ones(3,256,256),
+		np.ones(3,256,256) * 255.,
 		env=ENV,
 		win='grid')
 
