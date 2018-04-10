@@ -180,6 +180,7 @@ def update_viz(init_contents, contents, data):
 		),
 		name='1',
 		update='append',
+		env=ENV,
 		win='mesh')
 
 
