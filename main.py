@@ -150,7 +150,10 @@ def update_viz(init_contents, contents, data):
 	np_two = 2*np.ones(data.shape[0]).astype(int)
 	np_three = 3*np.ones(init_contents.shape[0]).astype(int)
 
-	pts = np.row_stack((contents.numpy(), data.numpy(), init_contents.numpy()))
+	pts = np.row_stack((
+		contents.view(-1, 3).numpy(), 
+		data.numpy(), 
+		init_contents.view(-1, 3).numpy()))
 	labels = np.hstack((np_one, np_two, np_three))
 
 	VIS.scatter(
@@ -213,8 +216,8 @@ def main():
 			lr *= 0.99
 			sigma *= 0.99
 			update_viz(
-				init_contents.view(-1,3).cpu(), 
-				som.contents.view(-1,3).cpu(), 
+				init_contents.cpu(), 
+				som.contents.cpu(), 
 				data.cpu())
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
