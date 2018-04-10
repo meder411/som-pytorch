@@ -177,6 +177,9 @@ def update_viz(init_contents, contents, data):
 	# Upsample to 512 x 512
 	colors = torch.nn.functional.upsample(torch.autograd.Variable(colors), scale_factor=100, mode='nearest').numpy()
 
+	print colors.shape
+	exit()
+
 	VIS.image(
 		colors,
 		env=ENV,
