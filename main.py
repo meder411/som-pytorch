@@ -183,6 +183,36 @@ def update_viz(init_contents, contents, data):
 		update='append',
 		win='mesh')
 
+	data = [{
+			'x':[1,2,3],
+			'y':[4,5,6],
+			'marker':{
+			'color': 'red',
+			'symbol': 104,
+			'size': "10"},
+			'mode':"markers+lines",
+			'text':["one","two","three"],
+			'name':'1st Trace',
+			'type':'line',
+		},{
+			'x': [1,2,3],
+			'y': [4,5,6],
+			'type': 'scatter',
+			'mode': 'markers',
+		}]
+
+	win = 'mytestwin'
+	env = ENV
+
+	layout= {
+			'title':"Test Plot",
+			'xaxis':{'title':'x1'},
+			'yaxis':{'title':'x2'}
+		}
+	opts = {}
+
+	vis._send({'data': data, 'win': win, 'eid': env, 'layout': layout, 'opts': opts})
+
 
 	# # Determine color map as a 3 x rows x cols image
 	# colors = contents.clone()
