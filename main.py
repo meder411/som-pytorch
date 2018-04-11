@@ -88,7 +88,7 @@ class SOM(object):
 
 		# print 1e5*weights[min_idx, :].view(-1, self.rows, self.cols)[30]
 		# print weights[min_idx, :].view(-1, self.rows, self.cols).shape
-		# print self._ind2sub(min_idx[2])
+		print self._ind2sub(min_idx[2])
 		# print weights[min_idx, :][0].view(self.rows, self.cols)
 		# print weights[:, min_idx]
 		# print diff
@@ -111,9 +111,9 @@ class SOM(object):
 		# exit()
 
 		# Update the contents of the grid
-		print update.view(self.rows, self.cols, -1)
 		self.contents += update.view(self.rows, self.cols, -1)
 
+		print torch.norm(update, 2, 1).mean()
 		exit()
 
 		# Return the average magnitude of the update
@@ -262,7 +262,7 @@ def main():
 		# data = (2 * torch.rand(1, 3) - 1)
 
 		# Generate some test data by sampling from a spherical surface
-		data = torch.randn(1,3)
+		data = torch.randn(50,3)
 		data /= torch.norm(data, 2, 1, True)
 
 		# Put data on GPU
