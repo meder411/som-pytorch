@@ -83,6 +83,7 @@ class SOM(object):
 		print self.grid_dists
 		print weights
 		print weights[55].view(self.rows, self.cols)
+		print self._ind2sub(55)
 
 		# Determine closest units on the grid and the difference between data
 		 # and units
