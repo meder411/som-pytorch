@@ -228,7 +228,7 @@ class SOM(object):
 def main():
 
 	# Create SOM
-	som = SOM(4,4,3)
+	som = SOM(8,8,3)
 	som.initialize()
 
 	init_contents = som.contents.clone()
