@@ -80,6 +80,7 @@ class SOM(object):
 		# Compute update weights given the curren learning rate and sigma
 		weights = lr * torch.exp(-self.grid_dists / (2 * sigma**2))
 
+		print self.grid_dists
 		print weights
 		print weights[0].view(self.rows, self.cols)
 
