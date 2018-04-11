@@ -92,7 +92,7 @@ class SOM(object):
 		# print diff.shape
 
 		# Compute the weighted content update
-		update = (weights[min_idx, :].unsqueeze(2) * diff)#.sum(1)
+		update = (weights[min_idx, :].unsqueeze(2) * diff).sum(1)
 
 		# print torch.norm(update.permute(1,0,2)[0].view(self.rows, self.cols, -1),2,2)
 		# print update.view(self.rows, self.cols, -1)
@@ -113,11 +113,12 @@ class SOM(object):
 		print self.contents.view(-1, self.dim)
 
 		# Compute the Euclidean distances of the data
-		diff = x - self.contents.view(-1, 1, self.dim).expand(-1, N, -1)
+		diff = x.view(-1, 1, self.dim) - self.contents.view(1, -1, self.dim)
 		dist = (diff ** 2).sum(-1).sqrt()
+		# dist is N x R*C
 
 		# Find the index of the best matching unit
-		_, min_idx = dist.min(0)
+		_, min_idx = dist.min(1)
 
 		# Return indices
 		return min_idx, diff
