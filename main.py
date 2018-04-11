@@ -87,6 +87,8 @@ class SOM(object):
 		# Compute the weighted content update
 		update = (weights[:, min_idx].unsqueeze(2) * diff).sum(1)
 
+		print update.view(self.rows, self.cols, -1)
+
 		# Update the contents of the grid
 		self.contents += update.view(self.rows, self.cols, -1)
 
