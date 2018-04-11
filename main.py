@@ -96,8 +96,8 @@ class SOM(object):
 
 		# Compute the weighted content update
 		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
-		print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[2].view(4,4)
-		print torch.norm(diff[2],2,-1).view(4,4)
+		print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[2].view(self.rows,self.cols)
+		print torch.norm(diff[2],2,-1).view(self.rows,self.cols)
 		print torch.norm(update[2].view(self.rows, self.cols, -1),2,-1)
 
 		update = (weights[min_idx, :].unsqueeze(2) * diff).sum(1)
@@ -238,7 +238,7 @@ class SOM(object):
 def main():
 
 	# Create SOM
-	som = SOM(4,4,3)
+	som = SOM(10,10,3)
 	som.initialize()
 
 	init_contents = som.contents.clone()
