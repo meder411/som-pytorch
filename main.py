@@ -100,6 +100,8 @@ class SOM(object):
 
 		# Aggregate over all the data samples
 		update = update.sum(0)
+
+
 		# print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[2].view(self.rows,self.cols)
 		# print torch.norm(diff[2],2,-1).view(self.rows,self.cols)
 		# print torch.norm(update[2].view(self.rows, self.cols, -1),2,-1)
@@ -111,6 +113,8 @@ class SOM(object):
 		# Update the contents of the grid
 		print update.view(self.rows, self.cols, -1)
 		self.contents += update.view(self.rows, self.cols, -1)
+
+		exit()
 
 		# Return the average magnitude of the update
 		return torch.norm(update, 2, 1).mean()
