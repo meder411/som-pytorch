@@ -111,7 +111,7 @@ class SOM(object):
 		# exit()
 
 		# Update the contents of the grid
-		print torch.norm(update.view(self.rows, self.cols, -1),2,-1)
+		print update.view(self.rows, self.cols, -1)
 		self.contents += update.view(self.rows, self.cols, -1)
 
 		exit()
@@ -262,7 +262,7 @@ def main():
 		# data = (2 * torch.rand(1, 3) - 1)
 
 		# Generate some test data by sampling from a spherical surface
-		data = torch.randn(50,3)
+		data = torch.randn(1,3)
 		data /= torch.norm(data, 2, 1, True)
 
 		# Put data on GPU
