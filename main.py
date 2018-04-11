@@ -87,9 +87,9 @@ class SOM(object):
 
 		# print 1e5*weights[min_idx, :].view(-1, self.rows, self.cols)[30]
 		# print weights[min_idx, :].view(-1, self.rows, self.cols).shape
-		print weights[min_idx, :]
-		print weights[:, min_idx]
-		print diff.shape
+		# print weights[min_idx, :]
+		# print weights[:, min_idx]
+		# print diff.shape
 
 		# Compute the weighted content update
 		update = (weights[min_idx, :].unsqueeze(2) * diff)#.sum(1)
@@ -108,6 +108,9 @@ class SOM(object):
 		''' x is N x 3
 		'''
 		N = x.shape[0]
+
+		print self.contents
+		print self.contents.view(-1, self.dim)
 
 		# Compute the Euclidean distances of the data
 		diff = x - self.contents.view(-1, 1, self.dim).expand(-1, N, -1)
