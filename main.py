@@ -85,9 +85,10 @@ class SOM(object):
 		min_idx, diff = self._find_bmu(x)
 
 
-		print 1e5*weights[min_idx, :].view(-1, self.rows, self.cols)[30]
-		print weights[min_idx, :].view(-1, self.rows, self.cols).shape
+		# print 1e5*weights[min_idx, :].view(-1, self.rows, self.cols)[30]
+		# print weights[min_idx, :].view(-1, self.rows, self.cols).shape
 		print weights[min_idx, :]
+		print weights[:, min_idx]
 		print diff.shape
 
 		# Compute the weighted content update
