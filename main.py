@@ -109,13 +109,10 @@ class SOM(object):
 
 		# Compute the Euclidean distances of the data
 		diff = x - self.contents.view(-1, 1, self.dim).expand(-1, N, -1)
-		print diff.shape
 		dist = (diff ** 2).sum(-1).sqrt()
-		print dist
 
 		# Find the index of the best matching unit
 		_, min_idx = dist.min(0)
-
 
 		# Return indices
 		return min_idx, diff
@@ -230,7 +227,7 @@ class SOM(object):
 def main():
 
 	# Create SOM
-	som = SOM(8,8,3)
+	som = SOM(10,10,3)
 	som.initialize()
 
 	init_contents = som.contents.clone()
