@@ -41,6 +41,29 @@ def sub2ind(r, c, cols):
 	return idx	
 
 
+def generateSphereSurface(N):
+	data = torch.randn(N, 3)
+	data /= torch.norm(data, 2, 1, True)
+	return data, 3
+
+def generateCubeVolume(N):
+	return torch.random(N, 3), 3
+
+
+def generateSquareArea(N):
+	return torch.random(N, 2), 2
+
+def generateCirclePerimeter(N):
+	data = torch.randn(N, 2)
+	data /= torch.norm(data, 2, 1, True)
+	return data, 2
+
+def generateCubeSurface(N, dim):
+	side = (torch.random(N) * 6).floor()
+	perp_axis = s % 3
+
+
+
 
 
 class SOM(object):
