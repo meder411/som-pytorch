@@ -85,14 +85,12 @@ class SOM(object):
 		min_idx, diff = self._find_bmu(x)
 
 
-		print weights[min_idx, :]
+		print weights[min_idx, :].view(-1, self.rows, self.cols)
 
 		# Compute the weighted content update
 		update = (weights[:, min_idx].unsqueeze(2) * diff)#.sum(1)
 
 		# print torch.norm(update.permute(1,0,2)[0].view(self.rows, self.cols, -1),2,2)
-		r,c = self._ind2sub(min_idx)
-		print r[0], c[0]
 		# print update.view(self.rows, self.cols, -1)
 		exit()
 
