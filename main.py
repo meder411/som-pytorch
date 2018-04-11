@@ -80,7 +80,7 @@ class SOM(object):
 		# Compute update weights given the curren learning rate and sigma
 		weights = lr * torch.exp(-self.grid_dists / (2 * sigma**2))
 
-		print weights
+		print weights[0].view(self.rows, self.cols)
 
 		# Determine closest units on the grid and the difference between data
 		 # and units
@@ -226,7 +226,7 @@ class SOM(object):
 def main():
 
 	# Create SOM
-	som = SOM(10,10,3)
+	som = SOM(4,4,3)
 	som.initialize()
 
 	init_contents = som.contents.clone()
