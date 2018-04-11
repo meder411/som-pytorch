@@ -86,6 +86,7 @@ class SOM(object):
 
 
 		print 1e5*weights[min_idx, :].view(-1, self.rows, self.cols)[30]
+		print diff.shape
 
 		# Compute the weighted content update
 		update = (weights[:, min_idx].unsqueeze(2) * diff)#.sum(1)
