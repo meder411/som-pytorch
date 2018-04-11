@@ -88,7 +88,7 @@ class SOM(object):
 		update = (weights[:, min_idx].unsqueeze(2) * diff)#.sum(1)
 
 		print torch.norm(update.permute(1,0,2)[0].view(self.rows, self.cols, -1),2,2)
-		r,c self._ind2sub(min_idx)
+		r,c = self._ind2sub(min_idx)
 		print r[0], c[0]
 		# print update.view(self.rows, self.cols, -1)
 		exit()
