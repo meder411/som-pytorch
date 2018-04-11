@@ -109,8 +109,8 @@ class SOM(object):
 
 		# Compute the Euclidean distances of the data
 		diff = x - self.contents.view(-1, 1, self.dim).expand(-1, N, -1)
-		print diff
-		
+		print torch.norm(diff.mean(1), 2, 1)
+
 		dist = (diff ** 2).sum(-1).sqrt()
 
 		# Find the index of the best matching unit
