@@ -88,7 +88,7 @@ class SOM(object):
 
 		# print 1e5*weights[min_idx, :].view(-1, self.rows, self.cols)[30]
 		# print weights[min_idx, :].view(-1, self.rows, self.cols).shape
-		print self._ind2sub(min_idx[2])
+		# print self._ind2sub(min_idx[2])
 		# print weights[min_idx, :][0].view(self.rows, self.cols)
 		# print weights[:, min_idx]
 		# print diff
@@ -113,12 +113,8 @@ class SOM(object):
 		# Update the contents of the grid
 		self.contents += update.view(self.rows, self.cols, -1)
 
-		print update
-		print torch.norm(update, 2, 1).mean()
-		exit()
-
 		# Return the average magnitude of the update
-		return torch.norm(update, 2, 1).mean()
+		return torch.norm(update, 2, -1).mean()
 
 	def _find_bmu(self, x):
 		''' x is N x 3
