@@ -88,10 +88,10 @@ class SOM(object):
 
 		# print 1e5*weights[min_idx, :].view(-1, self.rows, self.cols)[30]
 		# print weights[min_idx, :].view(-1, self.rows, self.cols).shape
-		print self._ind2sub(min_idx[0])
-		print weights[min_idx, :][0].view(self.rows, self.cols)
+		# print self._ind2sub(min_idx[0])
+		# print weights[min_idx, :][0].view(self.rows, self.cols)
 		# print weights[:, min_idx]
-		print diff
+		# print diff
 
 
 		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
