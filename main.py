@@ -96,7 +96,7 @@ class SOM(object):
 
 		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
 		print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0].view(4,4)
-		print diff[0]
+		print torch.norm(diff[0],2,-1).view(4,4)
 		print torch.norm(update[0].view(self.rows, self.cols, -1),2,-1)
 
 		# Compute the weighted content update
