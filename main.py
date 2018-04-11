@@ -111,7 +111,7 @@ class SOM(object):
 		# exit()
 
 		# Update the contents of the grid
-		print update.view(self.rows, self.cols, -1)
+		print torch.norm(update.view(self.rows, self.cols, -1),2,-1)
 		self.contents += update.view(self.rows, self.cols, -1)
 
 		exit()
