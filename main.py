@@ -87,7 +87,7 @@ class SOM(object):
 		# Compute the weighted content update
 		update = (weights[:, min_idx].unsqueeze(2) * diff)#.sum(1)
 
-		print update.permute(1,0,2)[0].view(self.rows, self.cols, -1)
+		print torch.norm(update.permute(1,0,2)[0].view(self.rows, self.cols, -1),2,2)
 		print min_idx
 		# print update.view(self.rows, self.cols, -1)
 		exit()
