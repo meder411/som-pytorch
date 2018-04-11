@@ -85,7 +85,7 @@ class SOM(object):
 		min_idx, diff = self._find_bmu(x)
 
 		# Compute the weighted content update
-		update = (weights[:, min_idx].unsqueeze(2) * diff).sum(1)
+		update = (weights[:, min_idx].unsqueeze(2) * diff)#.sum(1)
 
 		print update.view(self.rows, self.cols, -1)
 		exit()
