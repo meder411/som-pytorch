@@ -88,18 +88,18 @@ class SOM(object):
 
 		# print 1e5*weights[min_idx, :].view(-1, self.rows, self.cols)[30]
 		# print weights[min_idx, :].view(-1, self.rows, self.cols).shape
-		print self._ind2sub(min_idx[0])
+		print self._ind2sub(min_idx[2])
 		# print weights[min_idx, :][0].view(self.rows, self.cols)
 		# print weights[:, min_idx]
 		# print diff
 
 
-		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
-		print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0].view(4,4)
-		print torch.norm(diff[0],2,-1).view(4,4)
-		print torch.norm(update[0].view(self.rows, self.cols, -1),2,-1)
-
 		# Compute the weighted content update
+		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
+		print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[2].view(4,4)
+		print torch.norm(diff[2],2,-1).view(4,4)
+		print torch.norm(update[2].view(self.rows, self.cols, -1),2,-1)
+
 		update = (weights[min_idx, :].unsqueeze(2) * diff).sum(1)
 
 		# print torch.norm(update.permute(1,0,2)[0].view(self.rows, self.cols, -1),2,2)
