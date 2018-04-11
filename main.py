@@ -95,18 +95,21 @@ class SOM(object):
 
 
 		# Compute the weighted content update
+		# N x R*C * 3
 		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
-		print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[2].view(self.rows,self.cols)
-		print torch.norm(diff[2],2,-1).view(self.rows,self.cols)
-		print torch.norm(update[2].view(self.rows, self.cols, -1),2,-1)
 
-		update = (weights[min_idx, :].unsqueeze(2) * diff).sum(1)
+		# Aggregate over all the data samples
+		update = update.sum(0)
+		# print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[2].view(self.rows,self.cols)
+		# print torch.norm(diff[2],2,-1).view(self.rows,self.cols)
+		# print torch.norm(update[2].view(self.rows, self.cols, -1),2,-1)
 
 		# print torch.norm(update.permute(1,0,2)[0].view(self.rows, self.cols, -1),2,2)
 		# print update.view(self.rows, self.cols, -1)
-		exit()
+		# exit()
 
 		# Update the contents of the grid
+		print update.view(self.rows, self.cols, -1)
 		self.contents += update.view(self.rows, self.cols, -1)
 
 		# Return the average magnitude of the update
