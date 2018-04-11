@@ -276,7 +276,7 @@ def main():
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
 
-		if i % 5 == 0:
+		if i % 500 == 0:
 			som.update_viz(
 				init_contents.cpu(), 
 				som.contents.cpu(), 
