@@ -210,32 +210,32 @@ class SOM(object):
 				opacity=0.3))
 
 
-		# Determine color map as a 3 x rows x cols image
-		colors = contents.clone()
-		mag = torch.norm(colors, 2, 1, True)
-		colors /= mag
-		colors = np.minimum(mag, 1.) * 255 * (colors + 1.) / 2.
-		colors = colors.permute(2, 0, 1)
+		# # Determine color map as a 3 x rows x cols image
+		# colors = contents.clone()
+		# mag = torch.norm(colors, 2, 1, True)
+		# colors /= mag
+		# colors = np.minimum(mag, 1.) * 255 * (colors + 1.) / 2.
+		# colors = colors.permute(2, 0, 1)
 
 		
-		colors = torch.zeros(1, contents.shape[0]-1, contents.shape[1]-1)
-		for i in xrange(contents.shape[0]-1):
-			for j in xrange(contents.shape[1]-1):
-				colors[0, i, j] = ((contents[i,j,:] - contents[i,j+1,:]).norm() + 
-					(contents[i,j,:] - contents[i+1,j,:]).norm() + 
-					(contents[i,j,:] - contents[i+1,j+1,:]).norm()) / 3.
+		# colors = torch.zeros(1, contents.shape[0]-1, contents.shape[1]-1)
+		# for i in xrange(contents.shape[0]-1):
+		# 	for j in xrange(contents.shape[1]-1):
+		# 		colors[0, i, j] = ((contents[i,j,:] - contents[i,j+1,:]).norm() + 
+		# 			(contents[i,j,:] - contents[i+1,j,:]).norm() + 
+		# 			(contents[i,j,:] - contents[i+1,j+1,:]).norm()) / 3.
 
-		colors /= colors.max()
-		colors *= 255.
+		# colors /= colors.max()
+		# colors *= 255.
 
-		# Upsample to 512 x 512
-		colors = torch.nn.functional.upsample(torch.autograd.Variable(colors.unsqueeze(0)), scale_factor=100, mode='nearest').squeeze(0).numpy()
+		# # Upsample to 512 x 512
+		# colors = torch.nn.functional.upsample(torch.autograd.Variable(colors.unsqueeze(0)), scale_factor=100, mode='nearest').squeeze(0).numpy()
 
 
-		VIS.image(
-			colors,
-			env=ENV,
-			win='grid')
+		# VIS.image(
+		# 	colors,
+		# 	env=ENV,
+		# 	win='grid')
 
 
 
