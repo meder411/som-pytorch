@@ -113,6 +113,7 @@ class SOM(object):
 		# Update the contents of the grid
 		self.contents += update.view(self.rows, self.cols, -1)
 
+		print update
 		print torch.norm(update, 2, 1).mean()
 		exit()
 
