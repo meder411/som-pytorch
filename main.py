@@ -86,14 +86,13 @@ class SOM(object):
 		 # and units
 		min_idx, diff = self._find_bmu(x)
 
-		print diff
 
 		# Compute the weighted content update
 		update = (weights[:, min_idx].unsqueeze(2) * diff)#.sum(1)
 
-		print torch.norm(update.permute(1,0,2)[0].view(self.rows, self.cols, -1),2,2)
+		# print torch.norm(update.permute(1,0,2)[0].view(self.rows, self.cols, -1),2,2)
 		r,c = self._ind2sub(min_idx)
-		print r[0], c[0]
+		# print r[0], c[0]
 		# print update.view(self.rows, self.cols, -1)
 		exit()
 
@@ -110,6 +109,8 @@ class SOM(object):
 
 		# Compute the Euclidean distances of the data
 		diff = x - self.contents.view(-1, 1, self.dim).expand(-1, N, -1)
+		print diff
+		
 		dist = (diff ** 2).sum(-1).sqrt()
 
 		# Find the index of the best matching unit
