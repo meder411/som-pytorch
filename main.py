@@ -92,7 +92,7 @@ class SOM(object):
 
 		# print torch.norm(update.permute(1,0,2)[0].view(self.rows, self.cols, -1),2,2)
 		r,c = self._ind2sub(min_idx)
-		# print r[0], c[0]
+		print r[0], c[0]
 		# print update.view(self.rows, self.cols, -1)
 		exit()
 
@@ -115,6 +115,7 @@ class SOM(object):
 
 		# Find the index of the best matching unit
 		_, min_idx = dist.min(0)
+
 
 		# Return indices
 		return min_idx, diff
