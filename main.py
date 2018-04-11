@@ -80,15 +80,12 @@ class SOM(object):
 		# Compute update weights given the curren learning rate and sigma
 		weights = lr * torch.exp(-self.grid_dists / (2 * sigma**2))
 
-		print self.grid_dists
-		print weights
-		print weights[55].view(self.rows, self.cols)
-		print self._ind2sub(55)
-
 		# Determine closest units on the grid and the difference between data
 		 # and units
 		min_idx, diff = self._find_bmu(x)
 
+
+		print weights[:, min_idx]
 
 		# Compute the weighted content update
 		update = (weights[:, min_idx].unsqueeze(2) * diff)#.sum(1)
