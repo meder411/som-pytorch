@@ -111,6 +111,7 @@ class SOM(object):
 		diff = x - self.contents.view(-1, 1, self.dim).expand(-1, N, -1)
 		print diff.shape
 		dist = (diff ** 2).sum(-1).sqrt()
+		print dist
 
 		# Find the index of the best matching unit
 		_, min_idx = dist.min(0)
