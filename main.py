@@ -48,8 +48,6 @@ def main():
 	elif SHAPE == 'square':
 		dim = 2
 
-	tmp = SOM()
-
 	lr = LR
 	sigma = SIGMA
 
