@@ -68,8 +68,6 @@ def grid(r, c, dim):
 	grid = torch.zeros(r, c, dim)
 	for i in xrange(r):
 		for j in xrange(c):
-			print grid[i,j,:].shape
-			print torch.FloatTensor([i, j]).shape
 			if dim == 3:
 				grid[i, j, :] = torch.FloatTensor([i, j, 0])
 			else:
