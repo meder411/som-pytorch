@@ -227,9 +227,9 @@ class SOM(object):
 				J.append(self._sub2ind(i+1,j))
 				K.append(self._sub2ind(i+1,j+1))
 
-		print I.shape
-		print J.shape
-		print K.shape
+		# print I.shape
+		# print J.shape
+		# print K.shape
 		Y = np.c_[I, J, K]
 		VIS.mesh(
 			X=X,
@@ -273,7 +273,7 @@ class SOM(object):
 def main():
 
 	# Create SOM
-	dim = 2
+	dim = 3
 	som = SOM(10,10,dim)
 	som.initialize()
 
