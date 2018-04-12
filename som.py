@@ -173,9 +173,11 @@ class BatchSOM(SOM):
 		print update
 
 		# Determine which nodes are actually update-able
-		update_idx = freq_data.nonzero()
+		update_idx = update_denom.nonzero()
 
-		# self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
+		print self.contents
+		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
+		print self.contents
 
 
 		exit()
