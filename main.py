@@ -11,6 +11,7 @@ VIS = visdom.Visdom()
 ENV = 'SOM'
 SHAPE = 'square'
 
+
 # Initial SOM parameters
 ROWS = 10
 COLS = 10
@@ -50,7 +51,8 @@ def main():
 	lr = LR
 	sigma = SIGMA
 
-	som = IterativeSOM(ROWS, COLS, dim, VIS)
+	vis = Viz(VIS, ENV)
+	som = IterativeSOM(ROWS, COLS, dim, vis)
 	som.initialize()
 
 	init_contents = som.contents.clone()

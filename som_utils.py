@@ -45,3 +45,10 @@ def grid(r, c, dim):
 	grid[:,:,:2] = 2 * grid[:,:,:2] - 1
 	
 	return grid
+
+
+
+class Viz(object):
+	def __init__(self, visdom, env):
+		self.visdom = vis
+		self.env = env

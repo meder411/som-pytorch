@@ -121,19 +121,19 @@ class IterativeSOM(SOM):
 		if self.vis is None:
 			return
 
-		self.vis.scatter(
+		self.vis.visdom.scatter(
 			X=np.random.rand(2, 3),
 			Y=np.array([1,2]),
-			env=ENV,
+			env=self.vis.env,
 			win='points',
 			opts=dict(
 				title='SOM',
 				legend=['SOM Contents', 'Data'],
 				markersize=4,
 				markercolor=np.array([[0,0,255], [255,0,0]])))
-		self.vis.image(
+		self.vis.visdom.image(
 			np.ones((1, 256,256)) * 255.,
-			env=ENV,
+			env=self.vis.env,
 			win='grid')
 
 
@@ -156,10 +156,10 @@ class IterativeSOM(SOM):
 			init_contents.view(-1, self.dim).numpy()))
 		labels = np.hstack((np_one, np_two, np_three))
 
-		self.vis.scatter(
+		self.vis.visdom.scatter(
 			X=pts,
 			Y=labels,
-			env=ENV,
+			env=self.vis.env,
 			win='points',
 			opts=dict(
 				title='SOM',
@@ -186,10 +186,10 @@ class IterativeSOM(SOM):
 				K.append(self._sub2ind(i+1,j+1))
 
 		Y = np.c_[I, J, K]
-		self.vis.mesh(
+		self.vis.visdom.mesh(
 			X=X,
 			Y=Y,
-			env=ENV,
+			env=self.vis.env,
 			win='mesh',
 			opts=dict(
 				markersize=4,
@@ -218,9 +218,9 @@ class IterativeSOM(SOM):
 		colors = torch.nn.functional.upsample(torch.autograd.Variable(colors.unsqueeze(0)), scale_factor=100, mode='nearest').squeeze(0).numpy()
 
 
-		self.vis.image(
+		self.vis.visdom.image(
 			colors,
-			env=ENV,
+			env=self.vis.env,
 			win='grid')
 
 
