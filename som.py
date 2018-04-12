@@ -164,6 +164,7 @@ class BatchSOM(SOM):
 
 		print update_num[0]
 		print update_denom[0]
+		print (update_num / update_denom)[0]
 
 
 		exit()
