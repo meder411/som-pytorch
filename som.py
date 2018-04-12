@@ -4,6 +4,7 @@ import numpy as np
 import visdom
 
 from abc import ABCMeta, abstractmethod
+from som_utils import *
 
 
 
