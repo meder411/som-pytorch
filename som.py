@@ -163,7 +163,7 @@ class BatchSOM(SOM):
 		print avg_data
 		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
 			avg_data
-		print torch.norm(update[0].view(self.rows, self.cols), 2, -1)
+		print torch.norm(update[0], 2, -1).view(self.rows, self.cols)
 		exit()
 
 		# Compute the weighted content update
