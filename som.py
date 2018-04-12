@@ -159,29 +159,31 @@ class BatchSOM(SOM):
 
 		# Weight the neighborhood impacts by the frequency data
 		freq_weights = weights * freq_data.view(-1, 1)
+		print 'freq_weights'
+		print freq_weights
 
 		# Compute the update
 		update_num = (freq_weights[min_idx, :].unsqueeze(2) * sum_data).sum(0)
 		update_denom = freq_weights.sum(0)
 
-		print 'update_num'
-		print update_num
-		print 'update_denom'
-		print update_denom
+		# print 'update_num'
+		# print update_num
+		# print 'update_denom'
+		# print update_denom
 
-		update = update_num / update_denom.unsqueeze(1)
+		# update = update_num / update_denom.unsqueeze(1)
 
-		print 'update'
-		print update
+		# print 'update'
+		# print update
 
-		# Determine which nodes are actually update-able
-		update_idx = update_denom.nonzero()
+		# # Determine which nodes are actually update-able
+		# update_idx = update_denom.nonzero()
 
-		print 'contents before'
-		print self.contents
-		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
-		print 'contents after'
-		print self.contents
+		# print 'contents before'
+		# print self.contents
+		# self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
+		# print 'contents after'
+		# print self.contents
 
 
 		exit()
