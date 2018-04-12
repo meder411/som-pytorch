@@ -6,7 +6,6 @@ import visdom
 from abc import ABCMeta, abstractmethod
 from som_utils import *
 
-ENV = 'SOM'
 
 
 
