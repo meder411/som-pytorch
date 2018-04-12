@@ -3,7 +3,7 @@ import numpy as np
 
 import visdom
 
-from som import IterativeSOM, SOM
+from som import IterativeSOM
 from som_utils import *
 
 
@@ -60,7 +60,7 @@ def main():
 	init_contents = som.contents.clone()
 
 	# Initialize visualization
-	som.init_viz()
+	# som.init_viz()
 
 
 	for i in xrange(100000):
