@@ -50,5 +50,5 @@ def grid(r, c, dim):
 
 class Viz(object):
 	def __init__(self, visdom, env):
-		self.visdom = vis
+		self.visdom = visdom
 		self.env = env
