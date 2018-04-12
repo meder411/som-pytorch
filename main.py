@@ -47,10 +47,10 @@ def generateSphereSurface(N):
 	return data
 
 def generateCubeVolume(N):
-	return torch.random(N, 3)
+	return torch.rand(N, 3)
 
 def generateSquareArea(N):
-	return torch.random(N, 2)
+	return torch.rand(N, 2)
 
 def generateCirclePerimeter(N):
 	data = torch.randn(N, 2)
@@ -58,7 +58,7 @@ def generateCirclePerimeter(N):
 	return data
 
 def generateCubeSurface(N, dim):
-	side = (torch.random(N) * 6).floor()
+	side = (torch.rand(N) * 6).floor()
 	perp_axis = s % 3
 
 
