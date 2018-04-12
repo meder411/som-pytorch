@@ -159,6 +159,8 @@ class SOM(object):
 		r, c = ind2sub(idx, self.cols)
 		return r, c		
 
+	def  _sub2ind(self, r, c):
+		return sub2ind(r, c, self.cols)
 
 	def init_viz(self):
 		VIS.scatter(
@@ -204,6 +206,10 @@ class SOM(object):
 				markersize=4,
 				markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
 
+		X = np.c_[contents[...,0].view(-1).numpy(),
+			contents[...,1].view(-1).numpy(),
+			np.zeros(contents[...,1].view(-1).shape) if self.dim==2 else \
+			contents[...,2].view(-1).numpy()]
 
 		views = []
 		for i in xrange(self.dim):
@@ -214,14 +220,14 @@ class SOM(object):
 		I = []
 		J = []
 		K = []
-		for i in xrange(9):
-			for j in xrange(9):
-				I.append(sub2ind(i, j, 10))
-				J.append(sub2ind(i,j+1, 10))
-				K.append(sub2ind(i+1,j+1, 10))
-				I.append(sub2ind(i, j, 10))
-				J.append(sub2ind(i+1,j, 10))
-				K.append(sub2ind(i+1,j+1, 10))
+		for i in xrange(self.rows):
+			for j in xrange(self.cols):
+				I.append(self._sub2ind(i, j))
+				J.append(self._sub2ind(i,j+1))
+				K.append(self._sub2ind(i+1,j+1))
+				I.append(self._sub2ind(i, j))
+				J.append(self._sub2ind(i+1,j))
+				K.append(self._sub2ind(i+1,j+1))
 		Y = np.c_[I, J, K]
 		VIS.mesh(
 			X=X,
