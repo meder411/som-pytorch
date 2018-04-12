@@ -189,6 +189,9 @@ class SOM(object):
 		np_two = 2*np.ones(data.shape[0]).astype(int)
 		np_three = 3*np.ones(init_contents.view(-1,self.dim).shape[0]).astype(int)
 
+		print contents.view(-1, self.dim).shape
+		print data.shape
+		print init_contents.view(-1, self.dim).shape
 		pts = np.row_stack((
 			contents.view(-1, self.dim).numpy(), 
 			data.numpy(), 
