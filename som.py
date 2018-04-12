@@ -210,7 +210,7 @@ class IterativeSOM(SOM):
 		''' x is N x 3
 		'''
 		# Compute update weights given the curren learning rate and sigma
-		weights = self.compute_weights(sigma, weighted)
+		weights = lr * self.compute_weights(sigma, weighted)
 
 		# Determine closest units on the grid and the difference between data
 		 # and units
