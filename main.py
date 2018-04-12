@@ -47,13 +47,13 @@ def generateSphereSurface(N):
 	return data
 
 def generateCubeVolume(N):
-	return torch.rand(N, 3)
+	return 2 * torch.rand(N, 3) - 1
 
 def generateSquareArea(N):
-	return torch.rand(N, 2)
+	return 2 * torch.rand(N, 2) - 1
 
 def generateCirclePerimeter(N):
-	data = torch.randn(N, 2)
+	data = 2 * torch.randn(N, 2) - 1
 	data /= torch.norm(data, 2, 1, True)
 	return data
 
