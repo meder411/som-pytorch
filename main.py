@@ -52,7 +52,7 @@ def main():
 	lr = LR
 	sigma = SIGMA
 	vis = Viz(VIS, ENV)
-	som = IterativeSOM(ROWS, COLS, dim, vis)
+	som = BatchSOM(ROWS, COLS, dim, vis)
 	som.initialize()
 
 	# Store the initial SOM contents for visualization purposes

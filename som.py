@@ -207,8 +207,8 @@ class IterativeSOM(SOM):
 
 
 	def update(self, x, lr, sigma, weighted=False):
-		''' x is N x 3
-		'''
+		''' x is N x 3'''
+		
 		# Compute update weights given the curren learning rate and sigma
 		weights = lr * self.compute_weights(sigma, weighted)
 
