@@ -3,6 +3,7 @@ import numpy as np
 
 import visdom
 
+from som import IterativeSOM
 from som_utils import *
 
 
