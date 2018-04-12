@@ -159,6 +159,7 @@ class BatchSOM(SOM):
 
 		print avg_data
 		print weights
+		exit()
 
 		# Compute the weighted content update
 		# N x R*C * 3
