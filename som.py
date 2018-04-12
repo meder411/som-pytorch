@@ -162,12 +162,11 @@ class BatchSOM(SOM):
 		update_denom = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
 			freq_data
 
-		# Stability for when no data points are found in the neighborhood
-		update_denom[update_denom == 0] = 1
-		
+		print freq_data
 		print (update_num / update_denom)[0]
 		print self.contents
-		# self.contents = update_num / update_denom
+		self.contents = (update_num / update_denom).view(self.rows, self.cols, 
+			self.dim)
 
 
 		exit()
