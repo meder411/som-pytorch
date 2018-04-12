@@ -261,6 +261,9 @@ def main():
 	elif SHAPE == 'square':
 		dim = 2
 
+	lr = LR
+	sigma = SIGMA
+
 	som = SOM(ROWS, COLS, dim)
 	som.initialize()
 
@@ -291,15 +294,15 @@ def main():
 		data = data.cuda()
 
 		# Update the SOM
-		res = som.update(data, LR, SIGMA)
+		res = som.update(data, lr, sigma)
 
 		# Decay the parameters
 		if i % 500 == 0:
-			LR *= 0.99
-			SIGMA *= 0.99
+			lr *= 0.99
+			sigma *= 0.99
 			print 'Res: ', res
-			print 'New LR: ', LR
-			print 'New Sigma: ', SIGMA
+			print 'New LR: ', lr
+			print 'New Sigma: ', sigma
 
 		if i % 500 == 0:
 			som.update_viz(
