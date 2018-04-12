@@ -157,12 +157,12 @@ class BatchSOM(SOM):
 
 		# Compute the updates
 		update_num = (weights[min_idx, :].view(-1, self.rows*self.cols, 1) \
-			* sum_data).sum(0)
+			* sum_data)
 		update_denom = (weights[min_idx, :].view(-1, self.rows*self.cols, 1) \
-			* freq_data.view(-1, 1)).sum(0)
-		update = update_num / update_denom
-
+			* freq_data.view(-1, 1))
 		print update_denom.squeeze(1)
+		update = update_num.sum(0) / update_denom.sum(0)
+
 		print freq_data
 
 		# Determine which nodes are actually update-able
