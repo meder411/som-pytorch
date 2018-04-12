@@ -71,9 +71,9 @@ def grid(r, c, dim):
 			print grid[i,j,:].shape
 			print torch.FloatTensor([i, j]).shape
 			if dim == 3:
-				grid[i, j :] = torch.FloatTensor([i, j, 0])
+				grid[i, j, :] = torch.FloatTensor([i, j, 0])
 			else:
-				grid[i, j :] = torch.FloatTensor([i, j])
+				grid[i, j, :] = torch.FloatTensor([i, j])
 
 	grid[:,:,0] /= r
 	grid[:,:,1] /= c
