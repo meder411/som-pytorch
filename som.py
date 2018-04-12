@@ -163,10 +163,11 @@ class BatchSOM(SOM):
 
 		print update_num[0]
 		print update_denom[0]
-		print (update_num / update_denom)[freq_data>0]
-		print self.contents
-		self.contents[freq_data>0] = (update_num / update_denom)[freq_data>0]
-		print self.contents
+		print (update_num / update_denom)
+		print (update_num / update_denom)[freq_data>0, :]
+		# print self.contents
+		# self.contents[freq_data>0] = (update_num / update_denom)[freq_data>0]
+		# print self.contents
 		# self.contents = (update_num / update_denom).view(self.rows, self.cols, 
 		# 	self.dim)
 
