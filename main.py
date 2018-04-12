@@ -114,7 +114,7 @@ class SOM(object):
 		# N x R*C * 3
 		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
 
-		print update.view(self.cols, self.rows, -1)
+		print update#.view(self.cols, self.rows, -1)
 
 		exit()
 		# Aggregate over all the data samples
