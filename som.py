@@ -158,8 +158,6 @@ class BatchSOM(SOM):
 		avg_data = sum_data / freq_data
 
 
-		print sum_data
-		print freq_data
 		print avg_data
 		print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0].view(self.rows, self.cols)
 		print avg_data[0]
