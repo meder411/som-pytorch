@@ -166,8 +166,8 @@ class BatchSOM(SOM):
 
 		print update_num
 		print update_denom
-		
-		update = update_num / update_denom
+
+		update = update_num / update_denom.unsqueeze(1)
 
 		print 'update'
 		print update
