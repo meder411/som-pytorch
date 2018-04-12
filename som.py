@@ -146,7 +146,7 @@ class BatchSOM(SOM):
 
 		# Determine closest units on the grid and the difference between data
 		 # and units
-		min_idx, diff = self.find_bmu(x)
+		min_idx = self.find_bmu(x)
 
 
 		# Compute the mean data value for each neighborhood
@@ -161,7 +161,7 @@ class BatchSOM(SOM):
 		print sum_data
 		print freq_data
 		print avg_data
-		print weights[min_idx, :].view(-1, self.rows*self.cols) 
+		print weights[min_idx, :].view(-1, self.rows*self.cols, 1) 
 		exit()
 
 		# Compute the weighted content update
@@ -198,7 +198,7 @@ class BatchSOM(SOM):
 		_, min_idx = dist.min(1)
 
 		# Return indices
-		return min_idx, diff
+		return min_idx
 
 
 
