@@ -164,8 +164,7 @@ class BatchSOM(SOM):
 		print (weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0] * avg_data[0]).sum(1).view(self.rows, self.cols)
 		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
 			avg_data
-		print update[0]
-		# print update[0].sum(1).view(self.rows, self.cols)
+		print update[0].sum(1).view(self.rows, self.cols)
 		exit()
 
 		# Compute the weighted content update
