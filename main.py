@@ -17,6 +17,7 @@ COLS = 4
 LR = 0.2
 SIGMA = 0.5
 SHAPE = 'square'
+N = 10
 
 
 def generateSphereSurface(N):
@@ -61,13 +62,13 @@ def main():
 	for i in xrange(100000):
 		# Generate some test data
 		if SHAPE == 'circle':
-			data = generateCirclePerimeter(100)
+			data = generateCirclePerimeter(N)
 		elif SHAPE == 'sphere':
-			data = generateSphereSurface(100)
+			data = generateSphereSurface(N)
 		elif SHAPE == 'cube_vol':
-			data = generateCubeVolume(100)
+			data = generateCubeVolume(N)
 		elif SHAPE == 'square':
-			data = generateSquareArea(100)
+			data = generateSquareArea(N)
 
 		# Put data on GPU
 		data = data.cuda()
