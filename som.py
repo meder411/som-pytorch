@@ -164,9 +164,11 @@ class BatchSOM(SOM):
 		update_idx = freq_data.nonzero()
 
 
+		print update
+		print update_idx
 		print self.contents
-		self.contents[update_idx, :] = update[update_idx, :]
-		print self.contents
+		# self.contents[update_idx, :] = update[update_idx, :]
+		# print self.contents
 		# self.contents = (update_num / update_denom).view(self.rows, self.cols, 
 		# 	self.dim)
 
