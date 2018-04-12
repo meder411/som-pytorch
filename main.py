@@ -189,9 +189,6 @@ class SOM(object):
 		np_two = 2*np.ones(data.shape[0]).astype(int)
 		np_three = 3*np.ones(init_contents.view(-1,self.dim).shape[0]).astype(int)
 
-		print contents.view(-1, self.dim).shape
-		print data.shape
-		print init_contents.view(-1, self.dim).shape
 		pts = np.row_stack((
 			contents.view(-1, self.dim).numpy(), 
 			data.numpy(), 
@@ -227,9 +224,6 @@ class SOM(object):
 				J.append(self._sub2ind(i+1,j))
 				K.append(self._sub2ind(i+1,j+1))
 
-		# print I.shape
-		# print J.shape
-		# print K.shape
 		Y = np.c_[I, J, K]
 		VIS.mesh(
 			X=X,
@@ -294,7 +288,8 @@ def main():
 		# data = torch.randn(50,3)
 		# data /= torch.norm(data, 2, 1, True)
 
-		data = generateSphereSurface(100)
+		data = generateCubeVolume(100)
+		# data = generateSphereSurface(100)
 		# data = generateSquareArea(100)
 
 		# Put data on GPU
