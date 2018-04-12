@@ -14,7 +14,7 @@ SHAPE = 'square'
 ROWS = 5
 COLS = 5
 LR = 0.2
-SIGMA = 0.2
+SIGMA = 0.7
 
 
 # dim is the deature dimension 
