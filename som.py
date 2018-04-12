@@ -149,29 +149,29 @@ class BatchSOM(SOM):
 		min_idx = self.find_bmu(x)
 
 
-		# Compute the mean data value for each neighborhood
+		# Compute aggregate data values for each neighborhood
 		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
 		sum_data.index_add_(0, min_idx, x)
+
+		# Compute the frequency with which each node is the BMU
 		freq_data = torch.zeros(self.rows*self.cols).cuda()
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
 
-		# Compute the updates
-		update_num = (weights[min_idx, :].view(-1, self.rows*self.cols, 1) \
-			* sum_data)
-		update_denom = (weights[min_idx, :].view(-1, self.rows*self.cols, 1) \
-			* freq_data.view(-1, 1))
+		# Weight the neighborhood impacts by the frequency data
+		freq_weights = weights * freq_data.view(-1, 1)
+
+		# Compute the update
+		update_num = freq_weights[min_idx, :].view(-1, self.rows*self.cols, 1)
+			* sum_data
+		update_denom = freq_weights[min_idx, :].view(-1, self.rows*self.cols, 1) * freq_data.view(-1, 1)
 		update = update_num.sum(0) / update_denom.sum(0)
 
 		print 'weights'
-		print weights
-		# print weights.view(-1, self.rows, self.cols)
+		print weights.view(-1, self.rows, self.cols)
 		print 'freq'
-		print freq_data
-
+		print freq_data.view(self.rows, self.cols)
 		print 'freq * weights'
-		freq_weights = (weights * freq_data.view(-1, 1)).view(-1, self.rows, self.cols)
-		print freq_weights[min_idx, :].view(-1, self.rows, self.cols)
-		# print freq_data.view(self.rows, self.cols)
+		print freq_weights.view(-1, self.rows, self.cols)
 		# print 'denom'
 		# print update_denom.squeeze(2).view(-1, self.rows, self.cols)
 
