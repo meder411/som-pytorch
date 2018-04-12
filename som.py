@@ -162,7 +162,7 @@ class BatchSOM(SOM):
 			* freq_data.view(-1, 1))
 		update = update_num.sum(0) / update_denom.sum(0)
 
-		print update_denom.squeeze(2)
+		print update_denom.squeeze(2).tranpose(1,0)
 		print freq_data
 
 		# Determine which nodes are actually update-able
