@@ -154,17 +154,17 @@ class BatchSOM(SOM):
 		sum_data.index_add_(0, min_idx, x)
 		freq_data = torch.ones(self.rows*self.cols, 1).cuda()
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
-		freq_data[freq_data == 0] = 1
-		avg_data = sum_data / freq_data
+		# freq_data[freq_data == 0] = 1
+		# avg_data = sum_data / freq_data
 
 
-		print avg_data
-		print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0].view(self.rows, self.cols)
+		# print avg_data
+		# print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0].view(self.rows, self.cols)
 		print avg_data[0]
 		print (weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0] * avg_data[0]).sum(1).view(self.rows, self.cols)
-		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
-			avg_data
-		print update[0].sum(1).view(self.rows, self.cols)
+		update_num = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
+			sum_data
+		print update_num[0].sum(1).view(self.rows, self.cols)
 		exit()
 
 		# Compute the weighted content update
