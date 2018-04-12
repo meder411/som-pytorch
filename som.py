@@ -152,8 +152,9 @@ class BatchSOM(SOM):
 		# Compute the mean data value for each neighborhood
 		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
 		sum_data.index_add_(0, min_idx, x)
-		freq_data = torch.ones(self.rows*self.cols, 1).cuda()
+		freq_data = torch.zeros(self.rows*self.cols, 1).cuda()
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0], 1).cuda())
+		print freq_data
 
 
 		update_num = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
@@ -161,7 +162,6 @@ class BatchSOM(SOM):
 		update_denom = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
 			freq_data
 
-		print freq_data
 		print update_num.sum(0)
 		print update_denom.sum(0)
 		print (update_num.sum(0) / update_denom.sum(0))
