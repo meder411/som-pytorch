@@ -138,7 +138,7 @@ class BatchSOM(SOM):
 		''' x is N x 3
 		'''
 		# Compute update weights given the curren learning rate and sigma
-		weights = lr * self.compute_weights(sigma, radius)
+		weights = lr * self.compute_weights(sigma, weighted)
 
 		# Determine closest units on the grid and the difference between data
 		 # and units
@@ -210,7 +210,7 @@ class IterativeSOM(SOM):
 		''' x is N x 3
 		'''
 		# Compute update weights given the curren learning rate and sigma
-		weights = self.compute_weights(sigma)
+		weights = self.compute_weights(sigma, weighted)
 
 		# Determine closest units on the grid and the difference between data
 		 # and units
@@ -234,7 +234,7 @@ class IterativeSOM(SOM):
 		if weighted:
 			return torch.exp(-self.grid_dists / (2 * sigma**2))
 		else:
-			return self.grid_dists < sigma
+			return (self.grid_dists < sigma).float()
 
 
 	def find_bmu(self, x):
