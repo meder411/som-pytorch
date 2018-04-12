@@ -150,10 +150,10 @@ class BatchSOM(SOM):
 
 
 		# Compute the mean data value for each neighborhood
-		sum_data = torch.zeros(self.rows*self.cols, self.dim)
-		sum_data.index_add_(0, min_idx.cpu(), x.cpu())
-		freq_data = torch.zeros(self.rows*self.cols, 1)
-		freq_data.index_add_(0, min_idx.cpu(), torch.ones(x.shape[0]))
+		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
+		sum_data.index_add_(0, min_idx, x)
+		freq_data = torch.zeros(self.rows*self.cols, 1).cuda()
+		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]))
 
 		print sum_data
 		print freq_data
