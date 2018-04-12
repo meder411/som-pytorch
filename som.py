@@ -161,8 +161,7 @@ class BatchSOM(SOM):
 		freq_weights = weights * freq_data.view(-1, 1)
 
 		# Compute the update
-		update_num = freq_weights[min_idx, :].view(-1, self.rows*self.cols, 1)
-			* sum_data
+		update_num = freq_weights[min_idx, :].view(-1, self.rows*self.cols, 1) * sum_data
 		update_denom = freq_weights[min_idx, :].view(-1, self.rows*self.cols, 1) * freq_data.view(-1, 1)
 		update = update_num.sum(0) / update_denom.sum(0)
 
@@ -170,6 +169,7 @@ class BatchSOM(SOM):
 		print weights.view(-1, self.rows, self.cols)
 		print 'freq'
 		print freq_data.view(self.rows, self.cols)
+
 		print 'freq * weights'
 		print freq_weights.view(-1, self.rows, self.cols)
 		# print 'denom'
