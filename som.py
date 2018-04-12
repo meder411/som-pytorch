@@ -157,14 +157,15 @@ class BatchSOM(SOM):
 		# freq_data[freq_data == 0] = 1
 		# avg_data = sum_data / freq_data
 
-
-		# print avg_data
-		# print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0].view(self.rows, self.cols)
-		print sum_data[0]
-		print (weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0] * sum_data[0]).sum(1).view(self.rows, self.cols)
 		update_num = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
 			sum_data
-		print update_num[0].sum(1).view(self.rows, self.cols)
+		update_denom = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
+			freq_data
+
+		print update_num
+		print update_denom
+
+
 		exit()
 
 		# Compute the weighted content update
