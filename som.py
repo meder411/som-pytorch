@@ -160,7 +160,7 @@ class BatchSOM(SOM):
 		# Weight the neighborhood impacts by the frequency data
 		freq_weights = weights * freq_data.view(-1, 1)
 		print 'freq_weights'
-		print freq_weights
+		print freq_weights[min_idx, :].view(-1, self.rows, self.cols)
 
 		# Compute the update
 		update_num = (freq_weights[min_idx, :].unsqueeze(2) * sum_data).sum(0)
