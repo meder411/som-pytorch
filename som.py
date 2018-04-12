@@ -170,8 +170,8 @@ class BatchSOM(SOM):
 		# print weights[min_idx, :].view(-1, self.rows, self.cols)
 		# print 'freq'
 		# print freq_data.view(self.rows, self.cols)
-		# print 'freq * weights'
-		# print freq_weights[min_idx,:].view(-1, self.rows, self.cols)
+		print 'freq * weights'
+		print freq_weights[min_idx,:].view(-1, self.rows, self.cols)
 		print 'num'
 		print update_num
 		print 'denom'
