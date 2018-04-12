@@ -215,8 +215,8 @@ class SOM(object):
 		I = []
 		J = []
 		K = []
-		for i in xrange(self.rows):
-			for j in xrange(self.cols):
+		for i in xrange(self.rows-1):
+			for j in xrange(self.cols-1):
 				I.append(self._sub2ind(i, j))
 				J.append(self._sub2ind(i,j+1))
 				K.append(self._sub2ind(i+1,j+1))
