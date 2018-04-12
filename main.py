@@ -114,7 +114,7 @@ class SOM(object):
 		# N x R*C * 3
 		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
 
-		print torch.norm(update,2,-1).view(100, self.cols, self.rows, -1)
+		print torch.norm(update,2,-1).view(100, self.cols, self.rows)
 
 		exit()
 		# Aggregate over all the data samples
