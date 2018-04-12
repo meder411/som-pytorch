@@ -58,9 +58,6 @@ def generateCirclePerimeter(N):
 	data /= torch.norm(data, 2, 1, True)
 	return data
 
-def generateCubeSurface(N, dim):
-	side = (torch.rand(N) * 6).floor()
-	perp_axis = s % 3
 
 
 
@@ -107,31 +104,12 @@ class SOM(object):
 		 # and units
 		min_idx, diff = self._find_bmu(x)
 
-
-
-		# print 1e5*weights[min_idx, :].view(-1, self.rows, self.cols)[30]
-		# print weights[min_idx, :].view(-1, self.rows, self.cols).shape
-		# print self._ind2sub(min_idx[2])
-		# print weights[min_idx, :][0].view(self.rows, self.cols)
-		# print weights[:, min_idx]
-		# print diff
-
-
 		# Compute the weighted content update
 		# N x R*C * 3
 		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
 
 		# Aggregate over all the data samples
 		update = update.sum(0)
-
-
-		# print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[2].view(self.rows,self.cols)
-		# print torch.norm(diff[2],2,-1).view(self.rows,self.cols)
-		# print torch.norm(update[2].view(self.rows, self.cols, -1),2,-1)
-
-		# print torch.norm(update.permute(1,0,2)[0].view(self.rows, self.cols, -1),2,2)
-		# print update.view(self.rows, self.cols, -1)
-		# exit()
 
 		# Update the contents of the grid
 		self.contents += update.view(self.rows, self.cols, -1)
