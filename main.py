@@ -2,7 +2,7 @@ import torch
 
 import visdom
 
-from som import IterativeSOM
+from som import *
 from som_utils import *
 
 
