@@ -1,5 +1,4 @@
 import torch
-import numpy as np
 
 import visdom
 
@@ -7,9 +6,9 @@ from som import IterativeSOM
 from som_utils import *
 
 
+# Visualization parameters
 VIS = visdom.Visdom()
 ENV = 'SOM'
-SHAPE = 'square'
 
 
 # Initial SOM parameters
@@ -17,6 +16,7 @@ ROWS = 10
 COLS = 10
 LR = 0.2
 SIGMA = 0.5
+SHAPE = 'square'
 
 
 def generateSphereSurface(N):
@@ -38,7 +38,7 @@ def generateCirclePerimeter(N):
 
 def main():
 
-	# Create SOM
+	# Parse test data distribution
 	if SHAPE == 'circle':
 		dim = 2
 	elif SHAPE == 'sphere':
@@ -48,18 +48,15 @@ def main():
 	elif SHAPE == 'square':
 		dim = 2
 
+	# Create SOM
 	lr = LR
 	sigma = SIGMA
-
 	vis = Viz(VIS, ENV)
 	som = IterativeSOM(ROWS, COLS, dim, vis)
 	som.initialize()
 
+	# Store the initial SOM contents for visualization purposes
 	init_contents = som.contents.clone()
-
-	# Initialize visualization
-	# som.init_viz()
-
 
 	for i in xrange(100000):
 		# Generate some test data
@@ -86,6 +83,7 @@ def main():
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
 
+		# Visualize the SOM
 		if i % 500 == 0:
 			som.update_viz(
 				init_contents.cpu(), 
