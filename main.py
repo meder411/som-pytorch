@@ -211,7 +211,6 @@ class SOM(object):
 			np.zeros(contents[...,1].view(-1).shape) if self.dim==2 else \
 			contents[...,2].view(-1).numpy()]
 
-		print X.shape
 
 		I = []
 		J = []
@@ -288,7 +287,8 @@ def main():
 		# data = torch.randn(50,3)
 		# data /= torch.norm(data, 2, 1, True)
 
-		data = generateSquareArea(100)
+		data = generateSphereSurface(100)
+		# data = generateSquareArea(100)
 
 		# Put data on GPU
 		data = data.cuda()
