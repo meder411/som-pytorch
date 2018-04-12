@@ -44,19 +44,18 @@ def sub2ind(r, c, cols):
 def generateSphereSurface(N):
 	data = torch.randn(N, 3)
 	data /= torch.norm(data, 2, 1, True)
-	return data, 3
+	return data
 
 def generateCubeVolume(N):
-	return torch.random(N, 3), 3
-
+	return torch.random(N, 3)
 
 def generateSquareArea(N):
-	return torch.random(N, 2), 2
+	return torch.random(N, 2)
 
 def generateCirclePerimeter(N):
 	data = torch.randn(N, 2)
 	data /= torch.norm(data, 2, 1, True)
-	return data, 2
+	return data
 
 def generateCubeSurface(N, dim):
 	side = (torch.random(N) * 6).floor()
@@ -265,7 +264,8 @@ class SOM(object):
 def main():
 
 	# Create SOM
-	som = SOM(10,10,3)
+	dim = 2
+	som = SOM(10,10,dim)
 	som.initialize()
 
 	init_contents = som.contents.clone()
@@ -282,8 +282,10 @@ def main():
 		# data = (2 * torch.rand(100, 3) - 1)
 
 		# Generate some test data by sampling from a spherical surface
-		data = torch.randn(50,3)
-		data /= torch.norm(data, 2, 1, True)
+		# data = torch.randn(50,3)
+		# data /= torch.norm(data, 2, 1, True)
+
+		data = generateSquareArea(100)
 
 		# Put data on GPU
 		data = data.cuda()
