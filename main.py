@@ -116,6 +116,7 @@ class SOM(object):
 
 		print update
 
+		exit()
 		# Aggregate over all the data samples
 		update = update.sum(0)
 
