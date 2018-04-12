@@ -74,7 +74,7 @@ def main():
 
 		# Update the SOM
 		# res = som.update(data, lr, sigma, True)
-		res = som.update(data, sigma, True)
+		res = som.update(data, sigma, False)
 
 		# Decay the parameters
 		if i % 500 == 0:
