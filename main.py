@@ -14,7 +14,7 @@ SHAPE = 'square'
 ROWS = 10
 COLS = 10
 LR = 0.2
-SIGMA = 0.4
+SIGMA = 0.5
 
 
 # dim is the deature dimension 
@@ -290,14 +290,8 @@ def main():
 	som.init_viz()
 
 
-	for i in xrange(1000000):
-		# Generate some test data by sampling from a cube
-		# data = (2 * torch.rand(100, 3) - 1)
-
-		# Generate some test data by sampling from a spherical surface
-		# data = torch.randn(50,3)
-		# data /= torch.norm(data, 2, 1, True)
-
+	for i in xrange(100000):
+		# Generate some test data
 		if SHAPE == 'circle':
 			data = generateCirclePerimeter(100)
 		elif SHAPE == 'sphere':
@@ -315,8 +309,8 @@ def main():
 
 		# Decay the parameters
 		if i % 500 == 0:
-			lr *= 0.99
-			sigma *= 0.99
+			lr *= 0.9
+			sigma *= 0.9
 			print 'Res: ', res
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
