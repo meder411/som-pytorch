@@ -112,6 +112,11 @@ class SOM(object):
 
 
 
+# =========================================================================== #
+# =========================================================================== #
+
+
+
 class BatchSOM(SOM):
 
 	def __init__(self, rows=4, cols=4, dim=3, vis=None):
@@ -134,15 +139,17 @@ class BatchSOM(SOM):
 			0).cuda()
 
 
-	def update(self, x, lr, sigma, weighted=False):
-		''' x is N x 3
-		'''
+	def update(self, x, sigma, weighted=False):
+		''' x is N x 3'''
 		# Compute update weights given the curren learning rate and sigma
-		weights = lr * self.compute_weights(sigma, weighted)
+		weights = self.compute_weights(sigma, weighted)
 
 		# Determine closest units on the grid and the difference between data
 		 # and units
 		min_idx, diff = self.find_bmu(x)
+		print min_idx
+
+		exit()
 
 		# Compute the weighted content update
 		# N x R*C * 3
@@ -162,7 +169,7 @@ class BatchSOM(SOM):
 		if weighted:
 			return torch.exp(-self.grid_dists / (2 * sigma**2))
 		else:
-			return self.grid_dists < sigma
+			return (self.grid_dists < sigma).float()
 
 
 	def find_bmu(self, x):
@@ -182,6 +189,8 @@ class BatchSOM(SOM):
 
 
 
+# =========================================================================== #
+# =========================================================================== #
 
 
 class IterativeSOM(SOM):
@@ -208,7 +217,7 @@ class IterativeSOM(SOM):
 
 	def update(self, x, lr, sigma, weighted=False):
 		''' x is N x 3'''
-		
+
 		# Compute update weights given the curren learning rate and sigma
 		weights = lr * self.compute_weights(sigma, weighted)
 
