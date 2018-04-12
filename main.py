@@ -64,7 +64,18 @@ def generateCirclePerimeter(N):
 	data /= torch.norm(data, 2, 1, True)
 	return data
 
+def grid(r, c, dim):
+	grid = torch.zeros(r, c, dim)
+	for i in xrange(c):
+		for j in xrange(r):
+			grid[j, i :] = torch.FloatTensor([j, i, 0]) if dim == 3 else \
+				torch.FloatTensor([j, i])
 
+	grid[:,:,0] /= c
+	grid[:,:,1] /= r
+	grid[:,:,:2] = 2 * grid[:,:,:2] = 1
+	
+	return grid
 
 
 
@@ -83,9 +94,11 @@ class SOM(object):
 
 	def initialize(self):
 		# Randomly initialize unit contents
-		self.contents = torch.normal(
-			mean=0.0, 
-			std=torch.ones(self.rows, self.cols, self.dim) * 0.4).cuda()
+		# self.contents = torch.normal(
+		# 	mean=0.0, 
+		# 	std=torch.ones(self.rows, self.cols, self.dim) * 0.4).cuda()
+
+		self.contents = grid(self.rows, self.cols, self.dim).cuda()
 
 		# Create grid index matrix
 		np_x, np_y = np.meshgrid(range(self.rows), range(self.cols))
