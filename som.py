@@ -164,7 +164,7 @@ class BatchSOM(SOM):
 			* freq_data.view(-1, 1)).sum(0)
 
 		update = update_num / update_denom
-		# print update[freq_data == 0]
+		print update[freq_data.nonzero(),:]
 
 
 		# print (update_num / update_denom)[freq_data>0, :]
