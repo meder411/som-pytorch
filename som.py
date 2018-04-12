@@ -156,10 +156,9 @@ class BatchSOM(SOM):
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
 		avg_data = sum_data / freq_data
 
-		print sum_data
-		print freq_data
+
 		print avg_data
-		exit()
+		print weights
 
 		# Compute the weighted content update
 		# N x R*C * 3
