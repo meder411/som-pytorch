@@ -11,8 +11,8 @@ ENV = 'SOM'
 SHAPE = 'square'
 
 # Initial SOM parameters
-ROWS = 6
-COLS = 6
+ROWS = 25
+COLS = 25
 LR = 0.2
 SIGMA = 0.4
 
@@ -114,9 +114,8 @@ class SOM(object):
 		# N x R*C * 3
 		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
 
-		print torch.norm(update,2,-1).view(100, self.cols, self.rows)
+		# print torch.norm(update,2,-1).view(100, self.cols, self.rows)
 
-		exit()
 		# Aggregate over all the data samples
 		update = update.sum(0)
 
