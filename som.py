@@ -147,8 +147,18 @@ class BatchSOM(SOM):
 		# Determine closest units on the grid and the difference between data
 		 # and units
 		min_idx, diff = self.find_bmu(x)
-		print min_idx
 
+
+		# Compute the mean data value for each neighborhood
+		sum_data = torch.zeros(self.rows*self.cols, self.dim)
+		sum_data.index_add_(0, min_idx, x)
+		freq_data = torch.zeros(self.rows*self.cols, self.dim)
+		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]))
+
+		print sum_data
+		print freq_data
+		print avg_data
+		avg_data = sum_data / freq_data
 		exit()
 
 		# Compute the weighted content update
