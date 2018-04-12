@@ -155,22 +155,20 @@ class BatchSOM(SOM):
 		freq_data = torch.zeros(self.rows*self.cols).cuda()
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
 
+		# Compute the updates
 		update_num = (weights[min_idx, :].view(-1, self.rows*self.cols, 1) \
 			* sum_data).sum(0)
 		update_denom = (weights[min_idx, :].view(-1, self.rows*self.cols, 1) \
 			* freq_data.view(-1, 1)).sum(0)
-
 		update = update_num / update_denom
+
+		print update_denom
+		print freq_data
+
+		# Determine which nodes are actually update-able
 		update_idx = freq_data.nonzero()
 
-
-		print update
-		print update_idx
-		print self.contents
 		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
-		print self.contents
-		# self.contents = (update_num / update_denom).view(self.rows, self.cols, 
-		# 	self.dim)
 
 
 		exit()
