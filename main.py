@@ -211,10 +211,6 @@ class SOM(object):
 			np.zeros(contents[...,1].view(-1).shape) if self.dim==2 else \
 			contents[...,2].view(-1).numpy()]
 
-		views = []
-		for i in xrange(self.dim):
-			views.append(contents[...,i].view(-1).numpy())
-		X = np.c_[views].transpose(1,0)
 		print X.shape
 
 		I = []
