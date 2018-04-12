@@ -154,7 +154,7 @@ class BatchSOM(SOM):
 		sum_data.index_add_(0, min_idx, x)
 		freq_data = torch.zeros(self.rows*self.cols, 1).cuda()
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0], 1).cuda())
-		print freq_data.nonzero()
+		print freq_data != 0
 
 
 		update_num = (weights[min_idx, :].view(-1, self.rows*self.cols, 1) \
@@ -163,7 +163,7 @@ class BatchSOM(SOM):
 			* freq_data).sum(0)
 
 		update = update_num / update_denom
-		print update[freq_data.nonzero()]
+		print update[freq_data != 0]
 
 
 		# print (update_num / update_denom)[freq_data>0, :]
