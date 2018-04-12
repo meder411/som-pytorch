@@ -178,12 +178,12 @@ class IterativeSOM(SOM):
 		K = []
 		for i in xrange(self.rows-1):
 			for j in xrange(self.cols-1):
-				I.append(SOM._sub2ind(i, j))
-				J.append(SOM._sub2ind(i,j+1))
-				K.append(SOM._sub2ind(i+1,j+1))
-				I.append(SOM._sub2ind(i, j))
-				J.append(SOM._sub2ind(i+1,j))
-				K.append(SOM._sub2ind(i+1,j+1))
+				I.append(self._sub2ind(i, j))
+				J.append(self._sub2ind(i,j+1))
+				K.append(self._sub2ind(i+1,j+1))
+				I.append(self._sub2ind(i, j))
+				J.append(self._sub2ind(i+1,j))
+				K.append(self._sub2ind(i+1,j+1))
 
 		Y = np.c_[I, J, K]
 		self.vis.mesh(
