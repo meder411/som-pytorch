@@ -206,7 +206,7 @@ class IterativeSOM(SOM):
 			0).cuda()
 
 
-	def update(self, x, lr, sigma):
+	def update(self, x, lr, sigma, weighted=False):
 		''' x is N x 3
 		'''
 		# Compute update weights given the curren learning rate and sigma
@@ -230,11 +230,12 @@ class IterativeSOM(SOM):
 		return torch.norm(update, 2, -1).mean()
 
 
-	def compute_weights(self, sigma):
-		if sigma is None:
-			return -1
+	def compute_weights(self, sigma, weighted=False):
+		if weighted:
+			return torch.exp(-self.grid_dists / (2 * sigma**2))
 		else:
-			return lr * torch.exp(-self.grid_dists / (2 * sigma**2))
+			return self.grid_dists < sigma
+
 
 	def find_bmu(self, x):
 		''' x is N x 3
