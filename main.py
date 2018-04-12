@@ -73,7 +73,7 @@ def main():
 		data = data.cuda()
 
 		# Update the SOM
-		res = som.update(data, lr, sigma)
+		res = som.update(data, lr, sigma, True)
 
 		# Decay the parameters
 		if i % 500 == 0:
