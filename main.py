@@ -70,8 +70,10 @@ def grid(r, c, dim):
 		for j in xrange(c):
 			print grid[i,j,:].shape
 			print torch.FloatTensor([i, j]).shape
-			grid[i, j :] = torch.FloatTensor([i, j, 0]) if dim == 3 else \
-				torch.FloatTensor([i, j])
+			if dim == 3:
+				grid[i, j :] = torch.FloatTensor([i, j, 0])
+			else:
+				grid[i, j :] = torch.FloatTensor([i, j])
 
 	grid[:,:,0] /= r
 	grid[:,:,1] /= c
