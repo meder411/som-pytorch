@@ -10,6 +10,12 @@ VIS = visdom.Visdom()
 ENV = 'SOM'
 SHAPE = 'square'
 
+# Initial SOM parameters
+ROWS = 10
+COLS = 10
+LR = 0.2
+SIGMA = 0.2
+
 
 # dim is the deature dimension 
 # e.g dim = 0
@@ -255,7 +261,7 @@ def main():
 	elif SHAPE == 'square':
 		dim = 2
 
-	som = SOM(10,10,dim)
+	som = SOM(ROWS, COLS, dim)
 	som.initialize()
 
 	init_contents = som.contents.clone()
@@ -263,9 +269,6 @@ def main():
 	# Initialize visualization
 	som.init_viz()
 
-	# Initial SOM parameters
-	lr = 0.2
-	sigma = 0.5
 
 	for i in xrange(1000000):
 		# Generate some test data by sampling from a cube
@@ -288,15 +291,15 @@ def main():
 		data = data.cuda()
 
 		# Update the SOM
-		res = som.update(data, lr, sigma)
+		res = som.update(data, LR, SIGMA)
 
 		# Decay the parameters
 		if i % 500 == 0:
-			lr *= 0.99
-			sigma *= 0.99
+			LR *= 0.99
+			SIGMA *= 0.99
 			print 'Res: ', res
-			print 'New LR: ', lr
-			print 'New Sigma: ', sigma
+			print 'New LR: ', LR
+			print 'New Sigma: ', SIGMA
 
 		if i % 500 == 0:
 			som.update_viz(
