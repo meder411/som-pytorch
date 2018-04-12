@@ -47,7 +47,7 @@ class SOM(object):
 class IterativeSOM(SOM):
 
 	def __init__(self, rows=4, cols=4, dim=3, vis=None):
-		SOM.__init__(self, rows, cols, dims, vis)
+		SOM.__init__(self, rows, cols, dim, vis)
 
 
 	def initialize(self):
