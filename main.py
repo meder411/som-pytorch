@@ -8,6 +8,7 @@ import time
 
 VIS = visdom.Visdom()
 ENV = 'SOM'
+SHAPE = 'square'
 
 
 # dim is the deature dimension 
@@ -267,7 +268,15 @@ class SOM(object):
 def main():
 
 	# Create SOM
-	dim = 3
+	if SHAPE == 'circle':
+		dim = 2
+	elif SHAPE == 'sphere':
+		dim = 2
+	elif SHAPE == 'cube_vol':
+		dim = 3
+	elif SHAPE == 'square':
+		dim = 2
+
 	som = SOM(10,10,dim)
 	som.initialize()
 
@@ -288,9 +297,14 @@ def main():
 		# data = torch.randn(50,3)
 		# data /= torch.norm(data, 2, 1, True)
 
-		data = generateCubeVolume(100)
-		# data = generateSphereSurface(100)
-		# data = generateSquareArea(100)
+		if SHAPE == 'circle':
+			data = generateCirclePerimeter(100)
+		elif SHAPE == 'sphere':
+			data = generateSphereSurface(100)
+		elif SHAPE == 'cube_vol':
+			data = generateCubeVolume(100)
+		elif SHAPE == 'square':
+			data = generateSquareArea(100)
 
 		# Put data on GPU
 		data = data.cuda()
