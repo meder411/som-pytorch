@@ -11,8 +11,8 @@ ENV = 'SOM'
 SHAPE = 'square'
 
 # Initial SOM parameters
-ROWS = 5
-COLS = 5
+ROWS = 8
+COLS = 8
 LR = 0.2
 SIGMA = 0.4
 
