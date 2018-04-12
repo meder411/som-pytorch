@@ -208,7 +208,7 @@ class SOM(object):
 		views = []
 		for i in xrange(self.dim):
 			views.append(contents[...,i].view(-1).numpy())
-		X = np.c_[views[:]]
+		X = np.c_[views].transpose(1,0)
 		print X.shape
 
 		I = []
