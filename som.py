@@ -153,7 +153,7 @@ class BatchSOM(SOM):
 		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
 		sum_data.index_add_(0, min_idx, x)
 		freq_data = torch.ones(self.rows*self.cols, 1).cuda()
-		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
+		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0], 1).cuda())
 
 
 		update_num = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
