@@ -223,6 +223,10 @@ class SOM(object):
 				I.append(self._sub2ind(i, j))
 				J.append(self._sub2ind(i+1,j))
 				K.append(self._sub2ind(i+1,j+1))
+
+		print I.shape
+		print J.shape
+		print K.shape
 		Y = np.c_[I, J, K]
 		VIS.mesh(
 			X=X,
