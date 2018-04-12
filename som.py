@@ -162,8 +162,9 @@ class BatchSOM(SOM):
 
 		# Compute the update
 		update_num = freq_weights[min_idx, :].view(-1, self.rows*self.cols, 1) * sum_data
+		
 		update_denom = freq_weights.sum(0)
-		update = update_num.sum(0) / update_denom
+		# update = update_num.sum(0) / update_denom
 
 		print 'weights'
 		print weights[min_idx, :].view(-1, self.rows, self.cols)
@@ -177,7 +178,7 @@ class BatchSOM(SOM):
 		# Determine which nodes are actually update-able
 		update_idx = freq_data.nonzero()
 
-		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
+		# self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
 
 
 		exit()
