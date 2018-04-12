@@ -73,7 +73,7 @@ def grid(r, c, dim):
 
 	grid[:,:,0] /= c
 	grid[:,:,1] /= r
-	grid[:,:,:2] = 2 * grid[:,:,:2] = 1
+	grid[:,:,:2] = 2 * grid[:,:,:2] - 1
 	
 	return grid
 
