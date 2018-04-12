@@ -160,8 +160,8 @@ class BatchSOM(SOM):
 
 		# print avg_data
 		# print weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0].view(self.rows, self.cols)
-		print avg_data[0]
-		print (weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0] * avg_data[0]).sum(1).view(self.rows, self.cols)
+		print sum_data[0]
+		print (weights[min_idx, :].view(-1, self.rows*self.cols, 1)[0] * sum_data[0]).sum(1).view(self.rows, self.cols)
 		update_num = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * \
 			sum_data
 		print update_num[0].sum(1).view(self.rows, self.cols)
