@@ -209,6 +209,7 @@ class SOM(object):
 		for i in xrange(self.dim):
 			views.append(contents[...,i].view(-1).numpy())
 		X = np.c_[views]
+		print X
 
 		I = []
 		J = []
