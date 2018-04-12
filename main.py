@@ -66,13 +66,14 @@ def generateCirclePerimeter(N):
 
 def grid(r, c, dim):
 	grid = torch.zeros(r, c, dim)
-	for i in xrange(c):
-		for j in xrange(r):
-			grid[j, i :] = torch.FloatTensor([j, i, 0]) if dim == 3 else \
-				torch.FloatTensor([j, i])
+	for i in xrange(r):
+		for j in xrange(c):
+			print grid[i,j,:].shape
+			grid[i, j :] = torch.FloatTensor([i, j, 0]) if dim == 3 else \
+				torch.FloatTensor([i, j])
 
-	grid[:,:,0] /= c
-	grid[:,:,1] /= r
+	grid[:,:,0] /= r
+	grid[:,:,1] /= c
 	grid[:,:,:2] = 2 * grid[:,:,:2] - 1
 	
 	return grid
