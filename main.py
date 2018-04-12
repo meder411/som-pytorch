@@ -12,8 +12,8 @@ ENV = 'SOM'
 
 
 # Initial SOM parameters
-ROWS = 4
-COLS = 4
+ROWS = 6
+COLS = 6
 LR = 0.2
 SIGMA = 0.5
 SHAPE = 'square'
@@ -75,7 +75,7 @@ def main():
 
 		# Update the SOM
 		# res = som.update(data, lr, sigma, True)
-		res = som.update(data, 4, False)
+		res = som.update(data, 5, False)
 
 		# Decay the parameters
 		if i % 500 == 0:
