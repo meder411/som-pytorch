@@ -205,10 +205,10 @@ class SOM(object):
 				markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
 
 
-		X = np.c_[contents[...,0].view(-1).numpy(),
-			contents[...,1].view(-1).numpy(),
-			# np.zeros(contents[...,1].view(-1).shape)]
-			contents[...,2].view(-1).numpy()]
+		views = []
+		for i in xrange(self.dim):
+			views.append(contents[...,i].view(-1).numpy())
+		X = np.c_[views]
 
 		I = []
 		J = []
