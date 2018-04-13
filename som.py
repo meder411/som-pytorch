@@ -157,6 +157,8 @@ class BatchSOM(SOM):
 		sum_data.index_add_(0, min_idx, x)
 		avg_data = sum_data / freq_data.view(-1,1)
 
+		print avg_data
+
 		# Weight the neighborhood impacts by the frequency data
 		freq_weights = weights * freq_data.view(-1, 1)
 		print 'freq_weights'
