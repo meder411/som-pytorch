@@ -178,14 +178,14 @@ class BatchSOM(SOM):
 		print 'update'
 		print update
 
-		# # Determine which nodes are actually update-able
-		# update_idx = update_denom.nonzero()
+		# Determine which nodes are actually update-able
+		update_idx = update_denom.nonzero()
 
-		# print 'contents before'
-		# print self.contents
-		# self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
-		# print 'contents after'
-		# print self.contents
+		print 'contents before'
+		print self.contents
+		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
+		print 'contents after'
+		print self.contents
 
 
 		exit()
