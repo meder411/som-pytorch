@@ -148,14 +148,14 @@ class BatchSOM(SOM):
 		 # and units
 		min_idx = self.find_bmu(x)
 
+		# Compute the frequency with which each node is the BMU
+		freq_data = torch.zeros(self.rows*self.cols).cuda()
+		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
 
 		# Compute aggregate data values for each neighborhood
 		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
 		sum_data.index_add_(0, min_idx, x)
-
-		# Compute the frequency with which each node is the BMU
-		freq_data = torch.zeros(self.rows*self.cols).cuda()
-		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
+		avg_data = sum_data / freq_data.view(-1,1)
 
 		# Weight the neighborhood impacts by the frequency data
 		freq_weights = weights * freq_data.view(-1, 1)
@@ -164,7 +164,7 @@ class BatchSOM(SOM):
 		print freq_weights[min_idx, min_idx]
 
 		# Compute the update
-		update_num = (freq_weights[min_idx, :].unsqueeze(2) * sum_data).sum(0)
+		update_num = (freq_weights[min_idx, :].unsqueeze(2) * avg_data).sum(0)
 		update_denom = freq_weights.sum(0)
 
 		# print 'update_num'
