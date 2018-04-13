@@ -173,10 +173,10 @@ class BatchSOM(SOM):
 		print 'update_denom'
 		print update_denom
 
-		# update = update_num / update_denom.unsqueeze(1)
+		update = update_num / update_denom.unsqueeze(1)
 
-		# print 'update'
-		# print update
+		print 'update'
+		print update
 
 		# # Determine which nodes are actually update-able
 		# update_idx = update_denom.nonzero()
