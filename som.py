@@ -180,6 +180,7 @@ class BatchSOM(SOM):
 
 		# Determine which nodes are actually update-able
 		update_idx = update_denom.nonzero()
+		print update_idx
 
 		print 'contents before'
 		print self.contents
