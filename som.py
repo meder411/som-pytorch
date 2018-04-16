@@ -166,7 +166,7 @@ class BatchSOM(SOM):
 		print 'unused_idx'
 		print unused_idx
 
-		avg_data[unused_idx] = self.contents[unused_idx]
+		avg_data[unused_idx] = self.contents.view(-1, self.dims)[unused_idx]
 
 		# Weight the neighborhood impacts by the frequency data
 		freq_weights = weights * freq_data.view(-1, 1)
