@@ -156,10 +156,10 @@ class BatchSOM(SOM):
 		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
 		sum_data.index_add_(0, min_idx, x)
 		avg_data = sum_data / freq_data.view(-1,1)
-		avg_data[avg_data != avg_data] = 0.
 
-		print avg_data
-
+		# Use the existing node contents for any nodes with no nearby data
+		unused_idx = (freq_data == 0)
+		avg_data[unused_idx] = self.contents[unused_idx]
 
 		# Weight the neighborhood impacts by the frequency data
 		freq_weights = weights * freq_data.view(-1, 1)
@@ -184,27 +184,22 @@ class BatchSOM(SOM):
 		update_idx = update_denom.nonzero()
 		print update_idx
 
-		print 'contents before'
-		print self.contents
+		# Store the old node contents
+		old_contents = self.contents
+
+		# Update the nodes
 		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
+		
+		print 'contents before'
+		print old_contents
 		print 'contents after'
 		print self.contents
 
 
 		exit()
 
-		# Compute the weighted content update
-		# N x R*C * 3
-		update = weights[min_idx, :].view(-1, self.rows*self.cols, 1) * diff
-
-		# Aggregate over all the data samples
-		update = update.sum(0)
-
-		# Update the contents of the grid
-		self.contents += update.view(self.rows, self.cols, -1)
-
 		# Return the average magnitude of the update
-		return torch.norm(update, 2, -1).mean()
+		return torch.norm(self.contents-old_contents, 2, -1).mean()
 
 
 	def compute_weights(self, sigma, weighted=False):
