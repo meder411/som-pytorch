@@ -160,8 +160,8 @@ class BatchSOM(SOM):
 		# Use the existing node contents for any nodes with no nearby data
 		unused_idx = (freq_data == 0).nonzero()
 		
-		# print 'avg data'
-		# print avg_data
+		print 'avg data'
+		print avg_data
 
 		# print 'unused_idx'
 		# print unused_idx
@@ -207,7 +207,7 @@ class BatchSOM(SOM):
 		print self.contents
 
 
-		# exit()
+		exit()
 
 		# Return the average magnitude of the update
 		return torch.norm(self.contents-old_contents, 2, -1).mean()
