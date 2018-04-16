@@ -160,11 +160,11 @@ class BatchSOM(SOM):
 		# Use the existing node contents for any nodes with no nearby data
 		unused_idx = (freq_data == 0).nonzero()
 		
-		print 'avg data'
-		print avg_data
+		# print 'avg data'
+		# print avg_data
 
-		print 'unused_idx'
-		print unused_idx
+		# print 'unused_idx'
+		# print unused_idx
 
 		avg_data[unused_idx, :] = self.contents.view(-1, self.dim)[unused_idx, :]
 
@@ -196,7 +196,7 @@ class BatchSOM(SOM):
 		print update_idx
 
 		# Store the old node contents
-		old_contents = self.contents
+		old_contents = self.contents.clone()
 
 		# Update the nodes
 		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
