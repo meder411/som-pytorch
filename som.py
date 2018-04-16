@@ -159,6 +159,10 @@ class BatchSOM(SOM):
 
 		# Use the existing node contents for any nodes with no nearby data
 		unused_idx = (freq_data == 0)
+		
+		print 'avg data'
+		print avg_data
+
 		avg_data[unused_idx] = self.contents[unused_idx]
 
 		# Weight the neighborhood impacts by the frequency data
