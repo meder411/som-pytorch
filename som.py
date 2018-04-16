@@ -178,11 +178,12 @@ class BatchSOM(SOM):
 		# print freq_weights[min_idx, :]
 
 		# Compute the update
-		update_num = (freq_weights[min_idx, :].unsqueeze(2) * avg_data).sum(0)
+		update_num = (freq_weights[min_idx, :].unsqueeze(2) * avg_data)
 		update_denom = freq_weights.sum(0)
 
 		print 'update_num'
 		print update_num
+		exit()
 		print 'update_denom'
 		print update_denom
 
@@ -207,7 +208,6 @@ class BatchSOM(SOM):
 		print self.contents
 
 
-		exit()
 
 		# Return the average magnitude of the update
 		return torch.norm(self.contents-old_contents, 2, -1).mean()
