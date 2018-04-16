@@ -59,7 +59,7 @@ def main():
 	# Store the initial SOM contents for visualization purposes
 	init_contents = som.contents.clone()
 
-	for i in xrange(100000):
+	for i in xrange(10):
 		# Generate some test data
 		if SHAPE == 'circle':
 			data = generateCirclePerimeter(N)
