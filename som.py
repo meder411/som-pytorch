@@ -158,7 +158,7 @@ class BatchSOM(SOM):
 		avg_data = sum_data / freq_data.view(-1,1)
 
 		# Use the existing node contents for any nodes with no nearby data
-		unused_idx = (freq_data == 0)
+		unused_idx = (freq_data == 0).nonzero()
 		
 		print 'avg data'
 		print avg_data
