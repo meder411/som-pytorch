@@ -207,7 +207,7 @@ class BatchSOM(SOM):
 		print self.contents
 
 
-		exit()
+		# exit()
 
 		# Return the average magnitude of the update
 		return torch.norm(self.contents-old_contents, 2, -1).mean()
