@@ -169,31 +169,31 @@ class BatchSOM(SOM):
 		avg_data[unused_idx, :] = self.contents.view(-1, self.dim)[unused_idx, :]
 
 		
-		print 'avg data'
-		print avg_data
+		# print 'avg data'
+		# print avg_data
 
 		# Weight the neighborhood impacts by the frequency data
 		freq_weights = weights * freq_data.view(-1, 1)
-		print 'freq_weights'
-		print freq_weights[min_idx, :]
+		# print 'freq_weights'
+		# print freq_weights[min_idx, :]
 
 		# Compute the update
 		update_num = (freq_weights[min_idx, :].unsqueeze(2) * avg_data).sum(0)
 		update_denom = freq_weights.sum(0)
 
-		print 'update_num'
-		print update_num
-		print 'update_denom'
-		print update_denom
+		# print 'update_num'
+		# print update_num
+		# print 'update_denom'
+		# print update_denom
 
 		update = update_num / update_denom.unsqueeze(1)
 
-		print 'update'
-		print update
+		# print 'update'
+		# print update
 
 		# Determine which nodes are actually update-able
 		update_idx = update_denom.nonzero()
-		print update_idx
+		# print update_idx
 
 		# Store the old node contents
 		old_contents = self.contents.clone()
@@ -201,8 +201,8 @@ class BatchSOM(SOM):
 		# Update the nodes
 		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
 		
-		print 'contents before'
-		print old_contents
+		# print 'contents before'
+		# print old_contents
 		print 'contents after'
 		print self.contents
 
