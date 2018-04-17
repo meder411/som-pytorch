@@ -149,7 +149,7 @@ def batch_main():
 		# time.sleep(2)
 	print time.time() - start
 	print 'Res: ', res
-	print som.grid_used
+	print som.contents[som.grid_used]
 	som.update_viz(
 		init_contents.cpu(), 
 		som.contents[som.grid_used.nonzero(),:].cpu(), 
