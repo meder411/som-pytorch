@@ -83,18 +83,18 @@ def main():
 		if i % 500 == 0:
 			lr *= 0.9
 			sigma *= 0.9
-			print 'Res: ', res
 			print 'New LR: ', lr
 			print 'New Sigma: ', sigma
 
 		# Visualize the SOM
-		if i % 1 == 0:
+		if i % 5 == 0:
 			som.update_viz(
 				init_contents.cpu(), 
 				som.contents.cpu(), 
 				data.cpu())
+			print 'Res: ', res
 
-		time.sleep(2)
+		# time.sleep(2)
 
 
 if __name__ == '__main__':
