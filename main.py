@@ -147,6 +147,11 @@ def batch_main():
 		# 	print 'Res: ', res
 
 		# time.sleep(2)
+	som.update_viz(
+		init_contents.cpu(), 
+		som.contents.cpu(), 
+		data.cpu())
+
 
 	print time.time() - start
 
