@@ -151,7 +151,7 @@ def batch_main():
 	print 'Res: ', res
 	som.update_viz(
 		init_contents.cpu(), 
-		som.contents.cpu(), 
+		som.contents[som.grid_used.nonzero(),:].cpu(), 
 		data.cpu())
 
 
