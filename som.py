@@ -162,6 +162,10 @@ class BatchSOM(SOM):
 		
 		# Use the existing node contents for any nodes with no nearby data
 		unused_idx = (freq_data == 0).nonzero()
+		# print 'unused_idx'
+		# print unused_idx
+
+		avg_data[unused_idx, :] = self.contents.view(-1, self.dim)[unused_idx, :]
 		
 		print 'avg data'
 		print avg_data
@@ -174,10 +178,6 @@ class BatchSOM(SOM):
 		print freq_weights.unsqueeze(2) * avg_data
 		exit()
 		
-		# print 'unused_idx'
-		# print unused_idx
-
-		avg_data[unused_idx, :] = self.contents.view(-1, self.dim)[unused_idx, :]
 
 		
 		# print 'avg data'
