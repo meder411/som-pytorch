@@ -14,8 +14,8 @@ ENV = 'SOM'
 
 
 # Initial SOM parameters
-ROWS = 12
-COLS = 12
+ROWS = 8
+COLS = 8
 LR = 0.2
 SIGMA = 0.3
 SHAPE = 'sphere'
