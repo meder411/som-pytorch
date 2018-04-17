@@ -53,7 +53,7 @@ class SOM(object):
 		x = torch.from_numpy(np_x)
 		y = torch.from_numpy(np_y)
 		self.grid = torch.stack((x,y)).cuda()
-		self.grid_used = torch.zeros(self.grid.shape).long().cuda()
+		self.grid_used = torch.zeros(self.rows, self.cols).long().cuda()
 
 		# Compute grid radii just the one time
 		self.grid_dists = pdist2(
