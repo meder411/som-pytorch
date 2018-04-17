@@ -195,15 +195,15 @@ class BatchSOM(SOM):
 		update_num = (freq_weights.unsqueeze(2) * avg_data).sum(1)
 		update_denom = freq_weights.sum(1)
 
-		print 'update_num'
-		print update_num
-		print 'update_denom'
-		print update_denom
+		# print 'update_num'
+		# print update_num
+		# print 'update_denom'
+		# print update_denom
 
 		update = update_num / update_denom.unsqueeze(1)
 
-		print 'update'
-		print update
+		# print 'update'
+		# print update
 
 		# Determine which nodes are actually update-able
 		update_idx = update_denom.nonzero()
@@ -215,9 +215,9 @@ class BatchSOM(SOM):
 		# Update the nodes
 		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
 		
-		print 'contents before'
-		print old_contents
-		print 'contents after'
+		# print 'contents before'
+		# print old_contents
+		# print 'contents after'
 		print self.contents
 
 		print torch.norm(self.contents-old_contents, 2, -1).mean()
