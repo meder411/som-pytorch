@@ -5,6 +5,8 @@ import visdom
 from som import *
 from som_utils import *
 
+import time
+
 
 # Visualization parameters
 VIS = visdom.Visdom()
@@ -92,6 +94,7 @@ def main():
 				som.contents.cpu(), 
 				data.cpu())
 
+		time.sleep(2)
 
 
 if __name__ == '__main__':
