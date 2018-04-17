@@ -121,7 +121,7 @@ def batch_main():
 	init_contents = som.contents.clone()
 
 	start = time.time()
-	for i in xrange(1000):
+	for i in xrange(10000):
 		# Generate some test data
 		if SHAPE == 'circle':
 			data = generateCirclePerimeter(N)
@@ -138,7 +138,7 @@ def batch_main():
 		# Update the SOM
 		res = som.update(data, sigma, True)
 
-		if i % 100 == 0:
+		if i % 1000 == 0:
 			sigma *= 0.99
 			print som.compute_weights(sigma, True)
 
