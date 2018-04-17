@@ -17,7 +17,7 @@ ENV = 'SOM'
 ROWS = 8
 COLS = 8
 LR = 0.2
-SIGMA = 0.8
+SIGMA = 0.4
 SHAPE = 'sphere'
 N = 500
 
