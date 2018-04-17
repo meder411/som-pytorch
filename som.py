@@ -157,12 +157,21 @@ class BatchSOM(SOM):
 		sum_data.index_add_(0, min_idx, x)
 		avg_data = sum_data / freq_data.view(-1,1)
 
+		# Weight the neighborhood impacts by the frequency data
+		freq_weights = weights * freq_data.view(-1, 1)
+		
 		# Use the existing node contents for any nodes with no nearby data
 		unused_idx = (freq_data == 0).nonzero()
 		
 		print 'avg data'
 		print avg_data
+		print 'freq data'
+		print freq_data
+		print 'freq weights'
+		print freq_weights
 
+		exit()
+		
 		# print 'unused_idx'
 		# print unused_idx
 
@@ -172,8 +181,6 @@ class BatchSOM(SOM):
 		# print 'avg data'
 		# print avg_data
 
-		# Weight the neighborhood impacts by the frequency data
-		freq_weights = weights * freq_data.view(-1, 1)
 		# print 'freq_weights'
 		# print freq_weights[min_idx, :]
 
@@ -183,7 +190,6 @@ class BatchSOM(SOM):
 
 		print 'update_num'
 		print update_num
-		exit()
 		print 'update_denom'
 		print update_denom
 
