@@ -45,7 +45,7 @@ def main():
 	if SHAPE == 'circle':
 		dim = 2
 	elif SHAPE == 'sphere':
-		dim = 2
+		dim = 3
 	elif SHAPE == 'cube_vol':
 		dim = 3
 	elif SHAPE == 'square':
