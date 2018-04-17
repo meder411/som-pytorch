@@ -160,6 +160,9 @@ class BatchSOM(SOM):
 		freq_data = torch.zeros(self.rows*self.cols).cuda()
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
 
+		# Store the one-hot grid of occupied nodes
+		self.grid_used = (freq_data != 0).view(self.rows, self.cols)
+
 		# Compute aggregate data values for each neighborhood
 		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
 		sum_data.index_add_(0, min_idx, x)
@@ -180,9 +183,6 @@ class BatchSOM(SOM):
 
 		# Determine which nodes are actually update-able
 		update_idx = update_denom.nonzero()
-		print update_denom.shape
-		print update_idx.shape
-		print (freq_data!=0).sum()
 
 		# Copy the old node contents for later update magnitude computation
 		old_contents = self.contents.clone()
