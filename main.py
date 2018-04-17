@@ -18,7 +18,7 @@ ROWS = 4
 COLS = 4
 LR = 0.2
 SIGMA = 0.5
-SHAPE = 'square'
+SHAPE = 'sphere'
 N = 500
 
 
