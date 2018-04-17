@@ -56,6 +56,55 @@ def parse_shape(shape):
 
 	return dim, init_shape
 
+
+def iterative_main():
+
+	# Parse test data distribution
+	dim, init_shape = parse_shape(SHAPE)
+
+	# Create SOM
+	lr = LR
+	sigma = SIGMA
+	vis = Viz(VIS, ENV)
+	som = BatchSOM(ROWS, COLS, dim, vis)
+	som.initialize(init_shape)
+
+	# Store the initial SOM contents for visualization purposes
+	init_contents = som.contents.clone()
+
+	for i in xrange(10000):
+		# Generate some test data
+		if SHAPE == 'circle':
+			data = generateCirclePerimeter(N)
+		elif SHAPE == 'sphere':
+			data = generateSphereSurface(N)
+		elif SHAPE == 'cube_vol':
+			data = generateCubeVolume(N)
+		elif SHAPE == 'square':
+			data = generateSquareArea(N)
+
+		# Put data on GPU
+		data = data.cuda()
+
+		# Update the SOM
+		res = som.update(data, sigma, True)
+
+		# Decay the parameters
+		if i % 500 == 0:
+			lr *= 0.9
+			sigma *= 0.9
+			print 'New LR: ', lr
+			print 'New Sigma: ', sigma
+
+		# Visualize the SOM
+		if i % 5 == 0:
+			som.update_viz(
+				init_contents.cpu(), 
+				som.contents.cpu(), 
+				data.cpu())
+			print 'Res: ', res
+
+
 def batch_main():
 
 	# Parse test data distribution
@@ -106,53 +155,6 @@ def batch_main():
 
 		time.sleep(2)
 
-
-def iterative_main():
-
-	# Parse test data distribution
-	dim, init_shape = parse_shape(SHAPE)
-
-	# Create SOM
-	lr = LR
-	sigma = SIGMA
-	vis = Viz(VIS, ENV)
-	som = BatchSOM(ROWS, COLS, dim, vis)
-	som.initialize(init_shape)
-
-	# Store the initial SOM contents for visualization purposes
-	init_contents = som.contents.clone()
-
-	for i in xrange(50):
-		# Generate some test data
-		if SHAPE == 'circle':
-			data = generateCirclePerimeter(N)
-		elif SHAPE == 'sphere':
-			data = generateSphereSurface(N)
-		elif SHAPE == 'cube_vol':
-			data = generateCubeVolume(N)
-		elif SHAPE == 'square':
-			data = generateSquareArea(N)
-
-		# Put data on GPU
-		data = data.cuda()
-
-		# Update the SOM
-		res = som.update(data, sigma, True)
-
-		# Decay the parameters
-		if i % 500 == 0:
-			lr *= 0.9
-			sigma *= 0.9
-			print 'New LR: ', lr
-			print 'New Sigma: ', sigma
-
-		# Visualize the SOM
-		if i % 5 == 0:
-			som.update_viz(
-				init_contents.cpu(), 
-				som.contents.cpu(), 
-				data.cpu())
-			print 'Res: ', res
 
 
 if __name__ == '__main__':

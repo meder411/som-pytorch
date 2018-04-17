@@ -20,6 +20,7 @@ class SOM(object):
 		self.vis = vis
 		self.contents = None
 		self.grid = None
+		self.grid_used = None
 		self.grid_dists = None
 
 
@@ -67,6 +68,11 @@ class SOM(object):
 
 	def  _sub2ind(self, r, c):
 		return sub2ind(r, c, self.cols)
+
+
+	def cull_unused_nodes(self):
+
+
 
 
 	# contents is K x 3
@@ -174,6 +180,8 @@ class BatchSOM(SOM):
 
 		# Determine which nodes are actually update-able
 		update_idx = update_denom.nonzero()
+		print update_denom.shape
+		print update_idx.shape
 
 		# Copy the old node contents for later update magnitude computation
 		old_contents = self.contents.clone()
