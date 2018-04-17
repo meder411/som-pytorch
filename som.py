@@ -43,7 +43,7 @@ class SOM(object):
 
 		if shape == '2dgrid':
 			self.contents = grid(self.rows, self.cols, self.dim).cuda()
-		elif shape = 'ball':
+		elif shape == 'ball':
 			self.contents = torch.normal(
 				0, 0.2*torch.ones(self.rows, self.cols, self.dim))
 
