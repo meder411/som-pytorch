@@ -170,6 +170,8 @@ class BatchSOM(SOM):
 		print 'freq weights'
 		print freq_weights
 
+		print 'weighted data'
+		print freq_weights.unsqueeze(2) * avg_data
 		exit()
 		
 		# print 'unused_idx'
