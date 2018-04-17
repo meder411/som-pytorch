@@ -179,8 +179,8 @@ class BatchSOM(SOM):
 		print freq_weights.sum(1)
 
 		print (freq_weights.unsqueeze(2) * avg_data).sum(1) / freq_weights.sum(1).unsqueeze(1)
-		print 'avg data'
-		print avg_data
+		print 'contents'
+		print self.contents(-1,1)
 
 		exit()
 		
