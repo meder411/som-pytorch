@@ -47,6 +47,8 @@ class SOM(object):
 			self.contents = torch.normal(
 				0, 0.2*torch.ones(self.rows, self.cols, self.dim))
 
+		print self.contents
+		
 		# Create grid index matrix
 		np_x, np_y = np.meshgrid(range(self.rows), range(self.cols))
 		x = torch.from_numpy(np_x)
