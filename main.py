@@ -138,9 +138,9 @@ def batch_main():
 		# Update the SOM
 		res = som.update(data, sigma, True)
 
-		if i % 100 == 0:
-			sigma *= 0.95
-			print som.compute_weights(sigma, True)
+		# if i % 100 == 0:
+			# sigma *= 0.95
+			# print som.compute_weights(sigma, True)
 
 	print 'Time:', time.time() - start
 	print 'Res:', res
