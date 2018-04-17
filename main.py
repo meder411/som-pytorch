@@ -153,7 +153,7 @@ def batch_main():
 				data.cpu())
 			print 'Res: ', res
 
-		time.sleep(2)
+		# time.sleep(2)
 
 
 
