@@ -215,8 +215,8 @@ class BatchSOM(SOM):
 		# Update the nodes
 		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
 		
-		# print 'contents before'
-		# print old_contents
+		print 'contents before'
+		print old_contents
 		print 'contents after'
 		print self.contents
 
