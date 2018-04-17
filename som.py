@@ -182,6 +182,7 @@ class BatchSOM(SOM):
 		update_idx = update_denom.nonzero()
 		print update_denom.shape
 		print update_idx.shape
+		print (freq_data!=0).sum()
 
 		# Copy the old node contents for later update magnitude computation
 		old_contents = self.contents.clone()
