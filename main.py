@@ -44,19 +44,23 @@ def main():
 	# Parse test data distribution
 	if SHAPE == 'circle':
 		dim = 2
+		init_shape = '2dgrid'
 	elif SHAPE == 'sphere':
 		dim = 3
+		init_shape = 'ball'
 	elif SHAPE == 'cube_vol':
 		dim = 3
+		init_shape = 'ball'
 	elif SHAPE == 'square':
 		dim = 2
+		init_shape = '2dgrid'
 
 	# Create SOM
 	lr = LR
 	sigma = SIGMA
 	vis = Viz(VIS, ENV)
 	som = BatchSOM(ROWS, COLS, dim, vis)
-	som.initialize()
+	som.initialize(init_shape)
 
 	# Store the initial SOM contents for visualization purposes
 	init_contents = som.contents.clone()

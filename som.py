@@ -23,11 +23,8 @@ class SOM(object):
 		self.grid_dists = None
 
 
-	# Abstract methods for all SOMs
-	@abstractmethod
-	def initialize(self):
-		pass
 
+	# Abstract methods for all SOMs
 	@abstractmethod
 	def update(self):
 		pass
@@ -42,6 +39,27 @@ class SOM(object):
 
 
 	# Base class methods that (should) have use for all types of SOMs
+	def initialize(self, shape):
+
+		if shape == '2dgrid':
+			self.contents = grid(self.rows, self.cols, self.dim).cuda()
+		elif shape = 'ball':
+			self.contents = torch.normal(
+				0, 0.2*torch.ones(self.rows, self.cols, self.dim))
+
+		# Create grid index matrix
+		np_x, np_y = np.meshgrid(range(self.rows), range(self.cols))
+		x = torch.from_numpy(np_x)
+		y = torch.from_numpy(np_y)
+		self.grid = torch.stack((x,y)).cuda()
+
+		# Compute grid radii just the one time
+		self.grid_dists = pdist2(
+			self.grid.float().view(2, -1), 
+			self.grid.float().view(2, -1),
+			0).cuda()
+
+
 	def _ind2sub(self, idx):
 		r, c = ind2sub(idx, self.cols)
 		return r, c		
@@ -123,22 +141,6 @@ class BatchSOM(SOM):
 		SOM.__init__(self, rows, cols, dim, vis)
 
 
-	def initialize(self):
-		self.contents = grid(self.rows, self.cols, self.dim).cuda()
-
-		# Create grid index matrix
-		np_x, np_y = np.meshgrid(range(self.rows), range(self.cols))
-		x = torch.from_numpy(np_x)
-		y = torch.from_numpy(np_y)
-		self.grid = torch.stack((x,y)).cuda()
-
-		# Compute grid radii just the one time
-		self.grid_dists = pdist2(
-			self.grid.float().view(2, -1), 
-			self.grid.float().view(2, -1),
-			0).cuda()
-
-
 	def update(self, x, sigma, weighted=False):
 		''' x is N x 3'''
 		# Compute update weights given the curren learning rate and sigma
@@ -215,22 +217,6 @@ class IterativeSOM(SOM):
 
 	def __init__(self, rows=4, cols=4, dim=3, vis=None):
 		SOM.__init__(self, rows, cols, dim, vis)
-
-
-	def initialize(self):
-		self.contents = grid(self.rows, self.cols, self.dim).cuda()
-
-		# Create grid index matrix
-		np_x, np_y = np.meshgrid(range(self.rows), range(self.cols))
-		x = torch.from_numpy(np_x)
-		y = torch.from_numpy(np_y)
-		self.grid = torch.stack((x,y)).cuda()
-
-		# Compute grid radii just the one time
-		self.grid_dists = pdist2(
-			self.grid.float().view(2, -1), 
-			self.grid.float().view(2, -1),
-			0).cuda()
 
 
 	def update(self, x, lr, sigma, weighted=False):
