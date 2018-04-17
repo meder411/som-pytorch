@@ -193,7 +193,7 @@ class BatchSOM(SOM):
 
 		# Compute the update
 		update_num = (freq_weights.unsqueeze(2) * avg_data).sum(1)
-		update_denom = freq_weights.sum(1)
+		update_denom = freq_weights.sum(0)
 
 		print 'update_num'
 		print update_num
