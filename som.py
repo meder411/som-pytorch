@@ -148,8 +148,11 @@ class BatchSOM(SOM):
 		 # and units
 		min_idx = self.find_bmu(x)
 
+
 		# Compute the frequency with which each node is the BMU
 		freq_data = torch.zeros(self.rows*self.cols).cuda()
+		print freq_data
+		print min_idx
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
 
 		# Compute aggregate data values for each neighborhood
