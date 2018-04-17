@@ -53,6 +53,7 @@ class SOM(object):
 		x = torch.from_numpy(np_x)
 		y = torch.from_numpy(np_y)
 		self.grid = torch.stack((x,y)).cuda()
+		self.grid_used = torch.zeros(self.grid.shape).cuda()
 
 		# Compute grid radii just the one time
 		self.grid_dists = pdist2(
@@ -68,11 +69,6 @@ class SOM(object):
 
 	def  _sub2ind(self, r, c):
 		return sub2ind(r, c, self.cols)
-
-
-	def cull_unused_nodes(self):
-		pass
-
 
 
 	# contents is K x 3
@@ -161,7 +157,8 @@ class BatchSOM(SOM):
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
 
 		# Store the one-hot grid of occupied nodes
-		self.grid_used = (freq_data != 0).view(self.rows, self.cols)
+		self.grid_used += (freq_data != 0).view(self.rows, self.cols)
+		print self.grid_used
 
 		# Compute aggregate data values for each neighborhood
 		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
