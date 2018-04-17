@@ -247,6 +247,7 @@ class BatchSOM(SOM):
 		# dist is N x R*C
 
 		# Find the index of the best matching unit
+		print dist.shape
 		_, min_idx = dist.min(1)
 
 		# Return indices
