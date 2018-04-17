@@ -40,8 +40,8 @@ def grid(r, c, dim):
 			else:
 				grid[i, j, :] = torch.FloatTensor([i, j])
 
-	grid[:,:,0] /= r
-	grid[:,:,1] /= c
+	grid[:,:,0] /= (r-1)
+	grid[:,:,1] /= (c-1)
 	grid[:,:,:2] = 2 * grid[:,:,:2] - 1
 	
 	return grid
