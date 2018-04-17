@@ -59,7 +59,7 @@ def main():
 	# Store the initial SOM contents for visualization purposes
 	init_contents = som.contents.clone()
 
-	for i in xrange(10):
+	for i in xrange(50):
 		# Generate some test data
 		if SHAPE == 'circle':
 			data = generateCirclePerimeter(N)
@@ -86,7 +86,7 @@ def main():
 			print 'New Sigma: ', sigma
 
 		# Visualize the SOM
-		if i % 500 == 0:
+		if i % 1 == 0:
 			som.update_viz(
 				init_contents.cpu(), 
 				som.contents.cpu(), 

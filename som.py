@@ -218,7 +218,7 @@ class BatchSOM(SOM):
 		# print 'contents before'
 		# print old_contents
 		# print 'contents after'
-		print self.contents
+		# print self.contents
 
 		print torch.norm(self.contents-old_contents, 2, -1).mean()
 		# exit()
