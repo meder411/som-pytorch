@@ -167,22 +167,21 @@ class BatchSOM(SOM):
 
 		avg_data[unused_idx, :] = self.contents.view(-1, self.dim)[unused_idx, :]
 		
-		print 'avg data'
-		print avg_data
-		print 'freq data'
-		print freq_data
-		print 'freq weights'
-		print freq_weights
+		# print 'avg data'
+		# print avg_data
+		# print 'freq data'
+		# print freq_data
+		# print 'freq weights'
+		# print freq_weights
 
-		print 'weighted data'
-		print (freq_weights.unsqueeze(2) * avg_data).sum(1)
-		print freq_weights.sum(1)
+		# print 'weighted data'
+		# print (freq_weights.unsqueeze(2) * avg_data).sum(1)
+		# print freq_weights.sum(1)
 
-		print (freq_weights.unsqueeze(2) * avg_data).sum(1) / freq_weights.sum(1).unsqueeze(1)
-		print 'contents'
-		print self.contents.view(-1,2)
+		# print (freq_weights.unsqueeze(2) * avg_data).sum(1) / freq_weights.sum(1).unsqueeze(1)
+		# print 'contents'
+		# print self.contents.view(-1,2)
 
-		exit()
 		
 
 		
@@ -193,8 +192,8 @@ class BatchSOM(SOM):
 		# print freq_weights[min_idx, :]
 
 		# Compute the update
-		update_num = (freq_weights[min_idx, :].unsqueeze(2) * avg_data)
-		update_denom = freq_weights.sum(0)
+		update_num = (freq_weights.unsqueeze(2) * avg_data).sum(1)
+		update_denom = freq_weights.sum(1)
 
 		print 'update_num'
 		print update_num
@@ -203,6 +202,7 @@ class BatchSOM(SOM):
 
 		update = update_num / update_denom.unsqueeze(1)
 
+		exit()
 		# print 'update'
 		# print update
 
