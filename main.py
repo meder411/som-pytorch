@@ -17,7 +17,7 @@ ENV = 'SOM'
 ROWS = 8
 COLS = 8
 LR = 0.2
-SIGMA = 0.8
+SIGMA = 2
 SHAPE = 'sphere'
 N = 500
 
@@ -136,7 +136,7 @@ def batch_main():
 		data = data.cuda()
 
 		# Update the SOM
-		res = som.update(data, sigma, True)
+		res = som.update(data, sigma, False)
 
 		# if i % 100 == 0:
 			# sigma *= 0.95
