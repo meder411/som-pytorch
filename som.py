@@ -145,8 +145,9 @@ class BatchSOM(SOM):
 
 	def update(self, x, sigma, weighted=False):
 		''' x is N x 3'''
-		# Compute update weights given the curren learning rate and sigma
+		# Compute update weights given the current learning rate and sigma
 		weights = self.compute_weights(sigma, weighted)
+		print weights
 
 		# Determine closest units on the grid and the difference between data
 		 # and units
