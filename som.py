@@ -204,7 +204,6 @@ class BatchSOM(SOM):
 
 		print 'update'
 		print update
-		exit()
 
 		# Determine which nodes are actually update-able
 		update_idx = update_denom.nonzero()
@@ -221,6 +220,7 @@ class BatchSOM(SOM):
 		print 'contents after'
 		print self.contents
 
+		exit()
 
 
 		# Return the average magnitude of the update
