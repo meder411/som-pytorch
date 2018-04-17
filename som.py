@@ -71,7 +71,7 @@ class SOM(object):
 
 
 	def cull_unused_nodes(self):
-
+		pass
 
 
 
