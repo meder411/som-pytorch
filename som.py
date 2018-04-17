@@ -165,7 +165,7 @@ class BatchSOM(SOM):
 		print 'unused_idx'
 		print unused_idx
 
-		if unused_idx.shape
+		if unused_idx.shape:
 			avg_data[unused_idx, :] = self.contents.view(-1, self.dim)[unused_idx, :]
 		
 		# print 'avg data'
