@@ -17,7 +17,7 @@ ENV = 'SOM'
 ROWS = 8
 COLS = 8
 LR = 0.2
-SIGMA = 2
+SIGMA = 3
 SHAPE = 'sphere'
 N = 500
 
@@ -121,7 +121,7 @@ def batch_main():
 	init_contents = som.contents.clone()
 
 	start = time.time()
-	for i in xrange(5000):
+	for i in xrange(100):
 		# Generate some test data
 		if SHAPE == 'circle':
 			data = generateCirclePerimeter(N)
