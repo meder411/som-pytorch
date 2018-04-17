@@ -138,6 +138,9 @@ def batch_main():
 		# Update the SOM
 		res = som.update(data, sigma, True)
 
+		if i % 10 == 0:
+			sigma *= 0.9
+
 	print 'Time:', time.time() - start
 	print 'Res:', res
 	som.update_viz(
