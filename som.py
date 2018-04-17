@@ -148,7 +148,6 @@ class BatchSOM(SOM):
 		 # and units
 		min_idx = self.find_bmu(x)
 
-
 		# Compute the frequency with which each node is the BMU
 		freq_data = torch.zeros(self.rows*self.cols).cuda()
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
@@ -166,62 +165,19 @@ class BatchSOM(SOM):
 		if unused_idx.shape:
 			avg_data[unused_idx, :] = self.contents.view(-1, self.dim)[unused_idx, :]
 		
-		# print 'avg data'
-		# print avg_data
-		# print 'freq data'
-		# print freq_data
-		# print 'freq weights'
-		# print freq_weights
-
-		# print 'weighted data'
-		# print (freq_weights.unsqueeze(2) * avg_data).sum(1)
-		# print freq_weights.sum(1)
-
-		# print (freq_weights.unsqueeze(2) * avg_data).sum(1) / freq_weights.sum(1).unsqueeze(1)
-		# print 'contents'
-		# print self.contents.view(-1,2)
-
-		
-
-		
-		# print 'avg data'
-		# print avg_data
-
-		# print 'freq_weights'
-		# print freq_weights[min_idx, :]
-
 		# Compute the update
 		update_num = (freq_weights.unsqueeze(2) * avg_data).sum(1)
 		update_denom = freq_weights.sum(1)
-
-		# print 'update_num'
-		# print update_num
-		# print 'update_denom'
-		# print update_denom
-
 		update = update_num / update_denom.unsqueeze(1)
-
-		# print 'update'
-		# print update
 
 		# Determine which nodes are actually update-able
 		update_idx = update_denom.nonzero()
-		# print update_idx
 
-		# Store the old node contents
+		# Copy the old node contents for later update magnitude computation
 		old_contents = self.contents.clone()
 
 		# Update the nodes
 		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
-		
-		# print 'contents before'
-		# print old_contents
-		# print 'contents after'
-		# print self.contents
-
-		print torch.norm(self.contents-old_contents, 2, -1).mean()
-		# exit()
-
 
 		# Return the average magnitude of the update
 		return torch.norm(self.contents-old_contents, 2, -1).mean()
