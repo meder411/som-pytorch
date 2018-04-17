@@ -121,7 +121,7 @@ def batch_main():
 	init_contents = som.contents.clone()
 
 	start = time.time()
-	for i in xrange(1000):
+	for i in xrange(10000):
 		# Generate some test data
 		if SHAPE == 'circle':
 			data = generateCirclePerimeter(N)
