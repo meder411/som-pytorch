@@ -138,17 +138,8 @@ def batch_main():
 		# Update the SOM
 		res = som.update(data, sigma, True)
 
-		# # Visualize the SOM
-		# if i % 5 == 0:
-		# 	som.update_viz(
-		# 		init_contents.cpu(), 
-		# 		som.contents.cpu(), 
-		# 		data.cpu())
-		# 	print 'Res: ', res
-
-		# time.sleep(2)
-	print time.time() - start
-	print 'Res: ', res
+	print 'Time:', time.time() - start
+	print 'Res:', res
 	som.update_viz(
 		init_contents.cpu(), 
 		som.contents.cpu(), 
