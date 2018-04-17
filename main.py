@@ -120,7 +120,8 @@ def batch_main():
 	# Store the initial SOM contents for visualization purposes
 	init_contents = som.contents.clone()
 
-	for i in xrange(50):
+	start = time.time()
+	for i in xrange(10):
 		# Generate some test data
 		if SHAPE == 'circle':
 			data = generateCirclePerimeter(N)
@@ -136,25 +137,18 @@ def batch_main():
 
 		# Update the SOM
 		res = som.update(data, sigma, True)
-		# res = som.update(data, 2, False)
 
-		# Decay the parameters
-		if i % 500 == 0:
-			lr *= 0.9
-			sigma *= 0.9
-			print 'New LR: ', lr
-			print 'New Sigma: ', sigma
-
-		# Visualize the SOM
-		if i % 5 == 0:
-			som.update_viz(
-				init_contents.cpu(), 
-				som.contents.cpu(), 
-				data.cpu())
-			print 'Res: ', res
+		# # Visualize the SOM
+		# if i % 5 == 0:
+		# 	som.update_viz(
+		# 		init_contents.cpu(), 
+		# 		som.contents.cpu(), 
+		# 		data.cpu())
+		# 	print 'Res: ', res
 
 		# time.sleep(2)
 
+	print time.time() - start
 
 
 if __name__ == '__main__':

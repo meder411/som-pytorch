@@ -156,9 +156,8 @@ class BatchSOM(SOM):
 		freq_data = torch.zeros(self.rows*self.cols).cuda()
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
 
-		# Store the one-hot grid of occupied nodes
+		# Store the update frequency for each node
 		self.grid_used += (freq_data != 0).view(self.rows, self.cols).long()
-		print self.grid_used
 
 		# Compute aggregate data values for each neighborhood
 		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
