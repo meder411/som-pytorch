@@ -139,7 +139,7 @@ def batch_main():
 		res = som.update(data, sigma, True)
 
 		if i % 100 == 0:
-			sigma *= 0.9
+			sigma *= 0.99
 			print som.compute_weights(sigma, True)
 
 	print 'Time:', time.time() - start
