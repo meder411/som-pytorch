@@ -175,7 +175,7 @@ class BatchSOM(SOM):
 		print freq_weights
 
 		print 'weighted data'
-		print freq_weights.unsqueeze(2) * avg_data
+		print (freq_weights.unsqueeze(2) * avg_data).sum(0)
 		exit()
 		
 
