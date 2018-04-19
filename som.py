@@ -243,10 +243,6 @@ class ParallelBatchSOM(SOM):
 	# data is N x 3
 	def update_viz(self, init_contents, contents, data):
 
-		print init_contents.shape
-		print contents.shape
-		print data.shape
-
 		if self.vis is None:
 			return
 
@@ -265,9 +261,6 @@ class ParallelBatchSOM(SOM):
 				data[i].numpy(), 
 				init_contents[i].view(-1, self.dim).numpy()))
 			labels = np.hstack((np_one, np_two, np_three))
-
-			print pts.shape
-			print labels.shape
 
 			# Plot the data in a scatter plot
 			self.vis.visdom.scatter(
