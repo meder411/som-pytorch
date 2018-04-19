@@ -192,25 +192,22 @@ class ParallelBatchSOM(SOM):
 
 
 		# Compute the update
-		# print freq_weights
-		# print avg_data
-		# print (freq_weights.unsqueeze(-1) * avg_data.unsqueeze(1)).sum(2)
 		update_num = (freq_weights.unsqueeze(-1) * avg_data.unsqueeze(1)).sum(2)
 		update_denom = freq_weights.sum(2)
-		print update_num
-		print update_denom
 		update = update_num / update_denom.unsqueeze(-1)
-		print update
-		exit()
 
 		# Determine which nodes are actually update-able
 		update_idx = update_denom.nonzero()
+		print update_denom
+		print update_idx
 
 		# Copy the old node contents for later update magnitude computation
 		old_contents = self.contents.clone()
 
 		# Update the nodes
-		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
+		self.contents.view(self.batches, -1, self.dim)[update_idx, :] = update[update_idx, :]
+
+		exit()
 
 		# Return the average magnitude of the update
 		return torch.norm(self.contents-old_contents, 2, -1).mean()
