@@ -189,10 +189,11 @@ class ParallelBatchSOM(SOM):
 		unused_idx = (freq_data == 0).nonzero()
 		if unused_idx.shape:
 			avg_data[unused_idx[:,0], unused_idx[:,1], ...] = self.contents.view(self.batches, -1, self.dim)[unused_idx[:,0], unused_idx[:,1], :]
-		print avg_data	
 
 
 		# Compute the update
+		print freq_weights
+		print avg_data
 		print (freq_weights.unsqueeze(2) * avg_data)
 		update_num = (freq_weights.unsqueeze(2) * avg_data).sum(1)
 		update_denom = freq_weights.sum(1)
