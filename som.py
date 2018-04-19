@@ -185,7 +185,8 @@ class ParallelBatchSOM(SOM):
 		# Weight the neighborhood impacts by the frequency data
 		freq_weights = weights * freq_data.unsqueeze(-1)
 		
-		print avg_data		
+		print avg_data
+		print freq_data
 		# Use the existing node contents for any nodes with no nearby data
 		unused_idx = (freq_data == 0).nonzero()
 		if unused_idx.shape:
