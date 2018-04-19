@@ -186,11 +186,11 @@ class ParallelBatchSOM(SOM):
 		freq_weights = weights * freq_data.unsqueeze(-1)
 		
 
-		
+
 		print avg_data
 		print freq_data
 		# Use the existing node contents for any nodes with no nearby data
-		unused_idx = (freq_data == 0).nonzero()[:,1].view(2, -1)
+		unused_idx = (freq_data == 0).nonzero()
 		print unused_idx
 		print self.contents.view(self.batches, -1, self.dim)
 		exit()
@@ -198,7 +198,9 @@ class ParallelBatchSOM(SOM):
 
 		if unused_idx.shape:
 			avg_data[unused_idx, ...] = self.contents.view(-1, self.dim)[unused_idx, ...]
-		print avg_data		
+		print avg_data	
+
+
 		# Compute the update
 		update_num = (freq_weights.unsqueeze(2) * avg_data).sum(1)
 		update_denom = freq_weights.sum(1)
