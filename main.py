@@ -179,7 +179,7 @@ def parbatch_main():
 
 		# Put data on GPU
 		data = data.cuda()
-		data.repeat(batches, 1, 1)
+		data = data.repeat(batches, 1, 1)
 
 		# Update the SOM
 		res = som.update(data, sigma, True)
