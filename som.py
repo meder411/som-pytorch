@@ -135,6 +135,160 @@ class SOM(object):
 # =========================================================================== #
 # =========================================================================== #
 
+# =========================================================================== #
+# =========================================================================== #
+
+class ParallelBatchSOM(SOM):
+
+	def __init__(self, rows=4, cols=4, dim=3, batches=1, vis=None):
+		SOM.__init__(self, rows, cols, dim, vis)
+		self.batches = batches
+
+
+	def initialize(self, shape):
+		# Initialize the standard BatchSOM
+		SOM.initialize(shape)
+
+		# Replicate the initialize BatchSOM B times
+		self.contents.repeat(batches, 1, 1)
+		self.grid.repeat(batches, 1, 1)
+		self.grid_used.repeat(batches, 1, 1)
+
+	def update(self, x, sigma, weighted=False):
+		''' x is N x 3'''
+		# Compute update weights given the current learning rate and sigma
+		weights = self.compute_weights(sigma, weighted)
+
+		# Determine closest units on the grid and the difference between data
+		 # and units
+		min_idx = self.find_bmu(x)
+
+		# Compute the frequency with which each node is the BMU
+		freq_data = torch.zeros(self.rows*self.cols).cuda()
+		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
+
+		# Store the update frequency for each node
+		self.grid_used += (freq_data != 0).view(self.rows, self.cols).long()
+
+		# Compute aggregate data values for each neighborhood
+		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
+		sum_data.index_add_(0, min_idx, x)
+		avg_data = sum_data / freq_data.view(-1,1)
+
+		# Weight the neighborhood impacts by the frequency data
+		freq_weights = weights * freq_data.view(-1, 1)
+		
+		# Use the existing node contents for any nodes with no nearby data
+		unused_idx = (freq_data == 0).nonzero()
+		if unused_idx.shape:
+			avg_data[unused_idx, :] = self.contents.view(-1, self.dim)[unused_idx, :]
+		
+		# Compute the update
+		update_num = (freq_weights.unsqueeze(2) * avg_data).sum(1)
+		update_denom = freq_weights.sum(1)
+		update = update_num / update_denom.unsqueeze(1)
+
+		# Determine which nodes are actually update-able
+		update_idx = update_denom.nonzero()
+
+		# Copy the old node contents for later update magnitude computation
+		old_contents = self.contents.clone()
+
+		# Update the nodes
+		self.contents.view(-1, self.dim)[update_idx, :] = update[update_idx, :]
+
+		# Return the average magnitude of the update
+		return torch.norm(self.contents-old_contents, 2, -1).mean()
+
+
+	def compute_weights(self, sigma, weighted=False):
+		if weighted:
+			return torch.exp(-self.grid_dists / (2 * sigma**2))
+		else:
+			return (self.grid_dists < sigma).float()
+
+
+	def find_bmu(self, x, k=1):
+		''' x is N x 3'''
+		N = x.shape[0]
+
+		# Compute the Euclidean distances of the data
+		diff = x.view(-1, 1, self.dim) - self.contents.view(1, -1, self.dim)
+		dist = (diff ** 2).sum(-1).sqrt()
+
+		# Find the index of the best matching unit
+		_, min_idx = dist.topk(k=k, dim=1, largest=False)
+
+		# Return indices
+		return min_idx[:,0].squeeze()
+
+
+	# contents is K x 3
+	# data is N x 3
+	def update_viz(self, init_contents, contents, data):
+
+		if self.vis is None:
+			return
+
+		B = data.shape[0]
+
+		for i in xrange(B):
+
+			# Construct labels
+			np_one = np.ones(contents[i].view(-1,self.dim).shape[0]).astype(int)
+			np_two = 2*np.ones(data[i].shape[0]).astype(int)
+			np_three = 3*np.ones(init_contents[i].view(-1,self.dim).shape[0]).astype(int)
+
+			# Stack the points into the right format for visdom
+			pts = np.row_stack((
+				contents[i].view(-1, self.dim).numpy(), 
+				data[i].numpy(), 
+				init_contents[i].view(-1, self.dim).numpy()))
+			labels = np.hstack((np_one, np_two, np_three))
+
+			# Plot the data in a scatter plot
+			self.vis.visdom.scatter(
+				X=pts,
+				Y=labels,
+				env=self.vis.env,
+				win='points',
+				opts=dict(
+					title='SOM',
+					legend=['SOM Contents', 'Data', 'Initial SOM Contents'],
+					markersize=4,
+					markercolor=np.array([[0, 0, 255], [255,0,0], [0,255,0]])))
+
+			# Prep the data for mesh visualization of the SOM nodes
+			X = np.c_[contents[i,...,0].view(-1).numpy(),
+				contents[i,...,1].view(-1).numpy(),
+				np.zeros(contents[i,...,1].view(-1).shape) if self.dim==2 else \
+				contents[i,...,2].view(-1).numpy()]
+			I = []
+			J = []
+			K = []
+			for i in xrange(self.rows-1):
+				for j in xrange(self.cols-1):
+					I.append(self._sub2ind(i, j))
+					J.append(self._sub2ind(i,j+1))
+					K.append(self._sub2ind(i+1,j+1))
+					I.append(self._sub2ind(i, j))
+					J.append(self._sub2ind(i+1,j))
+					K.append(self._sub2ind(i+1,j+1))
+			Y = np.c_[I, J, K]
+
+			# Visualize the SOM nodes as a mesh
+			self.vis.visdom.mesh(
+				X=X,
+				Y=Y,
+				env=self.vis.env,
+				win='mesh',
+				opts=dict(
+					markersize=4,
+					opacity=0.3))
+
+
+# =========================================================================== #
+# =========================================================================== #
 
 
 class BatchSOM(SOM):
@@ -197,7 +351,7 @@ class BatchSOM(SOM):
 			return (self.grid_dists < sigma).float()
 
 
-	def find_bmu(self, x, k=4):
+	def find_bmu(self, x, k=1):
 		''' x is N x 3'''
 		N = x.shape[0]
 
@@ -208,10 +362,9 @@ class BatchSOM(SOM):
 
 		# Find the index of the best matching unit
 		_, min_idx = dist.topk(k=k, dim=1, largest=False)
-		print min_idx
 
 		# Return indices
-		return min_idx[:,0].squeeze()
+		return min_idx.squeeze()
 
 
 

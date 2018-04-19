@@ -114,7 +114,7 @@ def batch_main():
 	lr = LR
 	sigma = SIGMA
 	vis = Viz(VIS, ENV)
-	som = BatchSOM(ROWS, COLS, dim, vis)
+	som = ParallelBatchSOM(ROWS, COLS, dim, vis)
 	som.initialize(init_shape)
 
 	# Store the initial SOM contents for visualization purposes
@@ -147,7 +147,51 @@ def batch_main():
 		data.cpu())
 
 
+def parbatch_main():
+
+	# Parse test data distribution
+	dim, init_shape = parse_shape(SHAPE)
+
+	# Create SOM
+	lr = LR
+	sigma = SIGMA
+	batches = 4
+	vis = Viz(VIS, ENV)
+	som = ParallelBatchSOM(ROWS, COLS, dim, batches, vis)
+	som.initialize(init_shape)
+
+	# Store the initial SOM contents for visualization purposes
+	init_contents = som.contents.clone()
+
+	start = time.time()
+	for i in xrange(10):
+		# Generate some test data
+		if SHAPE == 'circle':
+			data = generateCirclePerimeter(N)
+		elif SHAPE == 'sphere':
+			data = generateSphereSurface(N)
+		elif SHAPE == 'cube_vol':
+			data = generateCubeVolume(N)
+		elif SHAPE == 'square':
+			data = generateSquareArea(N)
+
+		# Put data on GPU
+		data = data.cuda()
+		data.repeat(batches, 1, 1)
+
+		# Update the SOM
+		res = som.update(data, sigma, True)
+
+
+	print 'Time:', time.time() - start
+	print 'Res:', res
+	som.update_viz(
+		init_contents.cpu(), 
+		som.contents.cpu(), 
+		data.cpu())
+
+
 
 
 if __name__ == '__main__':
-	batch_main()
+	parbatch_main()
