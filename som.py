@@ -226,7 +226,8 @@ class ParallelBatchSOM(SOM):
 		print dist
 
 		# Find the index of the best matching unit
-		_, min_idx = dist.topk(k=k, dim=1, largest=False)
+		_, min_idx = dist.topk(k=k, dim=-1, largest=False)
+		print min_idx
 
 		# Return indices
 		return min_idx[:,0].squeeze()
