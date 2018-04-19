@@ -164,7 +164,7 @@ def parbatch_main():
 	init_contents = som.contents.clone()
 
 	start = time.time()
-	for i in xrange(10):
+	for i in xrange(50):
 		# Generate some test data
 		if SHAPE == 'circle':
 			data = generateCirclePerimeter(N)
