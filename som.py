@@ -193,7 +193,7 @@ class ParallelBatchSOM(SOM):
 		unused_idx = (freq_data == 0).nonzero()
 		print unused_idx
 		print self.contents.view(self.batches, -1, self.dim)
-		print self.contents.view(self.batches, -1, self.dim)[unused_idx, :]
+		print self.contents.view(self.batches, -1, self.dim)[unused_idx[:,0], unused_idx[:,1], :]
 		exit()
 
 
