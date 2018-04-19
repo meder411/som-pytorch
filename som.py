@@ -232,9 +232,9 @@ class ParallelBatchSOM(SOM):
 		dist = (diff ** 2).sum(-1).sqrt()
 
 		# Find the index of the best matching unit
-		print dist
-		exit()
 		_, min_idx = dist.topk(k=k, dim=-1, largest=False)
+		print min_idx
+		exit()
 
 		# Return indices
 		return min_idx[...,0].squeeze()
