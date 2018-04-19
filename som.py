@@ -211,7 +211,7 @@ class BatchSOM(SOM):
 		print min_idx
 
 		# Return indices
-		return min_idx.squeeze()
+		return min_idx[:,0].squeeze()
 
 
 
