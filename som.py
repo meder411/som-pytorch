@@ -199,7 +199,7 @@ class ParallelBatchSOM(SOM):
 		update_denom = freq_weights.sum(2)
 		print update_num
 		print update_denom
-		update = update_num / update_denom.unsqueeze(1)
+		update = update_num / update_denom.unsqueeze(-1)
 		print update
 		exit()
 
