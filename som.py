@@ -192,9 +192,9 @@ class ParallelBatchSOM(SOM):
 
 
 		# Compute the update
-		print freq_weights
+		print freq_weights.unsqueeze(-1)
 		print avg_data
-		print (freq_weights[0].unsqueeze(-1) * avg_data[0])
+		print (freq_weights.unsqueeze(-1) * avg_data)
 		update_num = (freq_weights.unsqueeze(-1) * avg_data).sum(1)
 		update_denom = freq_weights.sum(1)
 		update = update_num / update_denom.unsqueeze(1)
