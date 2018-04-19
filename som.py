@@ -214,13 +214,13 @@ class ParallelBatchSOM(SOM):
 
 	def find_bmu(self, x, k=1):
 		''' x is B x N x 3'''
-		N = x.shape[1]
+		B, N, _ = x.shape
 
 		print x.shape
 
 		# Compute the Euclidean distances of the data
-		print x.view(-1, 1, self.dim)
-		print self.contents.view(1, -1, self.dim)
+		print x.view(B, -1, 1, self.dim)
+		print self.contents.view(B, 1, -1, self.dim)
 		diff = x.view(-1, 1, self.dim) - self.contents.view(1, -1, self.dim)
 		# print diff
 		dist = (diff ** 2).sum(-1).sqrt()
