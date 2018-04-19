@@ -184,14 +184,14 @@ class ParallelBatchSOM(SOM):
 
 		# Weight the neighborhood impacts by the frequency data
 		freq_weights = weights * freq_data.unsqueeze(-1)
-		print freq_weights
-		exit()
 		
+		print avg_data		
 		# Use the existing node contents for any nodes with no nearby data
 		unused_idx = (freq_data == 0).nonzero()
 		if unused_idx.shape:
 			avg_data[unused_idx, :] = self.contents.view(-1, self.dim)[unused_idx, :]
-		
+		print avg_data		
+		exit()
 		# Compute the update
 		update_num = (freq_weights.unsqueeze(2) * avg_data).sum(1)
 		update_denom = freq_weights.sum(1)
