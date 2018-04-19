@@ -169,7 +169,7 @@ class ParallelBatchSOM(SOM):
 		batch_num = torch.LongTensor(range(self.batches)).cuda()
 		print batch_num
 
-		print batch_num.view(-1,1) * min_idx
+		print batch_num.view(-1,1) * min_idx + min_idx
 		exit()
 
 		# Compute the frequency with which each node is the BMU
