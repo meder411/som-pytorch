@@ -198,9 +198,9 @@ class ParallelBatchSOM(SOM):
 
 		# Determine which nodes are actually update-able
 		update_idx = freq_data.nonzero()
-		print freq_data
-		print update_denom
-		print update_idx
+		# print freq_data
+		# print update_denom
+		# print update_idx
 
 		# Copy the old node contents for later update magnitude computation
 		old_contents = self.contents.clone()
@@ -208,9 +208,10 @@ class ParallelBatchSOM(SOM):
 		# Update the nodes
 		self.contents.view(self.batches, -1, self.dim)[update_idx[:,0], update_idx[:,1], :] = update[update_idx[:,0], update_idx[:,1], :]
 		print self.contents.view(self.batches, -1, self.dim)
+		print  torch.norm(self.contents-old_contents, 2, -1).mean()
+
+
 		exit()
-
-
 		# Return the average magnitude of the update
 		return torch.norm(self.contents-old_contents, 2, -1).mean()
 
