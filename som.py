@@ -229,13 +229,11 @@ class ParallelBatchSOM(SOM):
 
 		# Compute the Euclidean distances of the data
 		diff = x.unsqueeze(2) - self.contents.view(B, 1, -1, self.dim)
-		print diff
-
-		exit()
 		dist = (diff ** 2).sum(-1).sqrt()
 
 		# Find the index of the best matching unit
 		print dist
+		exit()
 		_, min_idx = dist.topk(k=k, dim=-1, largest=False)
 
 		# Return indices
