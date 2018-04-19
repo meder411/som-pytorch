@@ -197,17 +197,17 @@ class ParallelBatchSOM(SOM):
 		update = update_num / update_denom.unsqueeze(-1)
 
 		# Determine which nodes are actually update-able
-		update_idx = update_denom.nonzero()
+		update_idx = freq_data.nonzero()
 		print freq_data
 		print update_denom
 		print update_idx
 
-		exit()
 		# Copy the old node contents for later update magnitude computation
 		old_contents = self.contents.clone()
 
 		# Update the nodes
-		self.contents.view(self.batches, -1, self.dim)[update_idx, :] = update[update_idx, :]
+		self.contents.view(self.batches, -1, self.dim)[update_idx[:,0], update_idx[:,1], :] = update[update_idx[:,0], update_idx[:,1], :]
+		exit()
 
 
 		# Return the average magnitude of the update
