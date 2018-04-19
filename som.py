@@ -178,17 +178,14 @@ class ParallelBatchSOM(SOM):
 		# Compute aggregate data values for each neighborhood
 		sum_data = torch.zeros(self.batches, self.rows*self.cols, self.dim).cuda()
 
-		print sum_data
 		sum_data.view(-1, self.dim).index_add_(0, min_idx.view(-1), x.view(-1, self.dim))
-		print sum_data
-		print freq_data
 		avg_data = sum_data / freq_data.unsqueeze(-1)
-		print avg_data
 
-		exit()
 
 		# Weight the neighborhood impacts by the frequency data
-		freq_weights = weights * freq_data.view(-1, 1)
+		freq_weights = weights * freq_data.unsqueeze(-1)
+		print freq_weights
+		exit()
 		
 		# Use the existing node contents for any nodes with no nearby data
 		unused_idx = (freq_data == 0).nonzero()
