@@ -156,6 +156,8 @@ class ParallelBatchSOM(SOM):
 
 		print 'self.contents.shape'
 		print self.contents.shape
+		print self.grid.shape
+		print self.grid_used.shape
 
 	def update(self, x, sigma, weighted=False):
 		''' x is N x 3'''
