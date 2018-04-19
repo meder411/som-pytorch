@@ -170,7 +170,7 @@ class ParallelBatchSOM(SOM):
 		freq_data = torch.zeros(self.batches, self.rows*self.cols).cuda()
 		print freq_data
 		print torch.ones(x.shape[:2])
-		freq_data.index_add_(0, min_idx, torch.ones(x.shape[:2]).cuda())
+		freq_data.view(-1).index_add_(0, min_idx.view(-1), torch.ones(x.shape[:2]).cuda().view(-1))
 		print freq_data
 		
 		exit()
