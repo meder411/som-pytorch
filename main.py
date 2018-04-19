@@ -19,7 +19,7 @@ COLS = 3
 LR = 0.2
 SIGMA = 0.4
 SHAPE = 'sphere'
-N = 20
+N = 5
 
 
 def generateSphereSurface(N):
