@@ -161,25 +161,25 @@ class ParallelBatchSOM(SOM):
 		weights = self.compute_weights(sigma, weighted)
 
 		# Determine closest units on the grid and the difference between data
-		 # and units
+		# and units
 		min_idx = self.find_bmu(x)
+		
+		# Adjust indices for batching
 		batch_num = torch.LongTensor(range(self.batches)).cuda()
-
-		print min_idx
 		min_idx = batch_num.view(-1,1) * self.rows*self.cols + min_idx
-		print min_idx
 
 		# Compute the frequency with which each node is the BMU
 		freq_data = torch.zeros(self.batches, self.rows*self.cols).cuda()
-		print freq_data
 		# print torch.ones(x.shape[:2])
 		freq_data.view(-1).index_add_(0, min_idx.view(-1), torch.ones(x.shape[:2]).cuda().view(-1))
-		print freq_data
-		exit()
 		
 
 		# Store the update frequency for each node
+		print self.grid_used
 		self.grid_used += (freq_data != 0).view(self.rows, self.cols).long()
+		print self.grid_used
+
+		exit()
 
 		# Compute aggregate data values for each neighborhood
 		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
