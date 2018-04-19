@@ -198,6 +198,7 @@ class ParallelBatchSOM(SOM):
 
 		# Determine which nodes are actually update-able
 		update_idx = update_denom.nonzero()
+		print freq_data
 		print update_denom
 		print update_idx
 
