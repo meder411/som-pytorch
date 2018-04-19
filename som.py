@@ -154,6 +154,9 @@ class ParallelBatchSOM(SOM):
 		self.grid.repeat(self.batches, 1, 1)
 		self.grid_used.repeat(self.batches, 1, 1)
 
+		print 'self.contents.shape'
+		print self.contents.shape
+
 	def update(self, x, sigma, weighted=False):
 		''' x is N x 3'''
 		# Compute update weights given the current learning rate and sigma
