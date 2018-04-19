@@ -251,7 +251,7 @@ class ParallelBatchSOM(SOM):
 				X=pts,
 				Y=labels,
 				env=self.vis.env,
-				win='points',
+				win='points' + str(i),
 				opts=dict(
 					title='SOM',
 					legend=['SOM Contents', 'Data', 'Initial SOM Contents'],
@@ -281,7 +281,7 @@ class ParallelBatchSOM(SOM):
 				X=X,
 				Y=Y,
 				env=self.vis.env,
-				win='mesh',
+				win='mesh' + str(i),
 				opts=dict(
 					markersize=4,
 					opacity=0.3))
