@@ -164,7 +164,7 @@ class ParallelBatchSOM(SOM):
 		 # and units
 		min_idx = self.find_bmu(x)
 
-		# print min_idx
+		print min_idx
 		exit()
 
 		# Compute the frequency with which each node is the BMU
@@ -214,23 +214,19 @@ class ParallelBatchSOM(SOM):
 
 	def find_bmu(self, x, k=1):
 		''' x is B x N x 3'''
-		
+	
+		# Batch size and point set size
 		B, N, _ = x.shape
 
 		# Compute the Euclidean distances of the data
-		print x.unsqueeze(2)
-		print self.contents.view(B, 1, -1, self.dim)
 		diff = x.unsqueeze(2) - self.contents.view(B, 1, -1, self.dim)
-		print diff
 		dist = (diff ** 2).sum(-1).sqrt()
-		print dist
 
 		# Find the index of the best matching unit
-		_, min_idx = dist.topk(k=5, dim=-1, largest=False)
-		print min_idx
+		_, min_idx = dist.topk(k=k, dim=-1, largest=False)
 
 		# Return indices
-		return min_idx[:,0].squeeze()
+		return min_idx[...,0].squeeze()
 
 
 	# contents is K x 3
