@@ -207,11 +207,10 @@ class ParallelBatchSOM(SOM):
 
 		# Update the nodes
 		self.contents.view(self.batches, -1, self.dim)[update_idx[:,0], update_idx[:,1], :] = update[update_idx[:,0], update_idx[:,1], :]
-		print self.contents.view(self.batches, -1, self.dim)
-		print  torch.norm(self.contents-old_contents, 2, -1).mean()
+		# print self.contents.view(self.batches, -1, self.dim)
+		# print  torch.norm(self.contents-old_contents, 2, -1).mean()
 
 
-		exit()
 		# Return the average magnitude of the update
 		return torch.norm(self.contents-old_contents, 2, -1).mean()
 

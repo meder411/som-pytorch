@@ -162,8 +162,6 @@ def parbatch_main():
 
 	# Store the initial SOM contents for visualization purposes
 	init_contents = som.contents.clone()
-	print 'init_contents'
-	print init_contents.shape
 
 	start = time.time()
 	for i in xrange(10):
