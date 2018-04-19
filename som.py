@@ -217,10 +217,8 @@ class ParallelBatchSOM(SOM):
 		
 		B, N, _ = x.shape
 
-		print x.shape
-
 		# Compute the Euclidean distances of the data
-		print x.view(B, -1, 1, self.dim)
+		print x.unsqueeze(2)
 		print self.contents.view(B, 1, -1, self.dim)
 		diff = x.view(-1, 1, self.dim) - self.contents.view(1, -1, self.dim)
 		# print diff
