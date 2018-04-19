@@ -235,15 +235,15 @@ class ParallelBatchSOM(SOM):
 		for i in xrange(B):
 
 			# Construct labels
-			np_one = np.ones(contents[i].view(-1,self.dim).shape[0]).astype(int)
-			np_two = 2*np.ones(data[i].shape[0]).astype(int)
-			np_three = 3*np.ones(init_contents[i].view(-1,self.dim).shape[0]).astype(int)
+			np_one = np.ones(contents.view(-1,self.dim).shape[0]).astype(int)
+			np_two = 2*np.ones(data.shape[0]).astype(int)
+			np_three = 3*np.ones(init_contents.view(-1,self.dim).shape[0]).astype(int)
 
 			# Stack the points into the right format for visdom
 			pts = np.row_stack((
-				contents[i].view(-1, self.dim).numpy(), 
-				data[i].numpy(), 
-				init_contents[i].view(-1, self.dim).numpy()))
+				contents.view(-1, self.dim).numpy(), 
+				data.numpy(), 
+				init_contents.view(-1, self.dim).numpy()))
 			labels = np.hstack((np_one, np_two, np_three))
 
 			print pts.shape
