@@ -182,7 +182,7 @@ class ParallelBatchSOM(SOM):
 		sum_data.view(-1, self.dim).index_add_(0, min_idx.view(-1), x.view(-1, self.dim))
 		print sum_data
 		print freq_data
-		avg_data = sum_data / freq_data.view(-1,1)
+		avg_data = sum_data / freq_data.view(-1, -1, 1)
 		print avg_data
 
 		exit()
