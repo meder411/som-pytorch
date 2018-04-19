@@ -150,9 +150,9 @@ class ParallelBatchSOM(SOM):
 		SOM.initialize(self, shape)
 
 		# Replicate the initialize BatchSOM B times
-		self.contents.repeat(batches, 1, 1)
-		self.grid.repeat(batches, 1, 1)
-		self.grid_used.repeat(batches, 1, 1)
+		self.contents.repeat(self.batches, 1, 1)
+		self.grid.repeat(self.batches, 1, 1)
+		self.grid_used.repeat(self.batches, 1, 1)
 
 	def update(self, x, sigma, weighted=False):
 		''' x is N x 3'''
