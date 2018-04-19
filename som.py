@@ -170,21 +170,21 @@ class ParallelBatchSOM(SOM):
 
 		# Compute the frequency with which each node is the BMU
 		freq_data = torch.zeros(self.batches, self.rows*self.cols).cuda()
-		# print torch.ones(x.shape[:2])
 		freq_data.view(-1).index_add_(0, min_idx.view(-1), torch.ones(x.shape[:2]).cuda().view(-1))
 		
-
 		# Store the update frequency for each node
-		print self.grid_used
 		self.grid_used += (freq_data != 0).view(self.batches, self.rows, self.cols).long()
-		print self.grid_used
-
-		exit()
 
 		# Compute aggregate data values for each neighborhood
-		sum_data = torch.zeros(self.rows*self.cols, self.dim).cuda()
-		sum_data.index_add_(0, min_idx, x)
+		sum_data = torch.zeros(self.batches, self.rows*self.cols, self.dim).cuda()
+
+		print sum_data
+		sum_data.view(-1).index_add_(0, min_idx.view(-1), x.view(-1))
+		print sum_data
 		avg_data = sum_data / freq_data.view(-1,1)
+		print avg_data
+
+		exit()
 
 		# Weight the neighborhood impacts by the frequency data
 		freq_weights = weights * freq_data.view(-1, 1)
