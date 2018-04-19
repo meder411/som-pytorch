@@ -46,7 +46,7 @@ def parse_shape(shape):
 		init_shape = '2dgrid'
 	elif shape == 'sphere':
 		dim = 3
-		init_shape = '2dgrid'
+		init_shape = 'ball'
 	elif shape == 'cube_vol':
 		dim = 3
 		init_shape = 'ball'
