@@ -214,7 +214,7 @@ class ParallelBatchSOM(SOM):
 
 	def find_bmu(self, x, k=1):
 		''' x is B x N x 3'''
-		B, N, _ = x.shape
+		# B, N, _ = x.shape
 
 		print x.shape
 
