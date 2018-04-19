@@ -194,6 +194,9 @@ class ParallelBatchSOM(SOM):
 		print unused_idx
 		print self.contents.view(self.batches, -1, self.dim)
 		print self.contents.view(self.batches, -1, self.dim)[unused_idx[:,0], unused_idx[:,1], :]
+
+		avg_data[unused_idx[:,0], unused_idx[:,1], ...] = self.contents.view(self.batches, -1, self.dim)[unused_idx[:,0], unused_idx[:,1], :]
+		print avg_data
 		exit()
 
 
