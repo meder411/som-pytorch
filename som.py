@@ -163,13 +163,7 @@ class ParallelBatchSOM(SOM):
 		# Determine closest units on the grid and the difference between data
 		 # and units
 		min_idx = self.find_bmu(x)
-
-		# print min_idx
-
-		batch_num = torch.LongTensor(range(self.batches)).cuda()
-		# print batch_num
-
-		min_idx = batch_num.view(-1,1) * min_idx + min_idx
+		print min_idx
 
 		# Compute the frequency with which each node is the BMU
 		freq_data = torch.zeros(self.batches, self.rows*self.cols).cuda()
@@ -233,8 +227,6 @@ class ParallelBatchSOM(SOM):
 
 		# Find the index of the best matching unit
 		_, min_idx = dist.topk(k=k, dim=-1, largest=False)
-		print min_idx
-		exit()
 
 		# Return indices
 		return min_idx[...,0].squeeze()
