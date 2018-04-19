@@ -227,6 +227,10 @@ class ParallelBatchSOM(SOM):
 	# data is N x 3
 	def update_viz(self, init_contents, contents, data):
 
+		print init_contents.shape
+		print contents.shape
+		print data.shape
+
 		if self.vis is None:
 			return
 
