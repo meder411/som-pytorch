@@ -14,12 +14,12 @@ ENV = 'SOM'
 
 
 # Initial SOM parameters
-ROWS = 8
-COLS = 8
+ROWS = 3
+COLS = 3
 LR = 0.2
 SIGMA = 0.4
 SHAPE = 'sphere'
-N = 500
+N = 20
 
 
 def generateSphereSurface(N):
