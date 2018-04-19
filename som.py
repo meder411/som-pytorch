@@ -152,7 +152,9 @@ class BatchSOM(SOM):
 		 # and units
 		min_idx = self.find_bmu(x)
 
-		print min_idx
+		print min_idx.max()
+		print min_idx.min()
+		print min_idx.shape
 		print torch.ones(x.shape[0])
 
 		# Compute the frequency with which each node is the BMU
