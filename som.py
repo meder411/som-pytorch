@@ -217,8 +217,10 @@ class ParallelBatchSOM(SOM):
 		N = x.shape[0]
 
 		# Compute the Euclidean distances of the data
+		print x.view(-1, 1, self.dim)
+		print self.contents.view(1, -1, self.dim)
 		diff = x.view(-1, 1, self.dim) - self.contents.view(1, -1, self.dim)
-		print diff
+		# print diff
 		dist = (diff ** 2).sum(-1).sqrt()
 
 		# Find the index of the best matching unit
