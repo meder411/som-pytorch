@@ -202,13 +202,13 @@ class ParallelBatchSOM(SOM):
 		print update_denom
 		print update_idx
 
+		exit()
 		# Copy the old node contents for later update magnitude computation
 		old_contents = self.contents.clone()
 
 		# Update the nodes
 		self.contents.view(self.batches, -1, self.dim)[update_idx, :] = update[update_idx, :]
 
-		exit()
 
 		# Return the average magnitude of the update
 		return torch.norm(self.contents-old_contents, 2, -1).mean()
