@@ -179,7 +179,7 @@ class ParallelBatchSOM(SOM):
 		sum_data = torch.zeros(self.batches, self.rows*self.cols, self.dim).cuda()
 
 		print sum_data
-		sum_data.view(-1).index_add_(0, min_idx.view(-1), x.view(-1))
+		sum_data.view(-1, self.dim).index_add_(0, min_idx.view(-1), x.view(-1, self.dim))
 		print sum_data
 		avg_data = sum_data / freq_data.view(-1,1)
 		print avg_data
