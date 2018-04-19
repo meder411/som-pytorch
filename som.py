@@ -169,6 +169,7 @@ class ParallelBatchSOM(SOM):
 		# Compute the frequency with which each node is the BMU
 		freq_data = torch.zeros(self.batches, self.rows*self.cols).cuda()
 		print freq_data
+		print torch.ones(x.shape[:2])
 		freq_data.index_add_(0, min_idx, torch.ones(x.shape[:2]).cuda())
 		print freq_data
 		
