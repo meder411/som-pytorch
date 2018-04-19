@@ -223,6 +223,7 @@ class ParallelBatchSOM(SOM):
 		diff = x.unsqueeze(2) - self.contents.view(B, 1, -1, self.dim)
 		print diff
 		dist = (diff ** 2).sum(-1).sqrt()
+		print dist
 
 		# Find the index of the best matching unit
 		_, min_idx = dist.topk(k=k, dim=1, largest=False)
