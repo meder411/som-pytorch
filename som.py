@@ -208,12 +208,9 @@ class BatchSOM(SOM):
 
 		# Find the index of the best matching unit
 		_, min_idx = dist.topk(k=k, dim=1, largest=False)
-		print min_idx
-
-		print dist.min(1)[1]
 
 		# Return indices
-		return min_idx
+		return min_idx.view(-1, 1)
 
 
 
