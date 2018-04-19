@@ -176,7 +176,7 @@ class ParallelBatchSOM(SOM):
 
 		# Store the update frequency for each node
 		print self.grid_used
-		self.grid_used += (freq_data != 0).view(self.rows, self.cols).long()
+		self.grid_used += (freq_data != 0).view(self.batches, self.rows, self.cols).long()
 		print self.grid_used
 
 		exit()
