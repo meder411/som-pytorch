@@ -166,7 +166,7 @@ class ParallelBatchSOM(SOM):
 
 		print min_idx
 
-		batch_num = torch.FloatTensor(range(self.batches)).cuda()
+		batch_num = torch.LongTensor(range(self.batches)).cuda()
 		print batch_num
 
 		print batch_num * min_idx
