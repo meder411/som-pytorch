@@ -189,6 +189,7 @@ class ParallelBatchSOM(SOM):
 		print freq_data
 		# Use the existing node contents for any nodes with no nearby data
 		unused_idx = (freq_data == 0).nonzero()
+		print unused_idx
 		if unused_idx.shape:
 			avg_data[unused_idx, ...] = self.contents.view(-1, self.dim)[unused_idx, ...]
 		print avg_data		
