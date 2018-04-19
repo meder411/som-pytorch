@@ -197,7 +197,7 @@ class BatchSOM(SOM):
 			return (self.grid_dists < sigma).float()
 
 
-	def find_bmu(self, x, k=1):
+	def find_bmu(self, x, k=4):
 		''' x is N x 3'''
 		N = x.shape[0]
 
@@ -208,6 +208,7 @@ class BatchSOM(SOM):
 
 		# Find the index of the best matching unit
 		_, min_idx = dist.topk(k=k, dim=1, largest=False)
+		print k
 
 		# Return indices
 		return min_idx.squeeze()
