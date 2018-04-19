@@ -159,7 +159,7 @@ class BatchSOM(SOM):
 
 		# Compute the frequency with which each node is the BMU
 		freq_data = torch.zeros(self.rows*self.cols).cuda()
-		freq_data.index_add_(0, min_idx.view(-1), torch.ones(x.shape[0]).cuda())
+		freq_data.index_add_(0, min_idx, torch.ones(x.shape[0]).cuda())
 
 		# Store the update frequency for each node
 		self.grid_used += (freq_data != 0).view(self.rows, self.cols).long()
@@ -215,7 +215,7 @@ class BatchSOM(SOM):
 		_, min_idx = dist.topk(k=k, dim=1, largest=False)
 
 		# Return indices
-		return min_idx.view(-1, 1)
+		return min_idx.squeeze()
 
 
 
