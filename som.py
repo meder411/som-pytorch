@@ -147,7 +147,7 @@ class ParallelBatchSOM(SOM):
 
 	def initialize(self, shape):
 		# Initialize the standard BatchSOM
-		SOM.initialize(shape)
+		super.initialize(shape)
 
 		# Replicate the initialize BatchSOM B times
 		self.contents.repeat(batches, 1, 1)
