@@ -167,6 +167,7 @@ class ParallelBatchSOM(SOM):
 
 		print min_idx
 		min_idx = batch_num.view(-1,1) * min_idx.max() + min_idx
+		print min_idx
 
 		# Compute the frequency with which each node is the BMU
 		freq_data = torch.zeros(self.batches*self.rows*self.cols).cuda()
